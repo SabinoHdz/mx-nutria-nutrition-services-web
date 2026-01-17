@@ -241,7 +241,9 @@ const createDefaultFormData = (): Patient => {
 const formData = ref<Patient>(createDefaultFormData())
 
 const isFormValid = computed(() => {
-  return Object.keys(formData.value).every((field: string) => !!formData.value[field])
+  return (Object.keys(formData.value) as Array<keyof Patient>).every(
+    (field) => !!formData.value[field]
+  )
 })
 
 function handleSubmit() {
