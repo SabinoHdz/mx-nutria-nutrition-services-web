@@ -12,64 +12,37 @@
               </h2>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <!-- Sexo -->
-                <div class="form-control">
-                  <label class="label">
-                    <span class="label-text text-sm">Sexo</span>
-                  </label>
-                  <select
-                    class="select select-bordered select-sm bg-base-100"
-                    v-model="formData.gender"
-                  >
-                    <!-- <option value="F">Femenino</option>
-                    <option value="M">Masculino</option> -->
-                    <option v-for="{ value, label } in genderOptions" :key="value" :value="value">
-                      {{ label }}
-                    </option>
-                  </select>
-                </div>
+                <BaseSelect
+                  label="Sexo"
+                  :options="genderOptions"
+                  required
+                  @clean="formData.gender = null"
+                  v-model="formData.gender"
+                />
                 <!-- Edad -->
-                <div class="form-control">
-                  <label class="label">
-                    <span class="label-text text-sm">Edad</span>
-                  </label>
-                  <input
-                    type="text"
-                    class="input input-bordered input-sm bg-base-100"
-                    v-model="formData.age"
-                  />
-                </div>
+
+                <AgeInput
+                  v-model="formData.age"
+                  label="Edad"
+                  :max-length="2"
+                  required
+                  @clean="formData.age = null"
+                />
                 <!-- Peso actual -->
-                <div class="form-control">
-                  <label class="label">
-                    <span class="label-text text-sm">Peso actual</span>
-                  </label>
-                  <div class="join w-full">
-                    <input
-                      type="text"
-                      class="input input-bordered input-sm join-item flex-1 bg-base-100"
-                      v-model="formData.weight"
-                    />
-                    <span class="join-item btn btn-sm btn-ghost border-base-300 bg-base-200"
-                      >kg</span
-                    >
-                  </div>
-                </div>
+                <WeightInput
+                  label="Peso actual"
+                  decimal-limit="3,2"
+                  v-model="formData.weight"
+                  @clean="formData.weight = null"
+                  required
+                />
                 <!-- Talla -->
-                <div class="form-control">
-                  <label class="label">
-                    <span class="label-text text-sm">Talla</span>
-                  </label>
-                  <div class="join w-full">
-                    <input
-                      type="text"
-                      class="input input-bordered input-sm join-item flex-1 bg-base-100"
-                      v-model="formData.height"
-                    />
-                    <span class="join-item btn btn-sm btn-ghost border-base-300 bg-base-200"
-                      >mts</span
-                    >
-                  </div>
-                </div>
+                <HeightInput
+                  label="Talla"
+                  required
+                  v-model="formData.height"
+                  @clean="formData.height = null"
+                />
               </div>
               <button
                 class="btn btn-primary w-full mt-2 normal-case"
@@ -211,13 +184,17 @@
 </template>
 
 <script setup lang="ts">
-import type { AntropometricData, SignalVital, Patient, ResultPatient } from '@/types'
-import type { ValueLabel } from '@/types/Common'
-import { ref, computed, onMounted } from 'vue'
+import AgeInput from '@/components/AgeInput.vue';
+import HeightInput from '@/components/HeightInput.vue';
+import BaseSelect from '@/components/select/BaseSelect.vue';
+import WeightInput from '@/components/WeightInput.vue';
+import type { AntropometricData, SignalVital, Patient, ResultPatient } from '@/types';
+import type { ValueLabel } from '@/types/Common';
+import { ref, computed, onMounted } from 'vue';
 
-const results = ref<ResultPatient>({})
-const antropomentric = ref<AntropometricData>({})
-const signalVital = ref<SignalVital>({})
+const results = ref<ResultPatient>({});
+const antropomentric = ref<AntropometricData>({});
+const signalVital = ref<SignalVital>({});
 const genderOptions: ValueLabel[] = [
   {
     value: 'MALE',
@@ -227,24 +204,24 @@ const genderOptions: ValueLabel[] = [
     value: 'FEMALE',
     label: 'Femenino',
   },
-]
+];
 
-const isDark = ref(false)
+const isDark = ref(false);
 const createDefaultFormData = (): Patient => {
   return {
     age: null,
     height: null,
     weight: null,
     gender: null,
-  }
-}
-const formData = ref<Patient>(createDefaultFormData())
+  };
+};
+const formData = ref<Patient>(createDefaultFormData());
 
 const isFormValid = computed(() => {
   return (Object.keys(formData.value) as Array<keyof Patient>).every(
-    (field) => !!formData.value[field]
-  )
-})
+    (field) => !!formData.value[field],
+  );
+});
 
 function handleSubmit() {
   // Ejemplo: llenar los datos al hacer clic
@@ -254,32 +231,32 @@ function handleSubmit() {
     glucoseLevel: '90',
     bloodPressure: '130 / 85 mmHg',
     cholesterolLevel: 210,
-  }
+  };
   antropomentric.value = {
     imc: 26.7,
     skinFold: 12,
     waistCircumference: 80,
-  }
+  };
   signalVital.value = {
     heartRate: 72,
     bloodPressure: '130/85',
     oxygenSaturation: 98,
-  }
+  };
 }
 
 function clearForm() {
-  formData.value = createDefaultFormData()
-  results.value = {}
-  antropomentric.value = {}
-  signalVital.value = {}
+  formData.value = createDefaultFormData();
+  results.value = {};
+  antropomentric.value = {};
+  signalVital.value = {};
 }
 
 onMounted(() => {
-  isDark.value = document.documentElement.classList.contains('dark')
-})
+  isDark.value = document.documentElement.classList.contains('dark');
+});
 
 function toggleTheme() {
-  isDark.value = !isDark.value
-  document.documentElement.classList.toggle('dark', isDark.value)
+  isDark.value = !isDark.value;
+  document.documentElement.classList.toggle('dark', isDark.value);
 }
 </script>
