@@ -39,35 +39,23 @@ import { computed } from 'vue';
 import BaseIcon from './icon/BaseIcon.vue';
 
 const inputId = `age-input-${Math.random().toString(36).substr(2, 9)}`;
-const props = defineProps({
-  modelValue: {
-    type: [Number, null],
-    default: null,
-  },
-  label: {
-    type: String,
-    required: true,
-  },
-  required: {
-    type: Boolean,
-    default: false,
-  },
-  placeholder: {
-    type: String,
-    default: '',
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-  min: {
-    type: Number,
-    default: 1,
-  },
-  maxLength: {
-    type: Number,
-    default: 3,
-  },
+interface Props {
+  modelValue?: number | null;
+  label: string;
+  required?: boolean;
+  placeholder?: string;
+  disabled?: boolean;
+  min?: number;
+  maxLength?: number;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  modelValue: null,
+  required: false,
+  placeholder: '',
+  disabled: false,
+  min: 1,
+  maxLength: 3,
 });
 
 const emit = defineEmits(['update:modelValue', 'clean']);

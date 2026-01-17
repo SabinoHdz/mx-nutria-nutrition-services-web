@@ -1,6 +1,6 @@
 <template>
   <div class="form-control">
-    <label class="label" :for="inputId">
+    <label class="label m-1" :for="inputId">
       <span class="label-text text-sm">
         {{ label }}<span v-if="required" class="text-red-500">*</span>
       </span>
@@ -28,7 +28,11 @@
           aria-label="Limpiar"
         />
       </div>
-      <span class="join-item btn btn-sm btn-ghost border-base-300 bg-base-200"> kg </span>
+      <span
+        class="join-item px-4 py-2 border border-gray-300 bg-base-200 rounded-r text-sm font-medium"
+      >
+        kg
+      </span>
     </div>
   </div>
 </template>
@@ -37,26 +41,23 @@
 import { ref, watch, computed } from 'vue';
 import BaseIcon from './icon/BaseIcon.vue';
 
-const props = defineProps({
-  modelValue: {
-    type: [String, Number],
-    default: null,
-  },
-  label: { type: String, required: true },
-  required: { type: Boolean, default: false },
-  placeholder: { type: String, default: '' },
-  disabled: { type: Boolean, default: false },
-  // "3,2" => 3 enteros, 2 decimales
-  decimalLimit: {
-    type: String,
-    default: '3,2',
-    validator: (val: string) => /^\d+,\d+$/.test(val),
-  },
-  // 👉 mínimo permitido (para peso, 1 evita 0 como valor)
-  minValue: {
-    type: Number,
-    default: 1,
-  },
+interface Props {
+  modelValue?: string | number | null;
+  label: string;
+  required?: boolean;
+  placeholder?: string;
+  disabled?: boolean;
+  decimalLimit?: string;
+  minValue?: number;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  modelValue: null,
+  required: false,
+  placeholder: '',
+  disabled: false,
+  decimalLimit: '3,2',
+  minValue: 1,
 });
 
 const emit = defineEmits<{
@@ -72,9 +73,11 @@ const decLimit = ref(2);
 watch(
   () => props.decimalLimit,
   (val) => {
-    const [i, d] = val.split(',').map(Number);
-    intLimit.value = isNaN(i) ? 3 : i;
-    decLimit.value = isNaN(d) ? 2 : d;
+    const parts = val.split(',').map(Number);
+    const i = parts[0] ?? 3;
+    const d = parts[1] ?? 2;
+    intLimit.value = Number.isNaN(i) ? 3 : i;
+    decLimit.value = Number.isNaN(d) ? 2 : d;
   },
   { immediate: true },
 );

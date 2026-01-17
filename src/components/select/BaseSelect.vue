@@ -1,7 +1,7 @@
 <template>
   <div class="form-control">
     <!-- Label con asterisco si es requerido -->
-    <label class="label" :for="inputId">
+    <label class="label m-1" :for="inputId">
       <span class="label-text text-sm text-nutrition-text">
         {{ label }}<span v-if="required" class="text-red-500 ml-0.5">*</span>
       </span>
@@ -11,8 +11,8 @@
       <!-- Select nativo con estilos personalizados -->
       <select
         :id="inputId"
-        class="select select-bordered select-sm w-full bg-nutrition-bg-input border-nutrition-border focus:border-nutrition-blue focus:outline-none text-sm text-nutrition-text-value transition-colors pr-10"
-        :class="{ 'text-nutrition-text-light': !modelValue }"
+        class="w-full px-3 py-2 rounded border border-gray-300 focus:border-blue-500 focus:outline-none bg-base-100 text-sm transition-colors appearance-none"
+        :class="{ 'text-gray-400': !modelValue }"
         :disabled="disabled"
         :value="modelValue"
         @change="onChange"
@@ -32,7 +32,7 @@
       <BaseIcon
         v-if="!!modelValue && !disabled"
         name="close"
-        class="absolute right-8 top-1/2 -translate-y-1/2 cursor-pointer text-nutrition-text-light hover:text-red-500 text-lg transition-colors z-10"
+        class="absolute right-8 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 hover:text-red-500 text-lg transition-colors z-10"
         @click="onClean"
         aria-label="Limpiar selección"
       />
@@ -50,38 +50,24 @@ export interface SelectOption {
   label: string;
 }
 
-const props = defineProps({
-  modelValue: {
-    type: [String, Number],
-    default: null,
-  },
-  label: {
-    type: String,
-    required: true,
-  },
-  options: {
-    type: Array as () => SelectOption[],
-    required: true,
-    validator: (val: SelectOption[]) => {
-      return val.every((opt) => 'value' in opt && 'label' in opt);
-    },
-  },
-  required: {
-    type: Boolean,
-    default: false,
-  },
-  placeholder: {
-    type: String,
-    default: 'Selecciona una opción',
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
+interface Props {
+  modelValue?: string | number | null;
+  label: string;
+  options: SelectOption[];
+  required?: boolean;
+  placeholder?: string;
+  disabled?: boolean;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  modelValue: null,
+  required: false,
+  placeholder: 'Selecciona una opción',
+  disabled: false,
 });
 
 const emit = defineEmits<{
-  'update:modelValue': [value: string | number];
+  'update:modelValue': [value: string | number | null];
   clean: [];
 }>();
 

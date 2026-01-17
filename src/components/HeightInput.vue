@@ -1,7 +1,7 @@
 <template>
   <div class="form-control">
     <!-- Label con estilo clínico -->
-    <label class="label" :for="inputId">
+    <label class="label m-1" :for="inputId">
       <span class="label-text text-sm text-nutrition-text">
         {{ label }}<span v-if="required" class="text-red-500 ml-0.5">*</span>
       </span>
@@ -32,7 +32,7 @@
       </div>
       <!-- Unidad de medida: mts -->
       <span
-        class="join-item btn btn-sm btn-ghost border-nutrition-border bg-base-200 px-4 font-medium text-nutrition-text"
+        class="join-item px-4 py-2 border border-gray-300 bg-base-200 rounded-r text-sm font-medium"
       >
         mts
       </span>
@@ -49,23 +49,26 @@
 import { ref, watch, computed } from 'vue';
 import BaseIcon from './icon/BaseIcon.vue';
 
-const props = defineProps({
-  modelValue: {
-    type: [String, Number],
-    default: null,
-  },
-  label: { type: String, default: 'Talla / Estatura' },
-  required: { type: Boolean, default: false },
-  placeholder: { type: String, default: '0.00' },
-  disabled: { type: Boolean, default: false },
-  // Para metros usamos "1,2" (ej: 1.75). Para centímetros usarías "3,0" (ej: 175)
-  decimalLimit: {
-    type: String,
-    default: '1,2',
-    validator: (val: string) => /^\d+,\d+$/.test(val),
-  },
-  minValue: { type: Number, default: 0.3 }, // Mínimo lógico (bebé)
-  maxValue: { type: Number, default: 2.5 }, // Máximo lógico (récord mundial)
+interface Props {
+  modelValue?: string | number | null;
+  label?: string;
+  required?: boolean;
+  placeholder?: string;
+  disabled?: boolean;
+  decimalLimit?: string;
+  minValue?: number;
+  maxValue?: number;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  modelValue: null,
+  label: 'Talla / Estatura',
+  required: false,
+  placeholder: '0.00',
+  disabled: false,
+  decimalLimit: '1,2',
+  minValue: 0.3,
+  maxValue: 2.5,
 });
 
 const emit = defineEmits<{
@@ -83,9 +86,11 @@ const decLimit = ref(2);
 watch(
   () => props.decimalLimit,
   (val) => {
-    const [i, d] = val.split(',').map(Number);
-    intLimit.value = isNaN(i) ? 1 : i;
-    decLimit.value = isNaN(d) ? 2 : d;
+    const parts = val.split(',').map(Number);
+    const i = parts[0] ?? 1;
+    const d = parts[1] ?? 2;
+    intLimit.value = Number.isNaN(i) ? 1 : i;
+    decLimit.value = Number.isNaN(d) ? 2 : d;
   },
   { immediate: true },
 );
