@@ -16,9 +16,15 @@
                   <label class="label">
                     <span class="label-text text-sm">Sexo</span>
                   </label>
-                  <select class="select select-bordered select-sm bg-base-100">
-                    <option>Femenino</option>
-                    <option>Masculino</option>
+                  <select
+                    class="select select-bordered select-sm bg-base-100"
+                    v-model="formData.gender"
+                  >
+                    <!-- <option value="F">Femenino</option>
+                    <option value="M">Masculino</option> -->
+                    <option v-for="{ value, label } in genderOptions" :key="value" :value="value">
+                      {{ label }}
+                    </option>
                   </select>
                 </div>
                 <!-- Edad -->
@@ -26,7 +32,11 @@
                   <label class="label">
                     <span class="label-text text-sm">Edad</span>
                   </label>
-                  <input type="text" class="input input-bordered input-sm bg-base-100" />
+                  <input
+                    type="text"
+                    class="input input-bordered input-sm bg-base-100"
+                    v-model="formData.age"
+                  />
                 </div>
                 <!-- Peso actual -->
                 <div class="form-control">
@@ -37,7 +47,7 @@
                     <input
                       type="text"
                       class="input input-bordered input-sm join-item flex-1 bg-base-100"
-                      value="60"
+                      v-model="formData.weight"
                     />
                     <span class="join-item btn btn-sm btn-ghost border-base-300 bg-base-200"
                       >kg</span
@@ -53,7 +63,7 @@
                     <input
                       type="text"
                       class="input input-bordered input-sm join-item flex-1 bg-base-100"
-                      value="1.50"
+                      v-model="formData.height"
                     />
                     <span class="join-item btn btn-sm btn-ghost border-base-300 bg-base-200"
                       >mts</span
@@ -61,7 +71,14 @@
                   </div>
                 </div>
               </div>
-              <button class="btn btn-primary w-full mt-2 normal-case">Calcular</button>
+              <button
+                class="btn btn-primary w-full mt-2 normal-case"
+                @click.prevent="handleSubmit"
+                :disabled="!isFormValid"
+              >
+                Calcular
+              </button>
+              <button class="btn btn-outline w-full mt-2" @click="clearForm">Limpiar</button>
             </div>
           </div>
         </div>
@@ -84,27 +101,27 @@
                   <tbody>
                     <tr>
                       <td>IMC</td>
-                      <td>26.7 kg/m²</td>
+                      <td>{{ results.imc }}</td>
                       <td><span class="badge badge-warning">Sobrepeso</span></td>
                     </tr>
                     <tr>
                       <td>Peso saludable</td>
-                      <td>45 – 60 kg</td>
+                      <td>{{ results.healthyWeight }}</td>
                       <td><span class="badge badge-success">En rango</span></td>
                     </tr>
                     <tr>
                       <td>Glucosa</td>
-                      <td>90 mg/dl</td>
+                      <td>{{ results.glucoseLevel }}</td>
                       <td><span class="badge badge-success">Normal</span></td>
                     </tr>
                     <tr>
                       <td>Presión arterial</td>
-                      <td>130 / 85 mmHg</td>
+                      <td>{{ results.bloodPressure }}</td>
                       <td><span class="badge badge-warning">Elevada</span></td>
                     </tr>
                     <tr>
                       <td>Colesterol</td>
-                      <td>210 mg/dl</td>
+                      <td>{{ results.cholesterolLevel }}</td>
                       <td><span class="badge badge-error">Alto</span></td>
                     </tr>
                   </tbody>
@@ -129,6 +146,7 @@
                   <input
                     type="text"
                     class="input input-bordered input-sm w-full md:w-48 bg-base-100"
+                    v-model="antropomentric.imc"
                   />
                 </div>
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
@@ -136,6 +154,7 @@
                   <input
                     type="text"
                     class="input input-bordered input-sm w-full md:w-48 bg-base-100"
+                    v-model="antropomentric.skinFold"
                   />
                 </div>
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
@@ -143,6 +162,7 @@
                   <input
                     type="text"
                     class="input input-bordered input-sm w-full md:w-48 bg-base-100"
+                    v-model="antropomentric.waistCircumference"
                   />
                 </div>
               </div>
@@ -162,6 +182,7 @@
                   <input
                     type="text"
                     class="input input-bordered input-sm w-full md:w-48 bg-base-100"
+                    v-model="signalVital.heartRate"
                   />
                 </div>
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
@@ -169,6 +190,7 @@
                   <input
                     type="text"
                     class="input input-bordered input-sm w-full md:w-48 bg-base-100"
+                    v-model="signalVital.bloodPressure"
                   />
                 </div>
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
@@ -176,20 +198,7 @@
                   <input
                     type="text"
                     class="input input-bordered input-sm w-full md:w-48 bg-base-100"
-                  />
-                </div>
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
-                  <span class="text-sm">Presión Arterial</span>
-                  <input
-                    type="text"
-                    class="input input-bordered input-sm w-full md:w-48 bg-base-100"
-                  />
-                </div>
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
-                  <span class="text-sm">Saturación de Oxígeno</span>
-                  <input
-                    type="text"
-                    class="input input-bordered input-sm w-full md:w-48 bg-base-100"
+                    v-model="signalVital.oxygenSaturation"
                   />
                 </div>
               </div>
@@ -202,9 +211,66 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import type { AntropometricData, SignalVital, Patient, ResultPatient } from '@/types'
+import type { ValueLabel } from '@/types/Common'
+import { ref, computed, onMounted } from 'vue'
+
+const results = ref<ResultPatient>({})
+const antropomentric = ref<AntropometricData>({})
+const signalVital = ref<SignalVital>({})
+const genderOptions: ValueLabel[] = [
+  {
+    value: 'MALE',
+    label: 'Masculino',
+  },
+  {
+    value: 'FEMALE',
+    label: 'Femenino',
+  },
+]
 
 const isDark = ref(false)
+const createDefaultFormData = (): Patient => {
+  return {
+    age: null,
+    height: null,
+    weight: null,
+    gender: null,
+  }
+}
+const formData = ref<Patient>(createDefaultFormData())
+
+const isFormValid = computed(() => {
+  return Object.keys(formData.value).every((field: string) => !!formData.value[field])
+})
+
+function handleSubmit() {
+  // Ejemplo: llenar los datos al hacer clic
+  results.value = {
+    imc: 26.7,
+    healthyWeight: '45 – 60 kg',
+    glucoseLevel: '90',
+    bloodPressure: '130 / 85 mmHg',
+    cholesterolLevel: 210,
+  }
+  antropomentric.value = {
+    imc: 26.7,
+    skinFold: 12,
+    waistCircumference: 80,
+  }
+  signalVital.value = {
+    heartRate: 72,
+    bloodPressure: '130/85',
+    oxygenSaturation: 98,
+  }
+}
+
+function clearForm() {
+  formData.value = createDefaultFormData()
+  results.value = {}
+  antropomentric.value = {}
+  signalVital.value = {}
+}
 
 onMounted(() => {
   isDark.value = document.documentElement.classList.contains('dark')
