@@ -114,29 +114,71 @@
                 Antropometría
               </h2>
               <div class="space-y-3">
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
-                  <span class="text-sm">IMC</span>
+                <!-- IMC con unidades y estado -->
+                <div class="flex items-center gap-2">
+                  <span class="text-sm w-20">IMC</span>
                   <input
                     type="text"
-                    class="input input-bordered input-sm w-full md:w-48 bg-base-100"
+                    class="input input-bordered input-sm w-24 bg-base-100"
                     v-model="antropomentric.imc"
+                    placeholder="0.00"
+                    disabled
                   />
+                  <span
+                    class="text-xs px-2 py-1 bg-base-200 rounded border border-gray-300 whitespace-nowrap"
+                  >
+                    kg/m²
+                  </span>
+                  <span
+                    class="badge badge-sm whitespace-nowrap"
+                    :class="antropomentric.imcBadgeClass || 'badge-ghost'"
+                  >
+                    {{ antropomentric.imcStatus || 'Pendiente' }}
+                  </span>
                 </div>
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
-                  <span class="text-sm">Pliegue Cutáneo</span>
+
+                <!-- Circunferencia de cintura -->
+                <div class="flex items-center gap-2">
+                  <span class="text-sm w-20">Cintura</span>
                   <input
                     type="text"
-                    class="input input-bordered input-sm w-full md:w-48 bg-base-100"
-                    v-model="antropomentric.skinFold"
-                  />
-                </div>
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
-                  <span class="text-sm">Perímetro Cintura</span>
-                  <input
-                    type="text"
-                    class="input input-bordered input-sm w-full md:w-48 bg-base-100"
+                    class="input input-bordered input-sm w-24 bg-base-100"
                     v-model="antropomentric.waistCircumference"
+                    placeholder="0.0"
                   />
+                  <span
+                    class="text-xs px-2 py-1 bg-base-200 rounded border border-gray-300 whitespace-nowrap"
+                  >
+                    cm
+                  </span>
+                  <span
+                    class="badge badge-sm whitespace-nowrap"
+                    :class="antropomentric.waistBadgeClass || 'badge-ghost'"
+                  >
+                    {{ antropomentric.waistStatus || 'Pendiente' }}
+                  </span>
+                </div>
+
+                <!-- Circunferencia de cadera -->
+                <div class="flex items-center gap-2">
+                  <span class="text-sm w-20">Cadera</span>
+                  <input
+                    type="text"
+                    class="input input-bordered input-sm w-24 bg-base-100"
+                    v-model="antropomentric.hipCircumference"
+                    placeholder="0.0"
+                  />
+                  <span
+                    class="text-xs px-2 py-1 bg-base-200 rounded border border-gray-300 whitespace-nowrap"
+                  >
+                    cm
+                  </span>
+                  <span
+                    class="badge badge-sm whitespace-nowrap"
+                    :class="antropomentric.hipBadgeClass || 'badge-ghost'"
+                  >
+                    {{ antropomentric.hipStatus || 'Pendiente' }}
+                  </span>
                 </div>
               </div>
             </div>
@@ -151,15 +193,7 @@
               </h2>
               <div class="space-y-3">
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
-                  <span class="text-sm">Frecuencia Cardíaca</span>
-                  <input
-                    type="text"
-                    class="input input-bordered input-sm w-full md:w-48 bg-base-100"
-                    v-model="signalVital.heartRate"
-                  />
-                </div>
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
-                  <span class="text-sm">Presión Arterial</span>
+                  <span class="text-sm">Presión arterial</span>
                   <input
                     type="text"
                     class="input input-bordered input-sm w-full md:w-48 bg-base-100"
@@ -167,11 +201,47 @@
                   />
                 </div>
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
-                  <span class="text-sm">Saturación de Oxígeno</span>
+                  <span class="text-sm">Frecuencia cardíaca</span>
+                  <input
+                    type="text"
+                    class="input input-bordered input-sm w-full md:w-48 bg-base-100"
+                    v-model="signalVital.heartRate"
+                  />
+                </div>
+
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
+                  <span class="text-sm">Frecuencia respiratoria</span>
+                  <input
+                    type="text"
+                    class="input input-bordered input-sm w-full md:w-48 bg-base-100"
+                    v-model="signalVital.respiratoryRate"
+                  />
+                </div>
+
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
+                  <span class="text-sm">Temperatura</span>
+                  <input
+                    type="text"
+                    class="input input-bordered input-sm w-full md:w-48 bg-base-100"
+                    v-model="signalVital.temperature"
+                  />
+                </div>
+
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
+                  <span class="text-sm">Saturación de oxígeno</span>
                   <input
                     type="text"
                     class="input input-bordered input-sm w-full md:w-48 bg-base-100"
                     v-model="signalVital.oxygenSaturation"
+                  />
+                </div>
+
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
+                  <span class="text-sm">Glucosa</span>
+                  <input
+                    type="text"
+                    class="input input-bordered input-sm w-full md:w-48 bg-base-100"
+                    v-model="signalVital.glucose"
                   />
                 </div>
               </div>
@@ -191,6 +261,10 @@ import WeightInput from '@/components/WeightInput.vue';
 import type { AntropometricData, SignalVital, Patient, ResultPatient } from '@/types';
 import type { ValueLabel } from '@/types/Common';
 import { ref, computed, onMounted } from 'vue';
+import { useHealthIndicators } from '@/composables/useHealthIndicators';
+
+// Composable de indicadores de salud
+const { calculateImc, getWaistStatus, getWaistHipRatio, getBadgeClass } = useHealthIndicators();
 
 const results = ref<ResultPatient>({});
 const antropomentric = ref<AntropometricData>({});
@@ -224,24 +298,36 @@ const isFormValid = computed(() => {
 });
 
 function handleSubmit() {
-  // Ejemplo: llenar los datos al hacer clic
-  results.value = {
-    imc: 26.7,
-    healthyWeight: '45 – 60 kg',
-    glucoseLevel: '90',
-    bloodPressure: '130 / 85 mmHg',
-    cholesterolLevel: 210,
-  };
-  antropomentric.value = {
-    imc: 26.7,
-    skinFold: 12,
-    waistCircumference: 80,
-  };
-  signalVital.value = {
-    heartRate: 72,
-    bloodPressure: '130/85',
-    oxygenSaturation: 98,
-  };
+  const weight = formData.value.weight ?? 0;
+  const height = formData.value.height ?? 0;
+  const gender = formData.value.gender as 'MALE' | 'FEMALE';
+
+  // Calcular IMC usando el composable
+  const imcResult = calculateImc(weight, height);
+  if (imcResult) {
+    results.value.imc = imcResult.formatted;
+    antropomentric.value.imc = imcResult.formatted;
+    antropomentric.value.imcStatus = imcResult.status?.status || 'Pendiente';
+    antropomentric.value.imcBadgeClass = getBadgeClass(imcResult.status?.color);
+  }
+
+  // Calcular estado de circunferencia de cintura
+  const waist = Number(antropomentric.value.waistCircumference) || 0;
+  if (waist > 0 && gender) {
+    const waistStatus = getWaistStatus(waist, gender);
+    antropomentric.value.waistStatus = waistStatus?.status || 'Pendiente';
+    antropomentric.value.waistBadgeClass = getBadgeClass(waistStatus?.color);
+  }
+
+  // Calcular índice cintura-cadera
+  const hip = Number(antropomentric.value.hipCircumference) || 0;
+  if (waist > 0 && hip > 0 && gender) {
+    const iccResult = getWaistHipRatio(waist, hip, gender);
+    if (iccResult) {
+      antropomentric.value.hipStatus = iccResult.status?.status || 'Pendiente';
+      antropomentric.value.hipBadgeClass = getBadgeClass(iccResult.status?.color);
+    }
+  }
 }
 
 function clearForm() {
