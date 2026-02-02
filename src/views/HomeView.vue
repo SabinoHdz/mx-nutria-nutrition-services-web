@@ -68,14 +68,18 @@
                     <tr>
                       <th>Indicador</th>
                       <th>Valor</th>
-                      <th>Estado</th>
+                      <th>Diagnostico</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
                       <td>IMC</td>
                       <td>{{ results.imc }}</td>
-                      <td><span class="badge badge-warning">Sobrepeso</span></td>
+                      <td>
+                        <span class="badge" :class="antropomentric.imcBadgeClass || 'badge-ghost'">
+                          {{ antropomentric.imcStatus || 'Pendiente' }}
+                        </span>
+                      </td>
                     </tr>
                     <tr>
                       <td>Peso saludable</td>
@@ -119,7 +123,7 @@
                   <span class="text-sm w-20">IMC</span>
                   <input
                     type="text"
-                    class="input input-bordered input-sm w-24 bg-base-100"
+                    class="input input-bordered input-sm w-28 bg-base-100"
                     v-model="antropomentric.imc"
                     placeholder="0.00"
                     disabled
@@ -140,11 +144,12 @@
                 <!-- Circunferencia de cintura -->
                 <div class="flex items-center gap-2">
                   <span class="text-sm w-20">Cintura</span>
-                  <input
-                    type="text"
-                    class="input input-bordered input-sm w-24 bg-base-100"
+                  <CircumferenceInput
+                    class="w-28"
+                    :disabled="!formData.gender"
                     v-model="antropomentric.waistCircumference"
-                    placeholder="0.0"
+                    :max-value="600"
+                    :placeholder="!!formData.gender ? 'Ej: 64' : ''"
                   />
                   <span
                     class="text-xs px-2 py-1 bg-base-200 rounded border border-gray-300 whitespace-nowrap"
@@ -162,11 +167,12 @@
                 <!-- Circunferencia de cadera -->
                 <div class="flex items-center gap-2">
                   <span class="text-sm w-20">Cadera</span>
-                  <input
-                    type="text"
-                    class="input input-bordered input-sm w-24 bg-base-100"
+                  <CircumferenceInput
+                    class="w-28"
+                    :disabled="!formData.gender"
                     v-model="antropomentric.hipCircumference"
-                    placeholder="0.0"
+                    :max-value="600"
+                    :placeholder="!!formData.gender ? 'Ej: 75' : ''"
                   />
                   <span
                     class="text-xs px-2 py-1 bg-base-200 rounded border border-gray-300 whitespace-nowrap"
@@ -260,11 +266,13 @@ import BaseSelect from '@/components/select/BaseSelect.vue';
 import WeightInput from '@/components/WeightInput.vue';
 import type { AntropometricData, SignalVital, Patient, ResultPatient } from '@/types';
 import type { ValueLabel } from '@/types/Common';
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 import { useHealthIndicators } from '@/composables/useHealthIndicators';
+import CircumferenceInput from '@/components/CircumferenceInput.vue';
 
 // Composable de indicadores de salud
-const { calculateImc, getWaistStatus, getWaistHipRatio, getBadgeClass } = useHealthIndicators();
+const { calculateImc, getWaistStatus, getHipStatus, getWaistHipRatio, getBadgeClass } =
+  useHealthIndicators();
 
 const results = ref<ResultPatient>({});
 const antropomentric = ref<AntropometricData>({});
@@ -311,15 +319,8 @@ function handleSubmit() {
     antropomentric.value.imcBadgeClass = getBadgeClass(imcResult.status?.color);
   }
 
-  // Calcular estado de circunferencia de cintura
-  const waist = Number(antropomentric.value.waistCircumference) || 0;
-  if (waist > 0 && gender) {
-    const waistStatus = getWaistStatus(waist, gender);
-    antropomentric.value.waistStatus = waistStatus?.status || 'Pendiente';
-    antropomentric.value.waistBadgeClass = getBadgeClass(waistStatus?.color);
-  }
-
   // Calcular índice cintura-cadera
+  const waist = Number(antropomentric.value.waistCircumference) || 0;
   const hip = Number(antropomentric.value.hipCircumference) || 0;
   if (waist > 0 && hip > 0 && gender) {
     const iccResult = getWaistHipRatio(waist, hip, gender);
@@ -329,6 +330,84 @@ function handleSubmit() {
     }
   }
 }
+
+// Watcher para calcular el estado de cintura en tiempo real
+watch(
+  () => antropomentric.value.waistCircumference,
+  (newWaist) => {
+    if (!newWaist || newWaist === '' || Number(newWaist) <= 0) {
+      antropomentric.value.waistStatus = 'Pendiente';
+      antropomentric.value.waistBadgeClass = 'badge-ghost';
+    } else {
+      const waistValue = Number(newWaist);
+      const gender = formData.value.gender as 'MALE' | 'FEMALE';
+
+      if (gender) {
+        const waistStatus = getWaistStatus(waistValue, gender);
+        antropomentric.value.waistStatus = waistStatus?.status || 'Pendiente';
+        antropomentric.value.waistBadgeClass = getBadgeClass(waistStatus?.color);
+      }
+    }
+  },
+);
+
+// Watcher para calcular el estado de cadera en tiempo real
+watch(
+  () => antropomentric.value.hipCircumference,
+  (newHip) => {
+    if (!newHip || newHip === '' || Number(newHip) <= 0) {
+      antropomentric.value.hipStatus = 'Pendiente';
+      antropomentric.value.hipBadgeClass = 'badge-ghost';
+    } else {
+      const hipValue = Number(newHip);
+      const gender = formData.value.gender as 'MALE' | 'FEMALE';
+
+      if (gender) {
+        const hipStatus = getHipStatus(hipValue, gender);
+        antropomentric.value.hipStatus = hipStatus?.status || 'Pendiente';
+        antropomentric.value.hipBadgeClass = getBadgeClass(hipStatus?.color);
+      }
+    }
+  },
+);
+
+// Watcher para actualizar cintura y cadera cuando cambia el género
+watch(
+  () => formData.value.gender,
+  (newGender) => {
+    if (!newGender) {
+      // Limpiar estado si no hay género
+      antropomentric.value.waistStatus = 'Pendiente';
+      antropomentric.value.waistBadgeClass = 'badge-ghost';
+      antropomentric.value.hipStatus = 'Pendiente';
+      antropomentric.value.hipBadgeClass = 'badge-ghost';
+      antropomentric.value.waistCircumference = undefined;
+      return;
+    }
+
+    // Calcular cintura si existe
+    if (
+      antropomentric.value.waistCircumference &&
+      Number(antropomentric.value.waistCircumference) > 0
+    ) {
+      const waistValue = Number(antropomentric.value.waistCircumference);
+      const waistStatus = getWaistStatus(waistValue, newGender as 'MALE' | 'FEMALE');
+      antropomentric.value.waistStatus = waistStatus?.status || 'Pendiente';
+      antropomentric.value.waistBadgeClass = getBadgeClass(waistStatus?.color);
+    }
+
+    // Calcular cadera si existe (con sus propios rangos)
+    if (
+      antropomentric.value.hipCircumference &&
+      Number(antropomentric.value.hipCircumference) > 0
+    ) {
+      const hipValue = Number(antropomentric.value.hipCircumference);
+      const hipStatus = getHipStatus(hipValue, newGender as 'MALE' | 'FEMALE');
+      antropomentric.value.hipStatus = hipStatus?.status || 'Pendiente';
+      antropomentric.value.hipBadgeClass = getBadgeClass(hipStatus?.color);
+    }
+  },
+);
 
 function clearForm() {
   formData.value = createDefaultFormData();

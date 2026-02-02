@@ -59,19 +59,19 @@ export const WAIST_RANGES_MALE: HealthRange[] = [
     max: 94,
     status: 'Normal',
     color: 'success',
-    description: '< 94 cm',
+    description: '≤ 94 cm',
   },
   {
-    min: 94,
-    max: 102,
-    status: 'Riesgo aumentado',
+    min: 95,
+    max: 101,
+    status: 'Posible ECV',
     color: 'warning',
-    description: '94 - 102 cm',
+    description: '95 - 101 cm',
   },
   {
     min: 102,
     max: Infinity,
-    status: 'Riesgo alto',
+    status: 'Riesgo ECV',
     color: 'error',
     description: '≥ 102 cm',
   },
@@ -80,24 +80,73 @@ export const WAIST_RANGES_MALE: HealthRange[] = [
 export const WAIST_RANGES_FEMALE: HealthRange[] = [
   {
     min: 0,
-    max: 80,
+    max: 83,
     status: 'Normal',
     color: 'success',
-    description: '< 80 cm',
+    description: '< 80 o 83 cm',
   },
   {
-    min: 80,
-    max: 88,
-    status: 'Riesgo aumentado',
+    min: 84,
+    max: 87,
+    status: 'Posible ECV',
     color: 'warning',
-    description: '80 - 88 cm',
+    description: '84 - 87 cm',
   },
   {
     min: 88,
     max: Infinity,
-    status: 'Riesgo alto',
+    status: 'Riesgo ECV',
     color: 'error',
     description: '≥ 88 cm',
+  },
+];
+
+// Rangos de circunferencia de cadera por género
+export const HIP_RANGES_MALE: HealthRange[] = [
+  {
+    min: 0,
+    max: 96,
+    status: 'Normal',
+    color: 'success',
+    description: '≤ 95 cm',
+  },
+  {
+    min: 96,
+    max: 106,
+    status: 'Posible ECV',
+    color: 'warning',
+    description: '96 - 105 cm',
+  },
+  {
+    min: 106,
+    max: Infinity,
+    status: 'Riesgo ECV',
+    color: 'error',
+    description: '≥ 106 cm',
+  },
+];
+
+export const HIP_RANGES_FEMALE: HealthRange[] = [
+  {
+    min: 0,
+    max: 91,
+    status: 'Normal',
+    color: 'success',
+    description: '≤ 90 cm',
+  },
+  {
+    min: 91,
+    max: 99,
+    status: 'Posible ECV',
+    color: 'warning',
+    description: '95 - 98 cm',
+  },
+  {
+    min: 99,
+    max: Infinity,
+    status: 'Riesgo ECV',
+    color: 'error',
+    description: '≥ 99 cm',
   },
 ];
 
@@ -185,6 +234,14 @@ export function useHealthIndicators() {
   };
 
   /**
+   * Calcula el estado de la circunferencia de cadera según género
+   */
+  const getHipStatus = (hip: number, gender: 'MALE' | 'FEMALE') => {
+    const ranges = gender === 'MALE' ? HIP_RANGES_MALE : HIP_RANGES_FEMALE;
+    return findRange(hip, ranges);
+  };
+
+  /**
    * Calcula el índice cintura-cadera y su estado
    */
   const getWaistHipRatio = (waist: number, hip: number, gender: 'MALE' | 'FEMALE') => {
@@ -220,6 +277,8 @@ export function useHealthIndicators() {
     IMC_RANGES,
     WAIST_RANGES_MALE,
     WAIST_RANGES_FEMALE,
+    HIP_RANGES_MALE,
+    HIP_RANGES_FEMALE,
     ICC_RANGES_MALE,
     ICC_RANGES_FEMALE,
 
@@ -227,6 +286,7 @@ export function useHealthIndicators() {
     calculateImc,
     getImcStatus,
     getWaistStatus,
+    getHipStatus,
     getWaistHipRatio,
     findRange,
     getBadgeClass,
