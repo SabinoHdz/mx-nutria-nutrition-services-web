@@ -63,43 +63,90 @@
                 Resultados
               </h2>
               <div class="overflow-x-auto">
-                <table class="table">
+                <table class="table table-sm">
                   <thead>
                     <tr>
                       <th>Indicador</th>
                       <th>Valor</th>
-                      <th>Diagnostico</th>
+                      <th>Diagnóstico</th>
                     </tr>
                   </thead>
                   <tbody>
+                    <!-- Antropometría -->
                     <tr>
                       <td>IMC</td>
-                      <td>{{ results.imc }}</td>
+                      <td>{{ antropomentric.imc || '-' }} <span v-if="antropomentric.imc" class="text-xs text-gray-500">kg/m²</span></td>
                       <td>
-                        <span class="badge" :class="antropomentric.imcBadgeClass || 'badge-ghost'">
+                        <span class="badge badge-sm" :class="antropomentric.imcBadgeClass || 'badge-ghost'">
                           {{ antropomentric.imcStatus || 'Pendiente' }}
                         </span>
                       </td>
                     </tr>
                     <tr>
-                      <td>Peso saludable</td>
-                      <td>{{ results.healthyWeight }}</td>
-                      <td><span class="badge badge-success">En rango</span></td>
+                      <td>Cintura</td>
+                      <td>{{ antropomentric.waistCircumference || '-' }} <span v-if="antropomentric.waistCircumference" class="text-xs text-gray-500">cm</span></td>
+                      <td>
+                        <span class="badge badge-sm" :class="antropomentric.waistBadgeClass || 'badge-ghost'">
+                          {{ antropomentric.waistStatus || 'Pendiente' }}
+                        </span>
+                      </td>
                     </tr>
                     <tr>
-                      <td>Glucosa</td>
-                      <td>{{ results.glucoseLevel }}</td>
-                      <td><span class="badge badge-success">Normal</span></td>
+                      <td>Cadera</td>
+                      <td>{{ antropomentric.hipCircumference || '-' }} <span v-if="antropomentric.hipCircumference" class="text-xs text-gray-500">cm</span></td>
+                      <td>
+                        <span class="badge badge-sm" :class="antropomentric.hipBadgeClass || 'badge-ghost'">
+                          {{ antropomentric.hipStatus || 'Pendiente' }}
+                        </span>
+                      </td>
+                    </tr>
+                    <!-- Signos Vitales -->
+                    <tr>
+                      <td>Frec. Cardíaca</td>
+                      <td>{{ signalVital.heartRate || '-' }} <span v-if="signalVital.heartRate" class="text-xs text-gray-500">lpm</span></td>
+                      <td>
+                        <span class="badge badge-sm" :class="signalVital.heartRateBadgeClass || 'badge-ghost'">
+                          {{ signalVital.heartRateStatus || 'Pendiente' }}
+                        </span>
+                      </td>
                     </tr>
                     <tr>
+                      <td>Frec. Respiratoria</td>
+                      <td>{{ signalVital.respiratoryRate || '-' }} <span v-if="signalVital.respiratoryRate" class="text-xs text-gray-500">x Min</span></td>
+                      <td>
+                        <span class="badge badge-sm" :class="signalVital.respiratoryRateBadgeClass || 'badge-ghost'">
+                          {{ signalVital.respiratoryRateStatus || 'Pendiente' }}
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Temperatura</td>
+                      <td>{{ signalVital.temperature || '-' }} <span v-if="signalVital.temperature" class="text-xs text-gray-500">°C</span></td>
+                      <td>
+                        <span class="badge badge-sm" :class="signalVital.temperatureBadgeClass || 'badge-ghost'">
+                          {{ signalVital.temperatureStatus || 'Pendiente' }}
+                        </span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Sat. Oxígeno</td>
+                      <td>{{ signalVital.oxygenSaturation || '-' }} <span v-if="signalVital.oxygenSaturation" class="text-xs text-gray-500">%</span></td>
+                      <td>
+                        <span class="badge badge-sm" :class="signalVital.oxygenSaturationBadgeClass || 'badge-ghost'">
+                          {{ signalVital.oxygenSaturationStatus || 'Pendiente' }}
+                        </span>
+                      </td>
+                    </tr>
+                    <!-- Pendientes -->
+                    <tr class="opacity-50">
                       <td>Presión arterial</td>
-                      <td>{{ results.bloodPressure }}</td>
-                      <td><span class="badge badge-warning">Elevada</span></td>
+                      <td>-</td>
+                      <td><span class="badge badge-sm badge-ghost">Próximamente</span></td>
                     </tr>
-                    <tr>
-                      <td>Colesterol</td>
-                      <td>{{ results.cholesterolLevel }}</td>
-                      <td><span class="badge badge-error">Alto</span></td>
+                    <tr class="opacity-50">
+                      <td>Glucosa</td>
+                      <td>-</td>
+                      <td><span class="badge badge-sm badge-ghost">Próximamente</span></td>
                     </tr>
                   </tbody>
                 </table>
