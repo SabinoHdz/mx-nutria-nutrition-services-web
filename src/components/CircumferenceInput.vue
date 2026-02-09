@@ -66,7 +66,7 @@ const props = withDefaults(defineProps<Props>(), {
   placeholder: '',
   disabled: false,
   decimalLimit: '3,1',
-  minValue: 20,
+  minValue: 1,
   maxValue: 250,
   unit: 'cm',
   fieldName: 'El valor',
@@ -191,11 +191,16 @@ function onInput(e: Event) {
 
 // Validación final al perder el foco
 function onBlur() {
-  if (internalValue.value === '') return;
+  // No validar si el campo está vacío o solo tiene espacios
+  if (!internalValue.value || internalValue.value.trim() === '') {
+    showError.value = false;
+    return;
+  }
 
   const num = Number(internalValue.value);
 
-  if (num < props.minValue) {
+  // Solo validar mínimo si hay un valor numérico válido mayor que 0
+  if (!isNaN(num) && num > 0 && num < props.minValue) {
     showError.value = true;
     errorMessage.value = `${props.fieldName}: mínimo ${props.minValue} ${props.unit}`;
     setTimeout(() => (showError.value = false), 2500);
