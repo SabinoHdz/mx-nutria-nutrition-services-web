@@ -189,9 +189,8 @@
       <!-- Explicación de Indicadores Content -->
       <div v-if="activeTab === 'indicators'" class="space-y-4">
         <!-- IMC Collapse -->
-        <div tabindex="0" class="collapse collapse-arrow bg-base-100 shadow-xl">
-          <input type="checkbox" />
-          <div class="collapse-title text-xl font-bold text-primary">
+        <div class="collapse collapse-arrow bg-base-100 shadow-xl" :class="{ 'collapse-open': collapseState.imc }">
+          <div class="collapse-title text-xl font-bold text-primary cursor-pointer" @click="toggleCollapse('imc')">
             Índice de Masa Corporal (IMC)
           </div>
           <div class="collapse-content">
@@ -249,9 +248,8 @@
         </div>
 
         <!-- Circunferencia Cintura Collapse -->
-        <div tabindex="0" class="collapse collapse-arrow bg-base-100 shadow-xl">
-          <input type="checkbox" />
-          <div class="collapse-title text-xl font-bold text-primary">
+        <div class="collapse collapse-arrow bg-base-100 shadow-xl" :class="{ 'collapse-open': collapseState.waist }">
+          <div class="collapse-title text-xl font-bold text-primary cursor-pointer" @click="toggleCollapse('waist')">
             Circunferencia de Cintura
           </div>
           <div class="collapse-content">
@@ -283,9 +281,8 @@
         </div>
 
         <!-- Circunferencia Cadera Collapse -->
-        <div tabindex="0" class="collapse collapse-arrow bg-base-100 shadow-xl">
-          <input type="checkbox" />
-          <div class="collapse-title text-xl font-bold text-primary">
+        <div class="collapse collapse-arrow bg-base-100 shadow-xl" :class="{ 'collapse-open': collapseState.hip }">
+          <div class="collapse-title text-xl font-bold text-primary cursor-pointer" @click="toggleCollapse('hip')">
             Circunferencia de Cadera
           </div>
           <div class="collapse-content">
@@ -317,9 +314,8 @@
         </div>
 
         <!-- Frecuencia Cardíaca Collapse -->
-        <div tabindex="0" class="collapse collapse-arrow bg-base-100 shadow-xl">
-          <input type="checkbox" />
-          <div class="collapse-title text-xl font-bold text-primary">
+        <div class="collapse collapse-arrow bg-base-100 shadow-xl" :class="{ 'collapse-open': collapseState.heartRate }">
+          <div class="collapse-title text-xl font-bold text-primary cursor-pointer" @click="toggleCollapse('heartRate')">
             Frecuencia Cardíaca
           </div>
           <div class="collapse-content">
@@ -362,9 +358,8 @@
         </div>
 
         <!-- Frecuencia Respiratoria Collapse -->
-        <div tabindex="0" class="collapse collapse-arrow bg-base-100 shadow-xl">
-          <input type="checkbox" />
-          <div class="collapse-title text-xl font-bold text-primary">
+        <div class="collapse collapse-arrow bg-base-100 shadow-xl" :class="{ 'collapse-open': collapseState.respiratoryRate }">
+          <div class="collapse-title text-xl font-bold text-primary cursor-pointer" @click="toggleCollapse('respiratoryRate')">
             Frecuencia Respiratoria
           </div>
           <div class="collapse-content">
@@ -407,9 +402,8 @@
         </div>
 
         <!-- Temperatura Collapse -->
-        <div tabindex="0" class="collapse collapse-arrow bg-base-100 shadow-xl">
-          <input type="checkbox" />
-          <div class="collapse-title text-xl font-bold text-primary">
+        <div class="collapse collapse-arrow bg-base-100 shadow-xl" :class="{ 'collapse-open': collapseState.temperature }">
+          <div class="collapse-title text-xl font-bold text-primary cursor-pointer" @click="toggleCollapse('temperature')">
             Temperatura Corporal
           </div>
           <div class="collapse-content">
@@ -468,9 +462,8 @@
         </div>
 
         <!-- Saturación de Oxígeno Collapse -->
-        <div tabindex="0" class="collapse collapse-arrow bg-base-100 shadow-xl">
-          <input type="checkbox" />
-          <div class="collapse-title text-xl font-bold text-primary">
+        <div class="collapse collapse-arrow bg-base-100 shadow-xl" :class="{ 'collapse-open': collapseState.oxygenSaturation }">
+          <div class="collapse-title text-xl font-bold text-primary cursor-pointer" @click="toggleCollapse('oxygenSaturation')">
             Saturación de Oxígeno (SpO₂)
           </div>
           <div class="collapse-content">
@@ -529,4 +522,19 @@
 import { ref } from 'vue';
 
 const activeTab = ref<'guide' | 'indicators'>('guide');
+
+// Estado de cada collapse (true = abierto, false = cerrado)
+const collapseState = ref({
+  imc: false,
+  waist: false,
+  hip: false,
+  heartRate: false,
+  respiratoryRate: false,
+  temperature: false,
+  oxygenSaturation: false,
+});
+
+const toggleCollapse = (key: keyof typeof collapseState.value) => {
+  collapseState.value[key] = !collapseState.value[key];
+};
 </script>
