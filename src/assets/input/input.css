@@ -1,0 +1,29 @@
+@layer components {
+  .e-input-base {
+    @apply exos-flex exos-flex-grow exos-py-2.5 exos-w-full exos-h-fit exos-tracking-wide disabled:exos-cursor-not-allowed disabled:exos-opacity-60 exos-outline-none focus:exos-outline-none exos-appearance-none;
+  }
+
+  .e-input-label {
+    @apply exos-absolute exos-duration-300 exos-transform -exos-translate-y-4 exos-scale-[.65] exos-top-2 exos-z-0 exos-origin-[0] peer-placeholder-shown:exos-scale-100 peer-placeholder-shown:-exos-translate-y-1/2 peer-placeholder-shown:exos-top-1/2 peer-focus:exos-top-2 peer-focus:exos-scale-[.65] peer-focus:-exos-translate-y-4 rtl:peer-focus:exos-translate-x-1/4 rtl:peer-focus:exos-left-auto exos-start-1;
+  }
+
+  .e-input__classBoxLabel {
+    @apply exos-flex exos-z-10 exos-px-1 exos-rounded-md;
+  }
+
+  .e-input-icon {
+    @apply exos-flex exos-items-center exos-justify-center exos-cursor-pointer exos-absolute exos-top-0 exos-h-full;
+  }
+
+  .e-input--error-border {
+    @apply exos-border-2 exos-border-danger focus:exos-border-danger;
+  }
+
+  .e-input--error-message {
+    @apply exos-flex exos-items-center exos-justify-start exos-w-full exos-text-danger exos-text-xs exos-mt-1 exos-animate-slide-down;
+  }
+
+  .e-input-borderColor {
+    @apply exos-border-secondary;
+  }
+}

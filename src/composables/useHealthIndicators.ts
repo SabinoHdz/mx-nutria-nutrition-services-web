@@ -4,6 +4,7 @@ export interface HealthRange {
   status: string;
   color: 'success' | 'info' | 'warning' | 'error';
   description?: string;
+  alert?: string;
 }
 
 // Rangos de IMC según la imagen proporcionada
@@ -56,14 +57,14 @@ export const IMC_RANGES: HealthRange[] = [
 export const WAIST_RANGES_MALE: HealthRange[] = [
   {
     min: 0,
-    max: 94,
+    max: 95,
     status: 'Normal',
     color: 'success',
     description: '≤ 94 cm',
   },
   {
     min: 95,
-    max: 101,
+    max: 102,
     status: 'Posible ECV',
     color: 'warning',
     description: '95 - 101 cm',
@@ -80,14 +81,14 @@ export const WAIST_RANGES_MALE: HealthRange[] = [
 export const WAIST_RANGES_FEMALE: HealthRange[] = [
   {
     min: 0,
-    max: 83,
+    max: 84,
     status: 'Normal',
     color: 'success',
     description: '< 80 o 83 cm',
   },
   {
     min: 84,
-    max: 87,
+    max: 88,
     status: 'Posible ECV',
     color: 'warning',
     description: '84 - 87 cm',
@@ -147,6 +148,124 @@ export const HIP_RANGES_FEMALE: HealthRange[] = [
     status: 'Riesgo ECV',
     color: 'error',
     description: '≥ 99 cm',
+  },
+];
+
+// Rangos de frecuencia cardíaca (lpm - latidos por minuto)
+export const HEART_RATE_RANGES: HealthRange[] = [
+  {
+    min: 1,
+    max: 60,
+    status: 'Bradicardia',
+    color: 'warning',
+    description: '≤ 59 lpm',
+  },
+  {
+    min: 60,
+    max: 101,
+    status: 'Normal',
+    color: 'success',
+    description: '60 - 100 lpm',
+  },
+  {
+    min: 101,
+    max: Infinity,
+    status: 'Taquicardia',
+    color: 'error',
+    description: '≥ 101 lpm',
+  },
+];
+
+// Rangos de frecuencia respiratoria (rpm - respiraciones por minuto)
+export const RESPIRATORY_RATE_RANGES: HealthRange[] = [
+  {
+    min: 0,
+    max: 12,
+    status: 'Baja',
+    color: 'warning',
+    description: '≤ 11 rpm',
+  },
+  {
+    min: 12,
+    max: 21,
+    status: 'Normal',
+    color: 'success',
+    description: '12 - 20 rpm',
+  },
+  {
+    min: 21,
+    max: Infinity,
+    status: 'Alto',
+    color: 'error',
+    description: '≥ 21 rpm',
+  },
+];
+
+// Rangos de saturación de oxígeno (%)
+export const OXYGEN_SATURATION_RANGES: HealthRange[] = [
+  {
+    min: 0,
+    max: 91,
+    status: 'Emergencia médica',
+    color: 'error',
+    description: '<90%',
+    alert: 'Requiere atención Médica Urgente',
+  },
+  {
+    min: 91,
+    max: 95,
+    status: 'Bajos',
+    color: 'warning',
+    description: '91 - 94%',
+  },
+  {
+    min: 95,
+    max: 101,
+    status: 'Normales',
+    color: 'success',
+    description: '95 - 100%',
+  },
+];
+
+// Rangos de temperatura (°C - grados Celsius)
+export const TEMPERATURE_RANGES: HealthRange[] = [
+  {
+    min: 1,
+    max: 37.4,
+    status: 'Normal',
+    color: 'success',
+    description: '35.7 - 37.3 °C',
+  },
+  {
+    min: 37.4,
+    max: 38.1,
+    status: 'Fiebre Leve',
+    color: 'warning',
+    description: '37.4 - 38 °C',
+  },
+  {
+    min: 38.1,
+    max: 38.6,
+    status: 'Fiebre Moderada',
+    color: 'warning',
+    description: '38.1 - 38.5 °C',
+    alert: 'Requiere atención Médica',
+  },
+  {
+    min: 38.6,
+    max: 40.0,
+    status: 'Fiebre Alta',
+    color: 'warning',
+    description: '38.6 - 39.9 °C',
+    alert: 'Requiere atención Médica',
+  },
+  {
+    min: 40.0,
+    max: Infinity,
+    status: 'Fiebre Muy Alta',
+    color: 'error',
+    description: '>40.0 °C',
+    alert: 'Requiere atención Médica Urgente',
   },
 ];
 
@@ -242,6 +361,34 @@ export function useHealthIndicators() {
   };
 
   /**
+   * Calcula el estado de la frecuencia cardíaca
+   */
+  const getHeartRateStatus = (heartRate: number) => {
+    return findRange(heartRate, HEART_RATE_RANGES);
+  };
+
+  /**
+   * Calcula el estado de la frecuencia respiratoria
+   */
+  const getRespiratoryRateStatus = (respiratoryRate: number) => {
+    return findRange(respiratoryRate, RESPIRATORY_RATE_RANGES);
+  };
+
+  /**
+   * Calcula el estado de la saturación de oxígeno
+   */
+  const getOxygenSaturationStatus = (oxygenSaturation: number) => {
+    return findRange(oxygenSaturation, OXYGEN_SATURATION_RANGES);
+  };
+
+  /**
+   * Calcula el estado de la temperatura
+   */
+  const getTemperatureStatus = (temperature: number) => {
+    return findRange(temperature, TEMPERATURE_RANGES);
+  };
+
+  /**
    * Calcula el índice cintura-cadera y su estado
    */
   const getWaistHipRatio = (waist: number, hip: number, gender: 'MALE' | 'FEMALE') => {
@@ -281,6 +428,10 @@ export function useHealthIndicators() {
     HIP_RANGES_FEMALE,
     ICC_RANGES_MALE,
     ICC_RANGES_FEMALE,
+    HEART_RATE_RANGES,
+    RESPIRATORY_RATE_RANGES,
+    OXYGEN_SATURATION_RANGES,
+    TEMPERATURE_RANGES,
 
     // Funciones de cálculo
     calculateImc,
@@ -288,6 +439,10 @@ export function useHealthIndicators() {
     getWaistStatus,
     getHipStatus,
     getWaistHipRatio,
+    getHeartRateStatus,
+    getRespiratoryRateStatus,
+    getOxygenSaturationStatus,
+    getTemperatureStatus,
     findRange,
     getBadgeClass,
   };

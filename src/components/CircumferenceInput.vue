@@ -39,7 +39,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, computed } from 'vue'
+import { ref, watch, computed } from 'vue';
 import BaseIcon from './icon/BaseIcon.vue';
 
 interface Props {
@@ -54,6 +54,10 @@ interface Props {
   minValue?: number;
   /** Máximo lógico (casos extremos) */
   maxValue?: number;
+  /** Unidad de medida para mostrar en mensajes de error */
+  unit?: string;
+  /** Nombre del campo para mensajes de error personalizados */
+  fieldName?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -64,6 +68,8 @@ const props = withDefaults(defineProps<Props>(), {
   decimalLimit: '3,1',
   minValue: 20,
   maxValue: 250,
+  unit: 'cm',
+  fieldName: 'El valor',
 });
 
 const emit = defineEmits<{
@@ -71,87 +77,104 @@ const emit = defineEmits<{
   clean: [];
 }>();
 
-const inputId = `circumference-input-${Math.random().toString(36).substr(2, 9)}`
-const showError = ref(false)
-const errorMessage = ref('')
+const inputId = `circumference-input-${Math.random().toString(36).substr(2, 9)}`;
+const showError = ref(false);
+const errorMessage = ref('');
 
 // Parseo de límites de dígitos
-const intLimit = ref(3)
-const decLimit = ref(1)
+const intLimit = ref(3);
+const decLimit = ref(1);
 
-watch(() => props.decimalLimit, (val) => {
-  const [i, d] = val.split(',').map(Number)
-  intLimit.value = isNaN(i) ? 3 : i
-  decLimit.value = isNaN(d) ? 1 : d
-}, { immediate: true })
+watch(
+  () => props.decimalLimit,
+  (val) => {
+    const [i = 3, d = 1] = val.split(',').map(Number);
+    intLimit.value = isNaN(i) ? 3 : i;
+    decLimit.value = isNaN(d) ? 1 : d;
+  },
+  { immediate: true },
+);
 
 // Regex dinámico para el formato (ej: 3 enteros, 1 decimal)
-const decimalRegex = computed(() =>
-  new RegExp(`^\\d{0,${intLimit.value}}(\\.\\d{0,${decLimit.value}})?$`)
-)
+const decimalRegex = computed(
+  () => new RegExp(`^\\d{0,${intLimit.value}}(\\.\\d{0,${decLimit.value}})?$`),
+);
 
-const internalValue = ref('')
-const lastValid = ref('')
+const internalValue = ref('');
+const lastValid = ref('');
 
 // Sincronización externa -> interna
-watch(() => props.modelValue, (val) => {
-  if (val === null || val === undefined || val === '') {
-    internalValue.value = ''
-    lastValid.value = ''
-  } else {
-    internalValue.value = String(val)
-    lastValid.value = String(val)
-  }
-}, { immediate: true })
+watch(
+  () => props.modelValue,
+  (val) => {
+    if (val === null || val === undefined || val === '') {
+      internalValue.value = '';
+      lastValid.value = '';
+    } else {
+      internalValue.value = String(val);
+      lastValid.value = String(val);
+    }
+  },
+  { immediate: true },
+);
 
 // Bloqueo preventivo de teclas no permitidas
 function onKeyDown(e: KeyboardEvent) {
-  const controlKeys = ['Backspace', 'Tab', 'ArrowLeft', 'ArrowRight', 'Delete', 'Home', 'End', 'Enter']
-  if (controlKeys.includes(e.key)) return
+  const controlKeys = [
+    'Backspace',
+    'Tab',
+    'ArrowLeft',
+    'ArrowRight',
+    'Delete',
+    'Home',
+    'End',
+    'Enter',
+  ];
+  if (controlKeys.includes(e.key)) return;
 
   // Permitir punto o coma decimal (solo uno)
   if (e.key === '.' || e.key === ',') {
     if (internalValue.value.includes('.')) {
-      e.preventDefault()
+      e.preventDefault();
     }
-    return
+    return;
   }
 
   // Solo dígitos
   if (!/^\d$/.test(e.key)) {
-    e.preventDefault()
+    e.preventDefault();
   }
 }
 
 function onInput(e: Event) {
-  const input = e.target as HTMLInputElement
-  let value = input.value.replace(',', '.').replace(/[^\d.]/g, '')
+  const input = e.target as HTMLInputElement;
+  let value = input.value.replace(',', '.').replace(/[^\d.]/g, '');
 
   // Solo un punto
-  const parts = value.split('.')
+  const parts = value.split('.');
   if (parts.length > 2) {
-    value = parts[0] + '.' + parts.slice(1).join('')
+    value = parts[0] + '.' + parts.slice(1).join('');
   }
 
   // 1. Validar formato de dígitos (regex)
   if (!decimalRegex.value.test(value)) {
-    internalValue.value = lastValid.value
-    input.value = lastValid.value
-    return
+    internalValue.value = lastValid.value;
+    input.value = lastValid.value;
+    return;
   }
 
   // 2. Validar rango numérico (solo si no termina en punto)
   if (value !== '' && !value.endsWith('.')) {
-    const num = Number(value)
+    const num = Number(value);
 
     // Validar máximo
     if (num > props.maxValue) {
-      showError.value = true
-      errorMessage.value = `Máximo permitido: ${props.maxValue} cm`
-      internalValue.value = lastValid.value
-      input.value = lastValid.value
-      setTimeout(() => showError.value = false, 2500)
-      return
+      showError.value = true;
+      errorMessage.value = `${props.fieldName}: máximo ${props.maxValue} ${props.unit}`;
+      internalValue.value = lastValid.value;
+      input.value = lastValid.value;
+      setTimeout(() => (showError.value = false), 2500);
+      return;
     }
 
     // Validar mínimo (solo al terminar de escribir, no mientras escribe)
@@ -159,31 +182,31 @@ function onInput(e: Event) {
   }
 
   // Si pasa las validaciones, actualizar
-  internalValue.value = value
-  lastValid.value = value
+  internalValue.value = value;
+  lastValid.value = value;
 
-  const emitVal = value.endsWith('.') ? value.slice(0, -1) : value
-  emit('update:modelValue', emitVal === '' ? null : Number(emitVal))
+  const emitVal = value.endsWith('.') ? value.slice(0, -1) : value;
+  emit('update:modelValue', emitVal === '' ? null : Number(emitVal));
 }
 
 // Validación final al perder el foco
 function onBlur() {
-  if (internalValue.value === '') return
+  if (internalValue.value === '') return;
 
-  const num = Number(internalValue.value)
+  const num = Number(internalValue.value);
 
   if (num < props.minValue) {
-    showError.value = true
-    errorMessage.value = `Mínimo permitido: ${props.minValue} cm`
-    setTimeout(() => showError.value = false, 2500)
+    showError.value = true;
+    errorMessage.value = `${props.fieldName}: mínimo ${props.minValue} ${props.unit}`;
+    setTimeout(() => (showError.value = false), 2500);
   }
 }
 
 function onClean() {
-  internalValue.value = ''
-  lastValid.value = ''
-  showError.value = false
-  emit('update:modelValue', null)
-  emit('clean')
+  internalValue.value = '';
+  lastValid.value = '';
+  showError.value = false;
+  emit('update:modelValue', null);
+  emit('clean');
 }
 </script>

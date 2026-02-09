@@ -25,9 +25,19 @@ export interface AntropometricData {
 }
 export interface SignalVital {
   heartRate?: string | number;
+  heartRateStatus?: string;
+  heartRateBadgeClass?: string;
   respiratoryRate?: string | number;
+  respiratoryRateStatus?: string;
+  respiratoryRateBadgeClass?: string;
   bloodPressure?: string;
-  temperature?: string | null;
+  temperature?: string | number;
+  temperatureStatus?: string;
+  temperatureBadgeClass?: string;
+  temperatureAlert?: string;
   oxygenSaturation?: string | number;
+  oxygenSaturationStatus?: string;
+  oxygenSaturationBadgeClass?: string;
+  oxygenSaturationAlert?: string;
   glucose?: string | number;
 }
