@@ -137,7 +137,7 @@ const goToDiagnostics = () => {
             @click="goToDiagnostics"
             class="btn btn-primary btn-wide shadow-lg hover:shadow-xl transition-all"
           >
-            Ir a la Calculadora
+            Comenzar evaluación
           </button>
         </div>
       </div>

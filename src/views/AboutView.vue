@@ -44,7 +44,7 @@
               <div>
                 <h3 class="font-semibold text-lg">Cálculos Precisos</h3>
                 <p class="text-gray-600">
-                  Algoritmos basados en estándares médicos internacionales para garantizar
+                  Algoritmos basados en Normas Oficiales Mexicanas (NOM) para garantizar
                   resultados confiables.
                 </p>
               </div>
@@ -62,10 +62,10 @@
             <div class="flex gap-3">
               <span class="text-success text-xl">✓</span>
               <div>
-                <h3 class="font-semibold text-lg">Clasificación Automática</h3>
+                <h3 class="font-semibold text-lg">Clasificación Normalizada</h3>
                 <p class="text-gray-600">
-                  Cada indicador se clasifica automáticamente según rangos médicos establecidos,
-                  con alertas visuales cuando es necesario.
+                  Cada indicador se clasifica de acuerdo a las Normas Oficiales Mexicanas (NOM)
+                  y estás pueden cambiar o actualizarse de acuerdo a la sección de soporte.
                 </p>
               </div>
             </div>
@@ -90,7 +90,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
             </svg>
-            Estándares Médicos
+            Estándares de nutrición
           </h2>
           <p class="text-gray-700 leading-relaxed mb-4">
             Todos los rangos de clasificación y valores de referencia utilizados en esta
@@ -124,7 +124,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
           </svg>
           <div>
-            <h3 class="font-bold">Descargo de Responsabilidad Médica</h3>
+            <h3 class="font-bold">Descargo de responsabilidad médica</h3>
             <div class="text-sm">
               Esta herramienta es de apoyo para profesionales de la salud y NO reemplaza
               el juicio clínico ni el diagnóstico médico profesional. Los resultados deben
