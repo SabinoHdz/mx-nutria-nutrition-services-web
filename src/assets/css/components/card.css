@@ -1,0 +1,138 @@
+/**
+ * CARD COMPONENT STYLES
+ */
+
+@layer components {
+  /* ========================================
+     1. BASE
+     ======================================== */
+
+  .card {
+    @apply bg-surface text-text-primary;
+    @apply transition-all duration-200;
+  }
+
+  /* ========================================
+     2. VARIANTS
+     ======================================== */
+
+  .card--solid {
+    @apply bg-surface;
+  }
+
+  .card--soft {
+    @apply bg-surface-variant;
+  }
+
+  .card--outline {
+    @apply bg-transparent;
+  }
+
+  .card--ghost {
+    @apply bg-transparent border-transparent;
+  }
+
+  .card--elevated {
+    @apply bg-surface shadow-lg;
+  }
+
+  /* ========================================
+     3. MODIFIERS
+     ======================================== */
+
+  .card--rounded {
+    @apply rounded-xl;
+  }
+
+  .card--shadow {
+    @apply shadow-md;
+  }
+
+  .card--bordered {
+    @apply border border-border;
+  }
+
+  .card--dense {
+    @apply p-3;
+  }
+
+  .card--hoverable {
+    @apply hover:shadow-lg hover:-translate-y-0.5;
+  }
+
+  .card--clickable {
+    @apply cursor-pointer active:translate-y-0 active:shadow-md;
+  }
+
+  /* ========================================
+     4. LAYOUTS
+     ======================================== */
+
+  .card--layout-flex {
+    @apply flex flex-col gap-4;
+  }
+
+  .card--layout-grid {
+    @apply grid gap-4;
+  }
+
+  /* ========================================
+     5. SIZES
+     ======================================== */
+
+  .card--size-xs {
+    @apply p-3 gap-3 text-xs;
+  }
+
+  .card--size-sm {
+    @apply p-4 gap-3 text-sm;
+  }
+
+  .card--size-md {
+    @apply p-5 gap-4 text-sm;
+  }
+
+  .card--size-lg {
+    @apply p-6 gap-5 text-base;
+  }
+
+  .card--size-xl {
+    @apply p-7 gap-6 text-lg;
+  }
+
+  /* ========================================
+     6. PARTS
+     ======================================== */
+
+  .card__header {
+    @apply flex items-start justify-between gap-4;
+  }
+
+  .card__header-text {
+    @apply min-w-0;
+  }
+
+  .card__title {
+    @apply text-base font-semibold;
+  }
+
+  .card__subtitle {
+    @apply text-sm text-text-secondary;
+  }
+
+  .card__body {
+    @apply text-sm text-text-secondary;
+  }
+
+  .card__media {
+    @apply overflow-hidden rounded-lg;
+  }
+
+  .card__actions {
+    @apply flex flex-wrap gap-2;
+  }
+
+  .card__footer {
+    @apply border-t border-border pt-3;
+  }
+}

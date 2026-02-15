@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",
+    "class-variance-authority": "^0.7.1",
     "material-symbols": "^0.40.2",
     "pinia": "^3.0.4",
     "tailwindcss": "^4.1.18",

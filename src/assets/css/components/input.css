@@ -1,0 +1,366 @@
+@layer components {
+  /* Base input styles */
+  .input-wrapper {
+    @apply flex flex-col gap-2;
+  }
+
+  .input-label {
+    @apply block text-sm font-semibold text-text-primary;
+    line-height: 1.5rem; /* Aumentado para acomodar el icono del tooltip */
+  }
+
+  /* Tooltip icon en el label */
+  .input-label .cursor-help {
+    @apply opacity-70 transition-opacity duration-200;
+  }
+
+  .input-label .cursor-help:hover {
+    @apply opacity-100;
+  }
+
+  .input-label-required {
+    @apply ml-1 text-error;
+    font-weight: 600;
+  }
+
+  .input-container {
+    @apply relative flex items-center gap-2 px-3 rounded-md border border-border bg-surface transition-all duration-200;
+  }
+
+  .input-container:focus-within {
+    @apply border-primary shadow-sm;
+  }
+
+  /* Variants - Solid */
+  .input-container.input--solid {
+    @apply bg-surface-variant border-transparent;
+  }
+
+  .input-container.input--solid:focus-within {
+    @apply bg-surface border-border;
+  }
+
+  /* Variants - Outline */
+  .input-container.input--outline {
+    @apply bg-surface border-border;
+  }
+
+  .input-container.input--outline:focus-within {
+    @apply border-primary ring-1 ring-primary;
+  }
+
+  /* Variants - Soft */
+  .input-container.input--soft {
+    @apply bg-primary/10 border-transparent;
+  }
+
+  .input-container.input--soft:focus-within {
+    @apply bg-primary/5 border-primary ring-1 ring-primary;
+  }
+
+  /* Colors */
+  .input-container.input--primary:focus-within {
+    @apply border-primary ring-1 ring-primary/10;
+  }
+
+  .input-container.input--secondary:focus-within {
+    @apply border-secondary ring-1 ring-secondary/10;
+  }
+
+  .input-container.input--accent:focus-within {
+    @apply border-accent ring-1 ring-accent/10;
+  }
+
+  .input-container.input--success:focus-within {
+    @apply border-success ring-1 ring-success/10;
+  }
+
+  .input-container.input--warning:focus-within {
+    @apply border-warning ring-1 ring-warning/10;
+  }
+
+  .input-container.input--error:focus-within {
+    @apply border-error ring-1 ring-error/10;
+  }
+
+  .input-container.input--info:focus-within {
+    @apply border-info ring-1 ring-info/10;
+  }
+
+  /* Error state */
+  .input-container.input--error-state {
+    @apply border-error bg-error/5;
+  }
+
+  .input-container.input--error-state:focus-within {
+    @apply border-error ring-1 ring-error/20;
+  }
+
+  /* Disabled state */
+  .input-container.input--disabled {
+    @apply bg-surface-variant opacity-60 cursor-not-allowed;
+  }
+
+  /* Sizes */
+  .input-container.input--size-xs {
+    @apply text-xs py-1;
+  }
+
+  .input-container.input--size-sm {
+    @apply text-sm py-1.5;
+  }
+
+  .input-container.input--size-md {
+    @apply text-base py-2;
+  }
+
+  .input-container.input--size-lg {
+    @apply text-lg py-2.5;
+  }
+
+  .input-container.input--size-xl {
+    @apply text-xl py-3;
+  }
+
+  /* Input field */
+  .input-field {
+    @apply flex-1 min-w-0 border-0 bg-transparent text-text-primary outline-none;
+  }
+
+  .input-field::placeholder {
+    @apply text-text-disabled;
+  }
+
+  .input-field:disabled {
+    @apply cursor-not-allowed opacity-60;
+  }
+
+  /* Icons */
+  .input-prepend,
+  .input-append-btn {
+    @apply flex items-center justify-center text-text-secondary shrink-0;
+  }
+
+  .input-append-btn {
+    @apply bg-transparent border-0 cursor-pointer p-0 transition-colors duration-200;
+  }
+
+  .input-append-btn:hover {
+    @apply text-text-primary;
+  }
+
+  .input-append-btn:active {
+    @apply scale-95;
+  }
+
+  /* Error message */
+  .input-error {
+    @apply block text-xs text-error font-medium mt-1;
+  }
+
+  /* Dark mode */
+  .dark .input-label {
+    @apply text-text-primary;
+  }
+
+  .dark .input-container {
+    @apply border-border bg-surface;
+  }
+
+  .dark .input-container:focus-within {
+    @apply border-primary;
+  }
+
+  .dark .input-container.input--solid {
+    @apply bg-surface-variant border-transparent;
+  }
+
+  .dark .input-container.input--solid:focus-within {
+    @apply bg-surface border-border;
+  }
+
+  .dark .input-container.input--outline {
+    @apply bg-surface border-border;
+  }
+
+  .dark .input-container.input--outline:focus-within {
+    @apply border-primary ring-1 ring-primary;
+  }
+
+  .dark .input-container.input--soft {
+    @apply bg-primary/20 border-transparent;
+  }
+
+  .dark .input-container.input--soft:focus-within {
+    @apply bg-primary/15 border-primary ring-1 ring-primary;
+  }
+
+  .dark .input-container.input--error-state {
+    @apply border-error bg-error/10;
+  }
+
+  .dark .input-container.input--error-state:focus-within {
+    @apply border-error ring-1 ring-error/30;
+  }
+
+  .dark .input-container.input--disabled {
+    @apply bg-surface-variant opacity-50;
+  }
+
+  .dark .input-field {
+    @apply text-text-primary;
+  }
+
+  .dark .input-field::placeholder {
+    @apply text-text-disabled;
+  }
+
+  .dark .input-prepend,
+  .dark .input-append-btn {
+    @apply text-text-secondary;
+  }
+
+  .dark .input-append-btn:hover {
+    @apply text-text-primary;
+  }
+
+  .dark .input-error {
+    @apply text-error;
+  }
+
+  /* ============================================ */
+  /* NUEVAS FEATURES (Quasar/DaisyUI inspired) */
+  /* ============================================ */
+
+  /* Variant: Borderless */
+  .input-container.input--borderless {
+    @apply bg-transparent border-transparent border-b-2 border-b-border rounded-none px-0;
+  }
+
+  .input-container.input--borderless:focus-within {
+    @apply border-b-primary shadow-none;
+  }
+
+  /* Variant: Filled (Material Design style) */
+  .input-container.input--filled {
+    @apply bg-surface-variant border-transparent border-b-2 border-b-border rounded-t-lg rounded-b-none;
+  }
+
+  .input-container.input--filled:focus-within {
+    @apply bg-surface-variant border-b-primary border-b-2;
+  }
+
+  /* Dense Mode */
+  .input-container.input--dense {
+    @apply py-1 text-sm;
+  }
+
+  .input-container.input--dense.input--size-xs {
+    @apply py-0.5 text-xs;
+  }
+
+  .input-container.input--dense.input--size-sm {
+    @apply py-1 text-sm;
+  }
+
+  .input-container.input--dense.input--size-md {
+    @apply py-1.5 text-sm;
+  }
+
+  .input-container.input--dense.input--size-lg {
+    @apply py-2 text-base;
+  }
+
+  /* Rounded variants */
+  .input-container.input--rounded-none {
+    @apply rounded-none;
+  }
+
+  .input-container.input--rounded-sm {
+    @apply rounded-sm;
+  }
+
+  .input-container.input--rounded-md {
+    @apply rounded-md;
+  }
+
+  .input-container.input--rounded-lg {
+    @apply rounded-lg;
+  }
+
+  .input-container.input--rounded-full {
+    @apply rounded-full px-6;
+  }
+
+  /* Shadow */
+  .input-container.input--shadow {
+    @apply shadow-md;
+  }
+
+  .input-container.input--shadow:focus-within {
+    @apply shadow-lg;
+  }
+
+  /* Loading State */
+  .input-container.input--loading {
+    @apply cursor-wait opacity-75;
+  }
+
+  /* Prefix/Suffix Text */
+  .input-prefix,
+  .input-suffix {
+    @apply text-text-secondary text-sm font-medium shrink-0 select-none;
+  }
+
+  /* Hint Text */
+  .input-hint {
+    @apply block text-xs text-text-secondary mt-1;
+  }
+
+  /* Counter */
+  .input-counter {
+    @apply block text-xs text-text-secondary mt-1 text-right font-mono;
+  }
+
+  /* Loading Spinner */
+  .input-loading-spinner {
+    @apply h-4 w-4 border-2 border-primary border-t-transparent rounded-full shrink-0;
+    animation: spin 0.6s linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Dark mode para nuevas features */
+  .dark .input-container.input--borderless {
+    @apply border-b-border;
+  }
+
+  .dark .input-container.input--borderless:focus-within {
+    @apply border-b-primary;
+  }
+
+  .dark .input-container.input--filled {
+    @apply bg-surface-variant border-b-border;
+  }
+
+  .dark .input-container.input--filled:focus-within {
+    @apply bg-surface-variant border-b-primary;
+  }
+
+  .dark .input-prefix,
+  .dark .input-suffix {
+    @apply text-text-secondary;
+  }
+
+  .dark .input-hint {
+    @apply text-text-secondary;
+  }
+
+  .dark .input-counter {
+    @apply text-text-secondary;
+  }
+}

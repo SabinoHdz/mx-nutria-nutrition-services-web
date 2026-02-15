@@ -1,0 +1,376 @@
+/**
+ * STEP 4: CSS BASE
+ *
+ * Aquí definimos los estilos que se aplican a todos los tooltips
+ * independientemente de qué props tengan.
+ *
+ * Es como el "fuente común" de los tooltips.
+ */
+
+@layer components {
+  /* ========================================
+     1. CLASE BASE: ESTILOS GENERALES
+     ======================================== */
+
+  /**
+   * .tooltip es la clase base que CVA siempre aplica
+   *
+   * Aquí van:
+   * - Layout (cómo se posiciona)
+   * - Tipografía base (font-size, font-weight)
+   * - Espaciado base (padding)
+   * - Apariencia base (border-radius, sombra)
+   * - Transiciones (para animaciones suaves)
+   */
+  .tooltip {
+    /* ===== LAYOUT ===== */
+    /* position: fixed significa que se posiciona respecto a la ventana, no al padre */
+    @apply fixed z-50 inline-block;
+
+    /* ===== ESPACIADO ===== */
+    /* Padding default (será override en .tooltip--size-* ) */
+    @apply px-3 py-2;
+
+    /* ===== TIPOGRAFÍA ===== */
+    /* Tamaño y peso de fuente */
+    @apply text-sm font-medium leading-normal;
+
+    /* ===== APARIENCIA ===== */
+    /* Esquinas redondeadas y sombra */
+    @apply rounded-lg shadow-lg;
+
+    /* ===== TRANSICIONES ===== */
+    /* Suavizar cambios de propiedades CSS */
+    @apply transition-all duration-200 ease-out;
+
+    /* ===== VISIBILIDAD INICIAL ===== */
+    /* Por defecto INVISIBLE (se mostrará con clase .tooltip--visible) */
+    @apply opacity-0 invisible;
+
+    /* ===== TAMAÑO MÁXIMO ===== */
+    /* Prevenir que el texto sea muy largo */
+    max-width: 200px;
+    word-wrap: break-word;
+  }
+
+  /**
+   * .tooltip--visible es la clase que se agrega cuando el tooltip es visible
+   * Se aplica dinámicamente desde JavaScript/Vue
+   */
+  .tooltip--visible {
+    /* Hacer visible el tooltip */
+    @apply opacity-100 visible;
+  }
+
+  /* ========================================
+     2. COLORS - Estilos por color
+     ======================================== */
+
+  /**
+   * Cada color tiene su propia clase generada por CVA
+   * Ejemplo: color="primary" → clase "tooltip--color-primary"
+   *
+   * Aquí definimos: background-color de cada color + text-color
+   */
+
+  /* PRIMARY (Azul principal de la app) */
+  .tooltip--color-primary {
+    /* Fondo azul, texto blanco */
+    @apply bg-primary text-white;
+  }
+
+  /* SECONDARY (Teal) */
+  .tooltip--color-secondary {
+    @apply bg-secondary text-white;
+  }
+
+  /* SUCCESS (Verde - operación exitosa) */
+  .tooltip--color-success {
+    @apply bg-success text-white;
+  }
+
+  /* WARNING (Amarillo - advertencia) */
+  .tooltip--color-warning {
+    /* El amarillo es claro, así que texto oscuro para contraste */
+    @apply bg-warning text-gray-900;
+  }
+
+  /* ERROR (Rojo - peligro) */
+  .tooltip--color-error {
+    @apply bg-error text-white;
+  }
+
+  /* INFO (Cyan claro - información) */
+  .tooltip--color-info {
+    @apply bg-info text-white;
+  }
+
+  /* NEUTRAL (Gris - sin semántica) */
+  .tooltip--color-neutral {
+    /* Gris oscuro en light mode */
+    @apply bg-gray-800 text-white;
+  }
+
+  /**
+   * Dark mode para NEUTRAL
+   * En modo oscuro, usar gris más claro (no tan oscuro)
+   */
+  @dark {
+    .tooltip--color-neutral {
+      @apply bg-gray-700 text-white;
+    }
+  }
+
+  /* ========================================
+     3. SIZES - Padding y tipografía por tamaño
+     ======================================== */
+
+  /**
+   * Cada tamaño ajusta:
+   * - px-* (padding horizontal)
+   * - py-* (padding vertical)
+   * - text-* (tamaño de fuente)
+   */
+
+  /* EXTRA SMALL - Para tooltips muy compactos */
+  .tooltip--size-xs {
+    /* Menos padding, font muy pequeño */
+    @apply px-2 py-1 text-xs;
+  }
+
+  /* SMALL - Para info breve */
+  .tooltip--size-sm {
+    @apply px-2.5 py-1.5 text-sm;
+  }
+
+  /* MEDIUM - Default, balanceado */
+  .tooltip--size-md {
+    @apply px-3 py-2 text-sm;
+  }
+
+  /* LARGE - Más legibilidad */
+  .tooltip--size-lg {
+    /* Más padding, font más grande */
+    @apply px-4 py-2.5 text-base;
+  }
+
+  /* EXTRA LARGE - Para destacar */
+  .tooltip--size-xl {
+    @apply px-5 py-3 text-lg;
+  }
+
+  /* ========================================
+     4. PLACEMENT - Posicionamiento (12 posiciones)
+     ======================================== */
+
+  /**
+   * El posicionamiento se calcula en JavaScript (useTooltip.ts)
+   * Aquí solo definimos clases identificadoras.
+   *
+   * NOTA: Las coordenadas top/left se calculan y aplican como
+   * estilos inline desde Vue, no aquí en CSS.
+   *
+   * Las clases .tooltip--placement-* se usan para:
+   * 1. Identificar la dirección (para la flecha)
+   * 2. Aplicar transforms visuales (para transiciones slide)
+   */
+
+  /* TOP - Arriba del elemento, centrado */
+  .tooltip--placement-top {
+    /* No hay estilos específicos aquí, solo identificación */
+  }
+
+  /* TOP-START - Arriba del elemento, alineado a la izquierda */
+  .tooltip--placement-top-start {
+  }
+
+  /* TOP-END - Arriba del elemento, alineado a la derecha */
+  .tooltip--placement-top-end {
+  }
+
+  /* BOTTOM - Abajo del elemento, centrado */
+  .tooltip--placement-bottom {
+  }
+
+  /* BOTTOM-START */
+  .tooltip--placement-bottom-start {
+  }
+
+  /* BOTTOM-END */
+  .tooltip--placement-bottom-end {
+  }
+
+  /* LEFT - A la izquierda del elemento, centrado */
+  .tooltip--placement-left {
+  }
+
+  /* LEFT-START */
+  .tooltip--placement-left-start {
+  }
+
+  /* LEFT-END */
+  .tooltip--placement-left-end {
+  }
+
+  /* RIGHT - A la derecha del elemento, centrado */
+  .tooltip--placement-right {
+  }
+
+  /* RIGHT-START */
+  .tooltip--placement-right-start {
+  }
+
+  /* RIGHT-END */
+  .tooltip--placement-right-end {
+  }
+
+  /* ========================================
+     5. ARROW - Flecha apuntando al elemento
+     ======================================== */
+
+  /**
+   * La flecha se crea usando un pseudo-elemento ::before
+   * Es un cuadrado rotado 45 grados
+   *
+   * Ejemplo visual:
+   *
+   *     ◇ ← flecha
+   *   ┌───────┐
+   *   │ Texto │
+   *   └───────┘
+   */
+
+  /* Base de la flecha */
+  .tooltip--arrow::before {
+    /* Crear un pseudo-elemento */
+    content: '';
+
+    /* Tamaño: 8px × 8px (w-2 h-2) */
+    @apply absolute w-2 h-2;
+
+    /* Color igual al fondo del tooltip (inherit) */
+    background: inherit;
+
+    /* Rotar 45 grados para que parezca un diamante */
+    transform: rotate(45deg);
+  }
+
+  /* ===== POSICIÓN DE LA FLECHA POR PLACEMENT ===== */
+
+  /**
+   * TOP variants - Flecha apuntando HACIA ARRIBA
+   * La flecha debe estar ABAJO del tooltip
+   * bottom-[-4px] = 4px abajo del borde del tooltip
+   */
+  .tooltip--placement-top.tooltip--arrow::before,
+  .tooltip--placement-top-start.tooltip--arrow::before,
+  .tooltip--placement-top-end.tooltip--arrow::before {
+    /* Posicionar abajo, centrado */
+    @apply bottom-[-4px] left-1/2 -translate-x-1/2;
+  }
+
+  /**
+   * BOTTOM variants - Flecha apuntando HACIA ABAJO
+   * La flecha debe estar ARRIBA del tooltip
+   * top-[-4px] = 4px arriba del borde del tooltip
+   */
+  .tooltip--placement-bottom.tooltip--arrow::before,
+  .tooltip--placement-bottom-start.tooltip--arrow::before,
+  .tooltip--placement-bottom-end.tooltip--arrow::before {
+    /* Posicionar arriba, centrado */
+    @apply top-[-4px] left-1/2 -translate-x-1/2;
+  }
+
+  /**
+   * LEFT variants - Flecha apuntando HACIA LA IZQUIERDA
+   * La flecha debe estar A LA DERECHA del tooltip
+   * right-[-4px] = 4px a la derecha del borde
+   */
+  .tooltip--placement-left.tooltip--arrow::before,
+  .tooltip--placement-left-start.tooltip--arrow::before,
+  .tooltip--placement-left-end.tooltip--arrow::before {
+    /* Posicionar a la derecha, centrado verticalmente */
+    @apply right-[-4px] top-1/2 -translate-y-1/2;
+  }
+
+  /**
+   * RIGHT variants - Flecha apuntando HACIA LA DERECHA
+   * La flecha debe estar A LA IZQUIERDA del tooltip
+   * left-[-4px] = 4px a la izquierda del borde
+   */
+  .tooltip--placement-right.tooltip--arrow::before,
+  .tooltip--placement-right-start.tooltip--arrow::before,
+  .tooltip--placement-right-end.tooltip--arrow::before {
+    /* Posicionar a la izquierda, centrado verticalmente */
+    @apply left-[-4px] top-1/2 -translate-y-1/2;
+  }
+
+  /* ========================================
+     6. TRANSITIONS - Animaciones
+     ======================================== */
+
+  /**
+   * 3 tipos de transiciones:
+   * 1. FADE - cambio suave de opacidad
+   * 2. SCALE - aparece pequeño y crece
+   * 3. SLIDE - se desliza desde un lado
+   */
+
+  /* ===== FADE: Opacidad ===== */
+  /**
+   * Solo la opacidad cambia suavemente
+   * El tooltip aparece/desaparece sin mover
+   */
+  .tooltip--transition-fade {
+    /* Solo transicionar opacidad */
+    @apply transition-opacity duration-200;
+  }
+
+  /* ===== SCALE: Tamaño ===== */
+  /**
+   * El tooltip crece desde pequeño (90%) al tamaño normal (100%)
+   * Crea efecto de "pop in"
+   */
+  .tooltip--transition-scale {
+    /* Transicionan todas las propiedades */
+    @apply transition-all duration-200;
+
+    /* Punto de origen para la escala */
+    transform-origin: center;
+  }
+
+  /* Cuando NO está visible, mostrar pequeño (90%) */
+  .tooltip--transition-scale:not(.tooltip--visible) {
+    @apply scale-90;
+  }
+
+  /* ===== SLIDE: Movimiento ===== */
+  /**
+   * El tooltip se desliza desde una dirección
+   * Depende del placement
+   */
+
+  /* SLIDE + TOP: Se desliza HACIA ARRIBA */
+  .tooltip--transition-slide.tooltip--placement-top:not(.tooltip--visible) {
+    /* 4px hacia abajo (antes de animarse hacia arriba) */
+    transform: translateY(4px);
+  }
+
+  /* SLIDE + BOTTOM: Se desliza HACIA ABAJO */
+  .tooltip--transition-slide.tooltip--placement-bottom:not(.tooltip--visible) {
+    /* 4px hacia arriba (antes de animarse hacia abajo) */
+    transform: translateY(-4px);
+  }
+
+  /* SLIDE + LEFT: Se desliza HACIA LA IZQUIERDA */
+  .tooltip--transition-slide.tooltip--placement-left:not(.tooltip--visible) {
+    /* 4px a la derecha (antes de animarse a la izquierda) */
+    transform: translateX(4px);
+  }
+
+  /* SLIDE + RIGHT: Se desliza HACIA LA DERECHA */
+  .tooltip--transition-slide.tooltip--placement-right:not(.tooltip--visible) {
+    /* 4px a la izquierda (antes de animarse a la derecha) */
+    transform: translateX(-4px);
+  }
+}

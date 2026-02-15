@@ -12,13 +12,20 @@
               </h2>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <!-- Sexo -->
-                <BaseSelect
-                  label="Sexo"
-                  :options="genderOptions"
-                  required
-                  @clean="formData.gender = null"
-                  v-model="formData.gender"
-                />
+                <div class="space-y-1">
+                  <label class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Sexo<span class="text-red-500 ml-0.5">*</span>
+                  </label>
+                  <select
+                    v-model="formData.gender"
+                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 text-sm transition-colors"
+                  >
+                    <option value="" disabled>Seleccionar...</option>
+                    <option v-for="opt in genderOptions" :key="opt.value" :value="opt.value">
+                      {{ opt.label }}
+                    </option>
+                  </select>
+                </div>
                 <!-- Edad -->
 
                 <AgeInput
@@ -75,27 +82,49 @@
                     <!-- Antropometría -->
                     <tr>
                       <td>IMC</td>
-                      <td>{{ antropomentric.imc || '-' }} <span v-if="antropomentric.imc" class="text-xs text-gray-500">kg/m²</span></td>
                       <td>
-                        <span class="badge badge-sm" :class="antropomentric.imcBadgeClass || 'badge-ghost'">
+                        {{ antropomentric.imc || '-' }}
+                        <span v-if="antropomentric.imc" class="text-xs text-gray-500">kg/m²</span>
+                      </td>
+                      <td>
+                        <span
+                          class="badge badge-sm"
+                          :class="antropomentric.imcBadgeClass || 'badge-ghost'"
+                        >
                           {{ antropomentric.imcStatus || 'Pendiente' }}
                         </span>
                       </td>
                     </tr>
                     <tr>
                       <td>Cintura</td>
-                      <td>{{ antropomentric.waistCircumference || '-' }} <span v-if="antropomentric.waistCircumference" class="text-xs text-gray-500">cm</span></td>
                       <td>
-                        <span class="badge badge-sm" :class="antropomentric.waistBadgeClass || 'badge-ghost'">
+                        {{ antropomentric.waistCircumference || '-' }}
+                        <span v-if="antropomentric.waistCircumference" class="text-xs text-gray-500"
+                          >cm</span
+                        >
+                      </td>
+                      <td>
+                        <span
+                          class="badge badge-sm"
+                          :class="antropomentric.waistBadgeClass || 'badge-ghost'"
+                        >
                           {{ antropomentric.waistStatus || 'Pendiente' }}
                         </span>
                       </td>
                     </tr>
                     <tr>
                       <td>Cadera</td>
-                      <td>{{ antropomentric.hipCircumference || '-' }} <span v-if="antropomentric.hipCircumference" class="text-xs text-gray-500">cm</span></td>
                       <td>
-                        <span class="badge badge-sm" :class="antropomentric.hipBadgeClass || 'badge-ghost'">
+                        {{ antropomentric.hipCircumference || '-' }}
+                        <span v-if="antropomentric.hipCircumference" class="text-xs text-gray-500"
+                          >cm</span
+                        >
+                      </td>
+                      <td>
+                        <span
+                          class="badge badge-sm"
+                          :class="antropomentric.hipBadgeClass || 'badge-ghost'"
+                        >
                           {{ antropomentric.hipStatus || 'Pendiente' }}
                         </span>
                       </td>
@@ -103,36 +132,64 @@
                     <!-- Signos Vitales -->
                     <tr>
                       <td>Frec. Cardíaca</td>
-                      <td>{{ signalVital.heartRate || '-' }} <span v-if="signalVital.heartRate" class="text-xs text-gray-500">lpm</span></td>
                       <td>
-                        <span class="badge badge-sm" :class="signalVital.heartRateBadgeClass || 'badge-ghost'">
+                        {{ signalVital.heartRate || '-' }}
+                        <span v-if="signalVital.heartRate" class="text-xs text-gray-500">lpm</span>
+                      </td>
+                      <td>
+                        <span
+                          class="badge badge-sm"
+                          :class="signalVital.heartRateBadgeClass || 'badge-ghost'"
+                        >
                           {{ signalVital.heartRateStatus || 'Pendiente' }}
                         </span>
                       </td>
                     </tr>
                     <tr>
                       <td>Frec. Respiratoria</td>
-                      <td>{{ signalVital.respiratoryRate || '-' }} <span v-if="signalVital.respiratoryRate" class="text-xs text-gray-500">x Min</span></td>
                       <td>
-                        <span class="badge badge-sm" :class="signalVital.respiratoryRateBadgeClass || 'badge-ghost'">
+                        {{ signalVital.respiratoryRate || '-' }}
+                        <span v-if="signalVital.respiratoryRate" class="text-xs text-gray-500"
+                          >x Min</span
+                        >
+                      </td>
+                      <td>
+                        <span
+                          class="badge badge-sm"
+                          :class="signalVital.respiratoryRateBadgeClass || 'badge-ghost'"
+                        >
                           {{ signalVital.respiratoryRateStatus || 'Pendiente' }}
                         </span>
                       </td>
                     </tr>
                     <tr>
                       <td>Temperatura</td>
-                      <td>{{ signalVital.temperature || '-' }} <span v-if="signalVital.temperature" class="text-xs text-gray-500">°C</span></td>
                       <td>
-                        <span class="badge badge-sm" :class="signalVital.temperatureBadgeClass || 'badge-ghost'">
+                        {{ signalVital.temperature || '-' }}
+                        <span v-if="signalVital.temperature" class="text-xs text-gray-500">°C</span>
+                      </td>
+                      <td>
+                        <span
+                          class="badge badge-sm"
+                          :class="signalVital.temperatureBadgeClass || 'badge-ghost'"
+                        >
                           {{ signalVital.temperatureStatus || 'Pendiente' }}
                         </span>
                       </td>
                     </tr>
                     <tr>
                       <td>Sat. Oxígeno</td>
-                      <td>{{ signalVital.oxygenSaturation || '-' }} <span v-if="signalVital.oxygenSaturation" class="text-xs text-gray-500">%</span></td>
                       <td>
-                        <span class="badge badge-sm" :class="signalVital.oxygenSaturationBadgeClass || 'badge-ghost'">
+                        {{ signalVital.oxygenSaturation || '-' }}
+                        <span v-if="signalVital.oxygenSaturation" class="text-xs text-gray-500"
+                          >%</span
+                        >
+                      </td>
+                      <td>
+                        <span
+                          class="badge badge-sm"
+                          :class="signalVital.oxygenSaturationBadgeClass || 'badge-ghost'"
+                        >
                           {{ signalVital.oxygenSaturationStatus || 'Pendiente' }}
                         </span>
                       </td>
@@ -306,7 +363,7 @@
                   <span
                     class="text-xs px-2 py-1 bg-base-200 rounded border border-gray-300 whitespace-nowrap"
                   >
-                  x Min
+                    x Min
                   </span>
                   <span
                     class="badge badge-sm whitespace-nowrap"
@@ -381,8 +438,8 @@
                       :max-value="100"
                       :placeholder="!signalVital.oxygenSaturation ? 'Ej: 75' : ''"
                       @input="validateOxygenSaturationInteger"
-                       field-name="Saturación de oxígeno"
-                    unit="%"
+                      field-name="Saturación de oxígeno"
+                      unit="%"
                     />
                     <span
                       class="text-xs px-2 py-1 bg-base-200 rounded border border-gray-300 whitespace-nowrap"
@@ -444,13 +501,13 @@
 <script setup lang="ts">
 import AgeInput from '@/components/AgeInput.vue';
 import HeightInput from '@/components/HeightInput.vue';
-import BaseSelect from '@/components/select/BaseSelect.vue';
+import CircumferenceInput from '@/components/CircumferenceInput.vue';
 import WeightInput from '@/components/WeightInput.vue';
+import { VSelect } from '@/components/ui';
 import type { AntropometricData, SignalVital, Patient, ResultPatient } from '@/types';
 import type { ValueLabel } from '@/types/Common';
 import { ref, computed, onMounted, watch } from 'vue';
 import { useHealthIndicators } from '@/composables/useHealthIndicators';
-import CircumferenceInput from '@/components/CircumferenceInput.vue';
 
 // Composable de indicadores de salud
 const {

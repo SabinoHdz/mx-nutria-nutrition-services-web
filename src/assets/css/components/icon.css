@@ -1,0 +1,236 @@
+@layer components {
+  /* ========================================
+   1. BASE ICON STYLES
+   ======================================== */
+
+  /**
+   * Estilos base para todas las variantes de Material Symbols
+   * Configuración común para outlined, rounded y sharp
+   */
+  .icon {
+    @apply inline-flex items-center justify-center;
+    @apply select-none leading-none align-middle;
+    @apply transition-all duration-200 ease-in-out;
+
+    /* Ancho y alto controlados por font-size */
+    width: 1em;
+    height: 1em;
+
+    /* Renderizado suave para iconos nítidos */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+
+    /* Configuración por defecto de Material Symbols */
+    font-variation-settings:
+      'FILL' 0,
+      /* Sin relleno por defecto */ 'wght' 400,
+      /* Peso regular */ 'GRAD' 0,
+      /* Sin ajuste de grado */ 'opsz' 24;
+    /* Tamaño óptico base */
+  }
+
+  /* ========================================
+   2. FONT FAMILIES
+   ======================================== */
+
+  /**
+   * Material Symbols Outlined (default)
+   * Iconos con bordes finos
+   */
+  .icon--outlined {
+    font-family: 'Material Symbols Outlined';
+  }
+
+  /**
+   * Material Symbols Rounded
+   * Iconos con esquinas redondeadas - más suave y amigable
+   */
+  .icon--rounded {
+    font-family: 'Material Symbols Rounded';
+  }
+
+  /**
+   * Material Symbols Sharp
+   * Iconos con esquinas angulares - más geométrico y moderno
+   */
+  .icon--sharp {
+    font-family: 'Material Symbols Sharp';
+  }
+
+  /* ========================================
+   3. SIZES
+   ======================================== */
+
+  .icon--xs {
+    font-size: 1rem; /* 16px */
+  }
+
+  .icon--sm {
+    font-size: 1.25rem; /* 20px */
+  }
+
+  .icon--md {
+    font-size: 1.5rem; /* 24px - default Material */
+  }
+
+  .icon--lg {
+    font-size: 2rem; /* 32px */
+  }
+
+  .icon--xl {
+    font-size: 2.5rem; /* 40px */
+  }
+
+  .icon--2xl {
+    font-size: 3rem; /* 48px */
+  }
+
+  .icon--3xl {
+    font-size: 4rem; /* 64px */
+  }
+
+  /* ========================================
+   4. COLORS
+   ======================================== */
+
+  .icon--primary {
+    @apply text-primary;
+  }
+
+  .icon--secondary {
+    @apply text-secondary;
+  }
+
+  .icon--accent {
+    @apply text-accent;
+  }
+
+  .icon--success {
+    @apply text-success;
+  }
+
+  .icon--warning {
+    @apply text-warning;
+  }
+
+  .icon--error {
+    @apply text-error;
+  }
+
+  .icon--info {
+    @apply text-info;
+  }
+
+  .icon--current {
+    @apply text-current;
+  }
+
+  /* ========================================
+   5. STATES
+   ======================================== */
+
+  /**
+   * Icono interactivo (clickeable)
+   * Agrega cursor pointer y efectos hover/active
+   */
+  .icon--interactive {
+    @apply cursor-pointer;
+  }
+
+  .icon--interactive:hover {
+    @apply opacity-80;
+  }
+
+  .icon--interactive:active {
+    @apply scale-95;
+  }
+
+  /**
+   * Icono deshabilitado
+   * Reduce opacidad y quita interactividad
+   */
+  .icon--disabled {
+    @apply opacity-40 cursor-not-allowed pointer-events-none;
+  }
+
+  /* ========================================
+   6. FILLED VARIANT
+   ======================================== */
+
+  /**
+   * Estilo de relleno (FILL = 1)
+   * Los iconos se muestran sólidos
+   */
+  .icon--filled {
+    font-variation-settings:
+      'FILL' 1,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 24;
+  }
+
+  /* ========================================
+   7. WEIGHT VARIANTS
+   ======================================== */
+
+  /**
+   * Variantes de peso de fuente
+   * Controlan el grosor del trazo del icono
+   */
+  .icon--weight-100 {
+    font-variation-settings:
+      'FILL' 0,
+      'wght' 100,
+      'GRAD' 0,
+      'opsz' 24;
+  }
+
+  .icon--weight-200 {
+    font-variation-settings:
+      'FILL' 0,
+      'wght' 200,
+      'GRAD' 0,
+      'opsz' 24;
+  }
+
+  .icon--weight-300 {
+    font-variation-settings:
+      'FILL' 0,
+      'wght' 300,
+      'GRAD' 0,
+      'opsz' 24;
+  }
+
+  .icon--weight-400 {
+    font-variation-settings:
+      'FILL' 0,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 24;
+  }
+
+  .icon--weight-500 {
+    font-variation-settings:
+      'FILL' 0,
+      'wght' 500,
+      'GRAD' 0,
+      'opsz' 24;
+  }
+
+  .icon--weight-600 {
+    font-variation-settings:
+      'FILL' 0,
+      'wght' 600,
+      'GRAD' 0,
+      'opsz' 24;
+  }
+
+  .icon--weight-700 {
+    font-variation-settings:
+      'FILL' 0,
+      'wght' 700,
+      'GRAD' 0,
+      'opsz' 24;
+  }
+}

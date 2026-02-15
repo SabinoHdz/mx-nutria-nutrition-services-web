@@ -1,0 +1,404 @@
+/**
+ * RADIO COMPONENT - CSS Styles
+ *
+ * Estilos completos para el componente Radio incluyendo:
+ * - Estilos base
+ * - 4 variantes (solid, outline, soft, borderless)
+ * - 7 colores semánticos
+ * - 5 tamaños
+ * - Estados (checked, disabled, focus, error)
+ */
+
+@layer components {
+  /* ========================================
+     1. CLASE BASE: ESTILOS GENERALES
+     ======================================== */
+
+  /**
+   * .radio es el contenedor del componente
+   * Aquí van los estilos que se aplican a todos los radios
+   */
+  .radio {
+    /* ===== LAYOUT ===== */
+    @apply inline-flex items-center gap-3;
+
+    /* ===== TRANSICIONES ===== */
+    @apply transition-colors duration-200;
+  }
+
+  /**
+   * .radio-input-wrapper es el contenedor del input y su visualización
+   */
+  .radio-input-wrapper {
+    @apply relative inline-flex items-center justify-center shrink-0;
+  }
+
+  /**
+   * El input nativo (lo ocultamos pero lo mantenemos funcional)
+   */
+  .radio input[type='radio'] {
+    @apply absolute opacity-0 cursor-pointer w-full h-full;
+    margin: 0;
+  }
+
+  /**
+   * .radio-checkmark es el círculo visible que reemplaza el input nativo
+   * Se dibuja con CSS (border)
+   */
+  .radio-checkmark {
+    @apply absolute inset-0 rounded-full border-2 transition-all duration-200;
+  }
+
+  /**
+   * .radio-indicator es el círculo interior (inner circle para checked)
+   * Se muestra solo cuando está checked
+   */
+  .radio-indicator {
+    @apply absolute inset-0 rounded-full scale-0 transition-transform duration-200;
+  }
+
+  /**
+   * Cuando el input está checked, mostrar el indicator
+   */
+  .radio input[type='radio']:checked ~ .radio-indicator {
+    @apply scale-50;
+  }
+
+  /**
+   * .radio-label es el texto junto al radio
+   */
+  .radio-label {
+    @apply font-medium cursor-pointer select-none text-text-primary;
+  }
+
+  /**
+   * Cuando el input está disabled, cambiar cursor
+   */
+  .radio input[type='radio']:disabled ~ .radio-label {
+    @apply cursor-not-allowed;
+  }
+
+  /* ========================================
+     2. VARIANT: SOLID (Fondo sólido)
+     ======================================== */
+
+  .radio--variant-solid {
+    /* Variante sólida */
+  }
+
+  .radio--variant-solid .radio-checkmark {
+    /* Checkmark con border sutil */
+    @apply border-gray-300;
+  }
+
+  .radio--variant-solid .radio-indicator {
+    /* El indicador será del color elegido - se define en la sección de COLORS */
+    @apply bg-transparent;
+  }
+
+  .radio--variant-solid input[type='radio']:focus-visible ~ .radio-checkmark {
+    /* Enfoque visible */
+    @apply ring-2 ring-offset-2;
+  }
+
+  /* ========================================
+     3. VARIANT: OUTLINE (Solo borde)
+     ======================================== */
+
+  .radio--variant-outline .radio-checkmark {
+    @apply border-2 bg-transparent;
+  }
+
+  .radio--variant-outline input[type='radio']:focus-visible ~ .radio-checkmark {
+    @apply ring-2 ring-offset-2;
+  }
+
+  /* ========================================
+     4. VARIANT: SOFT (Fondo suave/transparente)
+     ======================================== */
+
+  .radio--variant-soft .radio-checkmark {
+    @apply border-transparent;
+    background-color: rgba(107, 114, 128, 0.2); /* Gris con 20% opacidad */
+  }
+
+  /* ========================================
+     5. VARIANT: BORDERLESS (Sin borde)
+     ======================================== */
+
+  .radio--variant-borderless .radio-checkmark {
+    @apply border-transparent;
+  }
+
+  .radio--variant-borderless .radio-indicator {
+    /* En borderless, usar un pequeño punto en lugar de círculo grande */
+    @apply scale-0;
+  }
+
+  .radio--variant-borderless input[type='radio']:checked ~ .radio-indicator {
+    @apply scale-75;
+  }
+
+  /* ========================================
+     6. COLORS - 7 colores semánticos
+     ======================================== */
+
+  /* PRIMARY */
+  .radio--color-primary {
+    /* Los colores específicos se aplican mediante descendiente */
+  }
+
+  .radio--color-primary input[type='radio']:checked ~ .radio-checkmark {
+    @apply border-primary;
+  }
+
+  .radio--color-primary input[type='radio']:checked ~ .radio-indicator {
+    @apply bg-primary;
+  }
+
+  .radio--color-primary input[type='radio']:focus-visible ~ .radio-checkmark {
+    @apply ring-2 ring-offset-2;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+  }
+
+  /* SECONDARY */
+  .radio--color-secondary input[type='radio']:checked ~ .radio-checkmark {
+    @apply border-secondary;
+  }
+
+  .radio--color-secondary input[type='radio']:checked ~ .radio-indicator {
+    @apply bg-secondary;
+  }
+
+  .radio--color-secondary input[type='radio']:focus-visible ~ .radio-checkmark {
+    @apply ring-2 ring-offset-2;
+    box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.5);
+  }
+
+  /* SUCCESS */
+  .radio--color-success input[type='radio']:checked ~ .radio-checkmark {
+    @apply border-success;
+  }
+
+  .radio--color-success input[type='radio']:checked ~ .radio-indicator {
+    @apply bg-success;
+  }
+
+  .radio--color-success input[type='radio']:focus-visible ~ .radio-checkmark {
+    @apply ring-2 ring-offset-2;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.5);
+  }
+
+  /* WARNING */
+  .radio--color-warning input[type='radio']:checked ~ .radio-checkmark {
+    @apply border-warning;
+  }
+
+  .radio--color-warning input[type='radio']:checked ~ .radio-indicator {
+    @apply bg-warning;
+  }
+
+  .radio--color-warning input[type='radio']:focus-visible ~ .radio-checkmark {
+    @apply ring-2 ring-offset-2;
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.5);
+  }
+
+  /* ERROR */
+  .radio--color-error input[type='radio']:checked ~ .radio-checkmark {
+    @apply border-error;
+  }
+
+  .radio--color-error input[type='radio']:checked ~ .radio-indicator {
+    @apply bg-error;
+  }
+
+  .radio--color-error input[type='radio']:focus-visible ~ .radio-checkmark {
+    @apply ring-2 ring-offset-2;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.5);
+  }
+
+  /* INFO */
+  .radio--color-info input[type='radio']:checked ~ .radio-checkmark {
+    @apply border-info;
+  }
+
+  .radio--color-info input[type='radio']:checked ~ .radio-indicator {
+    @apply bg-info;
+  }
+
+  .radio--color-info input[type='radio']:focus-visible ~ .radio-checkmark {
+    @apply ring-2 ring-offset-2;
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.5);
+  }
+
+  /* NEUTRAL */
+  .radio--color-neutral input[type='radio']:checked ~ .radio-checkmark {
+    @apply border-gray-600;
+  }
+
+  .radio--color-neutral input[type='radio']:checked ~ .radio-indicator {
+    @apply bg-gray-600;
+  }
+
+  .radio--color-neutral input[type='radio']:focus-visible ~ .radio-checkmark {
+    @apply ring-2 ring-offset-2;
+    box-shadow: 0 0 0 3px rgba(55, 65, 81, 0.5);
+  }
+
+  .dark .radio--color-neutral.radio--variant-solid .radio-checkmark {
+    @apply border-gray-400;
+  }
+
+  .dark .radio--color-neutral input[type='radio']:checked ~ .radio-checkmark {
+    @apply border-gray-300;
+  }
+
+  .dark .radio--color-neutral input[type='radio']:checked ~ .radio-indicator {
+    @apply bg-gray-300;
+  }
+
+  /* ========================================
+     7. SIZES - 5 tamaños
+     ======================================== */
+
+  /* EXTRA SMALL */
+  .radio--size-xs {
+    /* Todo más pequeño */
+  }
+
+  .radio--size-xs .radio-input-wrapper {
+    @apply w-4 h-4;
+  }
+
+  .radio--size-xs .radio-checkmark {
+    @apply border;
+  }
+
+  .radio--size-xs .radio-label {
+    @apply text-xs;
+  }
+
+  /* SMALL */
+  .radio--size-sm {
+    /* Small variant */
+  }
+
+  .radio--size-sm .radio-input-wrapper {
+    @apply w-5 h-5;
+  }
+
+  .radio--size-sm .radio-checkmark {
+    border: 1.5px solid currentColor;
+  }
+
+  .radio--size-sm .radio-label {
+    @apply text-sm;
+  }
+
+  /* MEDIUM (default) */
+  .radio--size-md {
+    /* Medium variant */
+  }
+
+  .radio--size-md .radio-input-wrapper {
+    @apply w-6 h-6;
+  }
+
+  .radio--size-md .radio-checkmark {
+    @apply border-2;
+  }
+
+  .radio--size-md .radio-label {
+    @apply text-sm;
+  }
+
+  /* LARGE */
+  .radio--size-lg {
+    /* Large variant */
+  }
+
+  .radio--size-lg .radio-input-wrapper {
+    @apply w-7 h-7;
+  }
+
+  .radio--size-lg .radio-checkmark {
+    @apply border-2;
+  }
+
+  .radio--size-lg .radio-label {
+    @apply text-base;
+  }
+
+  /* EXTRA LARGE */
+  .radio--size-xl {
+    /* Extra large variant */
+  }
+
+  .radio--size-xl .radio-input-wrapper {
+    @apply w-8 h-8;
+  }
+
+  .radio--size-xl .radio-checkmark {
+    @apply border-2;
+  }
+
+  .radio--size-xl .radio-label {
+    @apply text-base;
+  }
+
+  /* ========================================
+     8. STATES - Estados especiales
+     ======================================== */
+
+  /* DISABLED */
+  .radio--disabled {
+    @apply opacity-50;
+  }
+
+  .radio--disabled .radio-label {
+    @apply cursor-not-allowed;
+  }
+
+  /* ERROR */
+  .radio--error .radio-checkmark {
+    @apply border-error;
+  }
+
+  .radio--error input[type='radio']:checked ~ .radio-indicator {
+    @apply bg-error;
+  }
+
+  /* READONLY */
+  .radio--readonly .radio-label {
+    @apply cursor-default;
+  }
+
+  .radio--readonly input[type='radio'] {
+    @apply cursor-default;
+  }
+
+  /* ========================================
+     9. FOCUS VISIBLE (Accesibilidad)
+     ======================================== */
+
+  .radio input[type='radio']:focus-visible ~ .radio-checkmark {
+    @apply ring-2 ring-offset-1;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+  }
+
+  /* ========================================
+     10. HINT Y ERROR MESSAGE
+     ======================================== */
+
+  .radio-hint {
+    @apply text-xs text-text-secondary mt-1;
+  }
+
+  .radio-error-message {
+    @apply text-xs text-error mt-1 font-medium;
+  }
+
+  .radio--error .radio-error-message {
+    @apply block;
+  }
+}

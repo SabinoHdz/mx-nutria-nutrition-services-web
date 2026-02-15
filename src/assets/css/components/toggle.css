@@ -1,0 +1,261 @@
+/**
+ * TOGGLE COMPONENT - Quasar Style
+ */
+
+@layer components {
+  /* ============================================
+     Toggle Wrapper & Base Styles
+     ============================================ */
+
+  .v-toggle-wrapper {
+    @apply flex flex-col gap-1.5;
+  }
+
+  .v-toggle {
+    @apply inline-flex items-center gap-3 cursor-pointer;
+  }
+
+  .v-toggle-label {
+    @apply text-sm font-medium text-gray-700 cursor-pointer select-none flex items-center;
+  }
+
+  .v-toggle-label span {
+    @apply ml-1;
+  }
+
+  /* ============================================
+     Toggle Control (Track) - Quasar Style
+     ============================================ */
+
+  .v-toggle__control {
+    @apply relative inline-flex items-center rounded-full transition-all duration-300 cursor-pointer bg-gray-300;
+  }
+
+  /* Track sizes */
+  .v-toggle__control[data-size='sm'] {
+    @apply h-5 w-9;
+  }
+
+  .v-toggle__control[data-size='md'] {
+    @apply h-6 w-11;
+  }
+
+  .v-toggle__control[data-size='lg'] {
+    @apply h-7 w-14;
+  }
+
+  /* Track - Estado ON con colores (Quasar style - colores vibrantes) */
+  .v-toggle[data-color='primary']:has(input:checked) .v-toggle__control {
+    @apply bg-blue-500;
+  }
+
+  .v-toggle[data-color='secondary']:has(input:checked) .v-toggle__control {
+    @apply bg-purple-500;
+  }
+
+  .v-toggle[data-color='success']:has(input:checked) .v-toggle__control {
+    @apply bg-green-500;
+  }
+
+  .v-toggle[data-color='warning']:has(input:checked) .v-toggle__control {
+    @apply bg-yellow-500;
+  }
+
+  .v-toggle[data-color='error']:has(input:checked) .v-toggle__control {
+    @apply bg-red-500;
+  }
+
+  .v-toggle[data-color='info']:has(input:checked) .v-toggle__control {
+    @apply bg-cyan-500;
+  }
+
+  .v-toggle[data-color='neutral']:has(input:checked) .v-toggle__control {
+    @apply bg-gray-600;
+  }
+
+  /* Track disabled state */
+  .v-toggle:has(input:disabled) .v-toggle__control {
+    @apply opacity-50 cursor-not-allowed;
+  }
+
+  /* Track error state */
+  .v-toggle__control[data-error='true'] {
+    @apply ring-2 ring-red-500;
+  }
+
+  /* ============================================
+     Thumb (Switch Circle) - Quasar Style
+     ============================================ */
+
+  .v-toggle__thumb {
+    @apply absolute rounded-full bg-white shadow-lg transition-all duration-300 flex items-center justify-center;
+    left: 2px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  /* Thumb sizes */
+  .v-toggle__thumb[data-size='sm'] {
+    @apply h-4 w-4;
+  }
+
+  .v-toggle__thumb[data-size='md'] {
+    @apply h-5 w-5;
+  }
+
+  .v-toggle__thumb[data-size='lg'] {
+    @apply h-6 w-6;
+  }
+
+  /* Thumb animation - checked state */
+  .v-toggle:has(input:checked) .v-toggle__thumb[data-size='sm'] {
+    transform: translateX(16px) translateY(-50%);
+  }
+
+  .v-toggle:has(input:checked) .v-toggle__thumb[data-size='md'] {
+    transform: translateX(20px) translateY(-50%);
+  }
+
+  .v-toggle:has(input:checked) .v-toggle__thumb[data-size='lg'] {
+    transform: translateX(28px) translateY(-50%);
+  }
+
+  /* Thumb shadow en hover */
+  .v-toggle:hover:not(:has(input:disabled)) .v-toggle__thumb {
+    @apply shadow-xl;
+  }
+
+  /* ============================================
+     Icon dentro del Thumb
+     ============================================ */
+
+  .v-toggle__icon {
+    @apply flex-shrink-0 flex items-center justify-center transition-colors duration-200;
+  }
+
+  .v-toggle__icon[data-size='sm'] {
+    @apply text-xs;
+  }
+
+  .v-toggle__icon[data-size='md'] {
+    @apply text-sm;
+  }
+
+  .v-toggle__icon[data-size='lg'] {
+    @apply text-base;
+  }
+
+  /* Color del icono según estado y color */
+  .v-toggle[data-color='primary']:has(input:checked) .v-toggle__icon {
+    @apply text-blue-500;
+  }
+
+  .v-toggle[data-color='secondary']:has(input:checked) .v-toggle__icon {
+    @apply text-purple-500;
+  }
+
+  .v-toggle[data-color='success']:has(input:checked) .v-toggle__icon {
+    @apply text-green-500;
+  }
+
+  .v-toggle[data-color='warning']:has(input:checked) .v-toggle__icon {
+    @apply text-yellow-500;
+  }
+
+  .v-toggle[data-color='error']:has(input:checked) .v-toggle__icon {
+    @apply text-red-500;
+  }
+
+  .v-toggle[data-color='info']:has(input:checked) .v-toggle__icon {
+    @apply text-cyan-500;
+  }
+
+  .v-toggle[data-color='neutral']:has(input:checked) .v-toggle__icon {
+    @apply text-gray-600;
+  }
+
+  /* Icono en estado OFF - gris más claro */
+  .v-toggle:not(:has(input:checked)) .v-toggle__icon {
+    @apply text-gray-400;
+  }
+
+  /* ============================================
+     Focus State (Accesibilidad)
+     ============================================ */
+
+  .v-toggle:has(input:focus-visible) .v-toggle__control {
+    @apply ring-2 ring-offset-2;
+  }
+
+  .v-toggle[data-color='primary']:has(input:focus-visible) .v-toggle__control {
+    @apply ring-blue-300;
+  }
+
+  .v-toggle[data-color='secondary']:has(input:focus-visible) .v-toggle__control {
+    @apply ring-purple-300;
+  }
+
+  .v-toggle[data-color='success']:has(input:focus-visible) .v-toggle__control {
+    @apply ring-green-300;
+  }
+
+  .v-toggle[data-color='warning']:has(input:focus-visible) .v-toggle__control {
+    @apply ring-yellow-300;
+  }
+
+  .v-toggle[data-color='error']:has(input:focus-visible) .v-toggle__control {
+    @apply ring-red-300;
+  }
+
+  .v-toggle[data-color='info']:has(input:focus-visible) .v-toggle__control {
+    @apply ring-cyan-300;
+  }
+
+  .v-toggle[data-color='neutral']:has(input:focus-visible) .v-toggle__control {
+    @apply ring-gray-300;
+  }
+
+  /* ============================================
+     Toggle Group
+     ============================================ */
+
+  .v-toggle-group-wrapper {
+    @apply flex flex-col gap-2;
+  }
+
+  .v-toggle-group-label {
+    @apply text-sm font-medium text-gray-700;
+  }
+
+  .v-toggle-group-label span {
+    @apply ml-1;
+  }
+
+  .v-toggle-group {
+    @apply flex gap-3;
+  }
+
+  .v-toggle-group.flex-col {
+    @apply flex-col;
+  }
+
+  /* ============================================
+     Messages
+     ============================================ */
+
+  .v-toggle-error {
+    @apply text-xs text-red-500 font-medium;
+  }
+
+  .v-toggle-hint {
+    @apply text-xs text-gray-500;
+  }
+
+  .v-toggle-group-error {
+    @apply text-xs text-red-500 font-medium;
+  }
+
+  .v-toggle-group-hint {
+    @apply text-xs text-gray-500;
+  }
+}

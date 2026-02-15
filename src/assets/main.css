@@ -1,3 +1,116 @@
 @import url(./icons.css);
 @import 'tailwindcss';
 @plugin "daisyui";
+
+/* Component CSS Imports */
+@import './css/components/icon.css';
+@import './css/components/input.css';
+@import './css/components/select.css';
+@import './css/components/card.css';
+@import './css/components/badge.css';
+@import './css/components/alert.css';
+@import './css/components/button.css';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  /* --- Semantic Colors (Quasar/DaisyUI inspired) --- */
+  --color-primary: #1976d2;
+  --color-secondary: #26a69a; /* Teal - Quasar secondary */
+  --color-accent: #9c27b0;
+  --color-info: #31ccec; /* Cyan claro - Quasar Info */
+  --color-success: #21ba45; /* Verde - Quasar positive */
+  --color-warning: #f2c037; /* Amarillo */
+  --color-error: #c10015; /* Rojo */
+
+  /* --- Surface & Background Colors --- */
+  --color-background: #fafafa;
+  --color-surface: #fff;
+  --color-surface-variant: #f5f5f5; /* Subtle variant of surface */
+  --color-border: #e0e0e0;
+  --color-divider: #e0e0e0;
+
+  /* --- Text Colors --- */
+  --color-text-primary: #212121;
+  --color-text-secondary: #757575;
+  --color-text-disabled: #bdbdbd;
+  --color-text-hint: #9e9e9e;
+
+  /* --- Neutral Gray Scale --- */
+  --color-gray-50: #fafafa;
+  --color-gray-100: #f5f5f5;
+  --color-gray-200: #eeeeee;
+  --color-gray-300: #e0e0e0;
+  --color-gray-400: #bdbdbd;
+  --color-gray-500: #9e9e9e;
+  --color-gray-600: #757575;
+  --color-gray-700: #616161;
+  --color-gray-800: #424242;
+  --color-gray-900: #212121;
+
+  /* --- Base Content (DaisyUI style) --- */
+  --color-base-100: #ffffff; /* Matches surface */
+  --color-base-200: #fafafa; /* Matches background */
+  --color-base-300: #f5f5f5;
+  --color-base-content: #1f2937;
+}
+
+.dark {
+  /* --- Semantic Colors Dark Mode --- */
+  --color-primary: #42a5f5;
+  --color-secondary: #4db6ac;
+  --color-accent: #ba68c8;
+  --color-info: #4dd0e1;
+  --color-success: #66bb6a;
+  --color-warning: #ffca28;
+  --color-error: #ef5350;
+
+  /* --- Surface & Background Colors Dark --- */
+  --color-background: #0f172a;
+  --color-surface: #1e293b;
+  --color-surface-variant: #334155; /* Subtle variant of surface */
+  --color-border: #475569;
+  --color-divider: #334155;
+
+  /* --- Text Colors Dark --- */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #b0b0b0;
+  --color-text-disabled: #6b6b6b;
+  --color-text-hint: #8a8a8a;
+
+  /* --- Base Content Dark (DaisyUI style) --- */
+  --color-base-100: #1e293b; /* Matches surface */
+  --color-base-200: #0f172a; /* Matches background */
+  --color-base-300: #020617; /* Deeper dark */
+  --color-base-content: #f9fafb;
+}
+
+@theme {
+  /* Semantic colors */
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
+  --color-accent: var(--color-accent);
+  --color-info: var(--color-info);
+  --color-success: var(--color-success);
+  --color-warning: var(--color-warning);
+  --color-error: var(--color-error);
+
+  /* Surface colors */
+  --color-background: var(--color-background);
+  --color-surface: var(--color-surface);
+  --color-surface-variant: var(--color-surface-variant);
+  --color-border: var(--color-border);
+  --color-divider: var(--color-divider);
+
+  /* Text colors */
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-disabled: var(--color-text-disabled);
+  --color-text-hint: var(--color-text-hint);
+
+  /* Base colors (DaisyUI style) */
+  --color-base-100: var(--color-base-100);
+  --color-base-200: var(--color-base-200);
+  --color-base-300: var(--color-base-300);
+  --color-base-content: var(--color-base-content);
+}
