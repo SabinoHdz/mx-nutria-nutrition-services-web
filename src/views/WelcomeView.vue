@@ -125,7 +125,7 @@
 
         <!-- CTA Section -->
         <div class="text-center mt-16">
-          <p class="text-lg text-gray-600 dark:text-gray-400 mb-6">
+          <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">
             Comienza a evaluar indicadores de salud de forma profesional
           </p>
           <VButton

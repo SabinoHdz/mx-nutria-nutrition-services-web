@@ -6,7 +6,7 @@
         <h1 class="text-5xl font-bold text-primary mb-4">
           Soporte y Guía de Uso
         </h1>
-        <p class="text-xl text-gray-600">
+        <p class="text-xl text-gray-600 dark:text-gray-300">
           Aprende a usar la herramienta y entender los indicadores
         </p>
       </div>
@@ -49,7 +49,7 @@
                 <div class="badge badge-primary badge-lg font-bold">1</div>
                 <div class="flex-1">
                   <h3 class="font-bold text-lg mb-2">Seleccionar Sexo del Paciente</h3>
-                  <p class="text-gray-700">
+                  <p class="text-gray-700 dark:text-gray-300">
                     En la sección "Datos del Paciente", seleccione el sexo biológico del paciente
                     (Masculino o Femenino). Este dato es crucial para el cálculo correcto de algunos
                     indicadores como las circunferencias de cintura y cadera.
@@ -64,8 +64,8 @@
                 <div class="badge badge-primary badge-lg font-bold">2</div>
                 <div class="flex-1">
                   <h3 class="font-bold text-lg mb-2">Ingresar Datos Básicos</h3>
-                  <p class="text-gray-700 mb-2">Complete los siguientes campos:</p>
-                  <ul class="list-disc list-inside space-y-1 text-gray-700 ml-4">
+                  <p class="text-gray-700 dark:text-gray-300 mb-2">Complete los siguientes campos:</p>
+                  <ul class="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300 ml-4">
                     <li><strong>Edad:</strong> Ingrese la edad en años (solo números enteros)</li>
                     <li><strong>Peso:</strong> Ingrese el peso en kilogramos (permite un decimal, ej: 70.5)</li>
                     <li><strong>Talla:</strong> Ingrese la altura en centímetros (permite un decimal, ej: 165.5)</li>
@@ -80,14 +80,14 @@
                 <div class="badge badge-primary badge-lg font-bold">3</div>
                 <div class="flex-1">
                   <h3 class="font-bold text-lg mb-2">Completar Datos Antropométricos</h3>
-                  <p class="text-gray-700 mb-2">
+                  <p class="text-gray-700 dark:text-gray-300 mb-2">
                     En la sección "Antropometría", ingrese las mediciones:
                   </p>
-                  <ul class="list-disc list-inside space-y-1 text-gray-700 ml-4">
+                  <ul class="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300 ml-4">
                     <li><strong>Circunferencia de Cintura:</strong> Medida en centímetros</li>
                     <li><strong>Circunferencia de Cadera:</strong> Medida en centímetros</li>
                   </ul>
-                  <p class="text-gray-700 mt-2">
+                  <p class="text-gray-700 dark:text-gray-300 mt-2">
                     El IMC se calculará automáticamente al presionar "Calcular".
                   </p>
                 </div>
@@ -100,10 +100,10 @@
                 <div class="badge badge-primary badge-lg font-bold">4</div>
                 <div class="flex-1">
                   <h3 class="font-bold text-lg mb-2">Ingresar Signos Vitales</h3>
-                  <p class="text-gray-700 mb-2">
+                  <p class="text-gray-700 dark:text-gray-300 mb-2">
                     Complete los signos vitales disponibles:
                   </p>
-                  <ul class="list-disc list-inside space-y-1 text-gray-700 ml-4">
+                  <ul class="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300 ml-4">
                     <li><strong>Frecuencia Cardíaca:</strong> Pulsaciones por minuto (número entero)</li>
                     <li><strong>Frecuencia Respiratoria:</strong> Respiraciones por minuto (número entero)</li>
                     <li><strong>Temperatura:</strong> Grados Celsius (permite un decimal, ej: 36.5)</li>
@@ -119,11 +119,11 @@
                 <div class="badge badge-primary badge-lg font-bold">5</div>
                 <div class="flex-1">
                   <h3 class="font-bold text-lg mb-2">Calcular e Interpretar Resultados</h3>
-                  <p class="text-gray-700 mb-2">
+                  <p class="text-gray-700 dark:text-gray-300 mb-2">
                     Presione el botón <span class="badge badge-primary">Calcular</span> para obtener
                     todos los resultados. Los indicadores se mostrarán en la tabla de resultados con:
                   </p>
-                  <ul class="list-disc list-inside space-y-1 text-gray-700 ml-4">
+                  <ul class="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300 ml-4">
                     <li><span class="badge badge-success badge-sm">Verde</span> - Valores normales</li>
                     <li><span class="badge badge-info badge-sm">Azul</span> - Valores límite o informativos</li>
                     <li><span class="badge badge-warning badge-sm">Amarillo</span> - Valores que requieren atención</li>
@@ -139,7 +139,7 @@
                 <div class="badge badge-primary badge-lg font-bold">6</div>
                 <div class="flex-1">
                   <h3 class="font-bold text-lg mb-2">Alertas Médicas</h3>
-                  <p class="text-gray-700">
+                  <p class="text-gray-700 dark:text-gray-300">
                     Si algún signo vital presenta valores críticos (como temperatura muy alta o
                     saturación de oxígeno baja), aparecerá una alerta visual destacada en color
                     amarillo o rojo. Preste especial atención a estas alertas.
@@ -154,7 +154,7 @@
                 <div class="badge badge-primary badge-lg font-bold">7</div>
                 <div class="flex-1">
                   <h3 class="font-bold text-lg mb-2">Limpiar Formulario</h3>
-                  <p class="text-gray-700">
+                  <p class="text-gray-700 dark:text-gray-300">
                     Para evaluar un nuevo paciente, presione el botón
                     <span class="badge badge-outline">Limpiar</span> para resetear todos los campos
                     y comenzar una nueva evaluación.
@@ -188,7 +188,7 @@
           </div>
           <div class="collapse-content">
             <div class="pt-4 space-y-3">
-              <p class="text-gray-700">
+              <p class="text-gray-700 dark:text-gray-300">
                 El IMC es un indicador de la relación entre el peso y la altura. Se calcula
                 dividiendo el peso (kg) entre la altura al cuadrado (m²).
               </p>
@@ -247,7 +247,7 @@
           </div>
           <div class="collapse-content">
             <div class="pt-4 space-y-3">
-              <p class="text-gray-700">
+              <p class="text-gray-700 dark:text-gray-300">
                 La circunferencia de cintura es un indicador de grasa abdominal y riesgo
                 cardiovascular. Los valores de referencia varían según el sexo.
               </p>
@@ -280,7 +280,7 @@
           </div>
           <div class="collapse-content">
             <div class="pt-4 space-y-3">
-              <p class="text-gray-700">
+              <p class="text-gray-700 dark:text-gray-300">
                 La circunferencia de cadera, junto con la cintura, ayuda a determinar la
                 distribución de grasa corporal y el riesgo metabólico.
               </p>
@@ -313,7 +313,7 @@
           </div>
           <div class="collapse-content">
             <div class="pt-4 space-y-3">
-              <p class="text-gray-700">
+              <p class="text-gray-700 dark:text-gray-300">
                 La frecuencia cardíaca indica el número de latidos del corazón por minuto
                 en reposo. Es un signo vital fundamental.
               </p>
@@ -357,7 +357,7 @@
           </div>
           <div class="collapse-content">
             <div class="pt-4 space-y-3">
-              <p class="text-gray-700">
+              <p class="text-gray-700 dark:text-gray-300">
                 La frecuencia respiratoria es el número de respiraciones por minuto.
                 Valores anormales pueden indicar problemas respiratorios o metabólicos.
               </p>
@@ -401,7 +401,7 @@
           </div>
           <div class="collapse-content">
             <div class="pt-4 space-y-3">
-              <p class="text-gray-700">
+              <p class="text-gray-700 dark:text-gray-300">
                 La temperatura corporal es un indicador del equilibrio térmico del organismo.
                 Valores elevados pueden indicar procesos infecciosos o inflamatorios.
               </p>
@@ -458,7 +458,7 @@
           </div>
           <div class="collapse-content">
             <div class="pt-4 space-y-3">
-              <p class="text-gray-700">
+              <p class="text-gray-700 dark:text-gray-300">
                 La saturación de oxígeno indica el porcentaje de hemoglobina saturada con oxígeno
                 en la sangre. Es un indicador vital de la función respiratoria.
               </p>

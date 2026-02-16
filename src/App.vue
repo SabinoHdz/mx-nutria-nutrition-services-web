@@ -7,9 +7,9 @@ const { isDarkMode, toggleDarkMode } = useTheme();
 </script>
 
 <template>
-  <div class="drawer">
+  <div class="drawer min-h-screen bg-background dark:bg-gray-900">
     <input id="main-drawer" type="checkbox" class="drawer-toggle" />
-    <div class="drawer-content flex flex-col">
+    <div class="drawer-content flex flex-col min-h-screen">
       <!-- Navbar -->
       <div class="navbar bg-surface dark:bg-gray-800 shadow-lg sticky top-0 z-50">
         <div class="flex-none lg:hidden">
@@ -75,7 +75,7 @@ const { isDarkMode, toggleDarkMode } = useTheme();
       </div>
 
       <!-- Page content -->
-      <div class="flex-1">
+      <div class="flex-1 bg-background dark:bg-gray-900">
         <RouterView />
       </div>
     </div>

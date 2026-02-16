@@ -17,8 +17,6 @@
                   label="Sexo"
                   :options="genderOptions"
                   placeholder="Seleccionar..."
-                  label-tooltip="Sexo biológico del paciente"
-                  label-tooltip-placement="top"
                   clearable
                   required
                 />
@@ -33,8 +31,6 @@
                   :min="1"
                   :max="99"
                   :maxlength="2"
-                  label-tooltip="Edad del paciente en años completos"
-                  label-tooltip-placement="top"
                   clearable
                   required
                 />
@@ -49,8 +45,6 @@
                   :max="300"
                   :integer-digits="3"
                   :decimal-places="2"
-                  label-tooltip="Peso corporal del paciente en kilogramos"
-                  label-tooltip-placement="top"
                   clearable
                   required
                 />
@@ -65,8 +59,7 @@
                   :max="2.5"
                   :decimal-places="2"
                   :integer-digits="1"
-                  label-tooltip="Altura del paciente en metros"
-                  label-tooltip-placement="top"
+
                   required
                 />
               </div>
@@ -113,7 +106,7 @@
                       <td>IMC</td>
                       <td>
                         {{ antropomentric.imc || '-' }}
-                        <span v-if="antropomentric.imc" class="text-xs text-gray-500">kg/m²</span>
+                        <span v-if="antropomentric.imc" class="text-xs text-gray-500 dark:text-gray-400">kg/m²</span>
                       </td>
                       <td>
                         <VBadge
@@ -130,7 +123,7 @@
                       <td>Cintura</td>
                       <td>
                         {{ antropomentric.waistCircumference || '-' }}
-                        <span v-if="antropomentric.waistCircumference" class="text-xs text-gray-500"
+                        <span v-if="antropomentric.waistCircumference" class="text-xs text-gray-500 dark:text-gray-400"
                           >cm</span
                         >
                       </td>
@@ -147,7 +140,7 @@
                       <td>Cadera</td>
                       <td>
                         {{ antropomentric.hipCircumference || '-' }}
-                        <span v-if="antropomentric.hipCircumference" class="text-xs text-gray-500"
+                        <span v-if="antropomentric.hipCircumference" class="text-xs text-gray-500 dark:text-gray-400"
                           >cm</span
                         >
                       </td>
@@ -165,7 +158,7 @@
                       <td>Frec. Cardíaca</td>
                       <td>
                         {{ signalVital.heartRate || '-' }}
-                        <span v-if="signalVital.heartRate" class="text-xs text-gray-500">lpm</span>
+                        <span v-if="signalVital.heartRate" class="text-xs text-gray-500 dark:text-gray-400">lpm</span>
                       </td>
                       <td>
                         <VBadge
@@ -180,7 +173,7 @@
                       <td>Frec. Respiratoria</td>
                       <td>
                         {{ signalVital.respiratoryRate || '-' }}
-                        <span v-if="signalVital.respiratoryRate" class="text-xs text-gray-500"
+                        <span v-if="signalVital.respiratoryRate" class="text-xs text-gray-500 dark:text-gray-400"
                           >x Min</span
                         >
                       </td>
@@ -197,7 +190,7 @@
                       <td>Temperatura</td>
                       <td>
                         {{ signalVital.temperature || '-' }}
-                        <span v-if="signalVital.temperature" class="text-xs text-gray-500">°C</span>
+                        <span v-if="signalVital.temperature" class="text-xs text-gray-500 dark:text-gray-400">°C</span>
                       </td>
                       <td>
                         <VBadge
@@ -223,7 +216,7 @@
                       <td>Sat. Oxígeno</td>
                       <td>
                         {{ signalVital.oxygenSaturation || '-' }}
-                        <span v-if="signalVital.oxygenSaturation" class="text-xs text-gray-500"
+                        <span v-if="signalVital.oxygenSaturation" class="text-xs text-gray-500 dark:text-gray-400"
                           >%</span
                         >
                       </td>
@@ -321,7 +314,7 @@
                     :class="[
                       'whitespace-nowrap justify-self-end',
                       antropomentric.imcStatus === 'Pendiente'
-                        ? 'bg-base-200 text-gray-700'
+                        ? 'bg-base-200 text-gray-700 dark:text-gray-300'
                         : (antropomentric.imcBadgeClass || ''),
                     ]"
                   >
@@ -350,7 +343,7 @@
                     :class="[
                       'whitespace-nowrap justify-self-end',
                       antropomentric.waistStatus === 'Pendiente'
-                        ? 'bg-base-200 text-gray-700'
+                        ? 'bg-base-200 text-gray-700 dark:text-gray-300'
                         : (antropomentric.waistBadgeClass || ''),
                     ]"
                   >
@@ -379,7 +372,7 @@
                     :class="[
                       'whitespace-nowrap justify-self-end',
                       antropomentric.hipStatus === 'Pendiente'
-                        ? 'bg-base-200 text-gray-700'
+                        ? 'bg-base-200 text-gray-700 dark:text-gray-300'
                         : (antropomentric.hipBadgeClass || ''),
                     ]"
                   >
@@ -434,7 +427,7 @@
                     :class="[
                       'whitespace-nowrap',
                       signalVital.heartRateStatus === 'Pendiente'
-                        ? 'bg-base-200 text-gray-700'
+                        ? 'bg-base-200 text-gray-700 dark:text-gray-300'
                         : (signalVital.heartRateBadgeClass || ''),
                     ]"
                   >
@@ -462,7 +455,7 @@
                     :class="[
                       'whitespace-nowrap',
                       signalVital.respiratoryRateStatus === 'Pendiente'
-                        ? 'bg-base-200 text-gray-700'
+                        ? 'bg-base-200 text-gray-700 dark:text-gray-300'
                         : (signalVital.respiratoryRateBadgeClass || ''),
                     ]"
                   >
@@ -492,7 +485,7 @@
                       :class="[
                         'whitespace-nowrap',
                         signalVital.temperatureStatus === 'Pendiente'
-                          ? 'bg-base-200 text-gray-700'
+                          ? 'bg-base-200 text-gray-700 dark:text-gray-300'
                           : (signalVital.temperatureBadgeClass || ''),
                       ]"
                     >
@@ -531,7 +524,7 @@
                       :class="[
                         'whitespace-nowrap',
                         signalVital.oxygenSaturationStatus === 'Pendiente'
-                          ? 'bg-base-200 text-gray-700'
+                          ? 'bg-base-200 text-gray-700 dark:text-gray-300'
                           : (signalVital.oxygenSaturationBadgeClass || ''),
                       ]"
                     >

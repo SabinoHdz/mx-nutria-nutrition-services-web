@@ -11,7 +11,7 @@ import { VAlert } from '@/components/ui/alert';
         <h1 class="text-5xl font-bold text-primary mb-4">
           Acerca de LPN Diagnósticos Virtual
         </h1>
-        <p class="text-xl text-gray-600">
+        <p class="text-xl text-gray-600 dark:text-gray-300">
           Herramienta digital para profesionales de la salud
         </p>
       </div>
@@ -25,7 +25,7 @@ import { VAlert } from '@/components/ui/alert';
             </svg>
             Nuestra Misión
           </h2>
-          <p class="text-lg text-gray-700 leading-relaxed">
+          <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
             LPN Diagnósticos Virtual es una herramienta diseñada para facilitar la evaluación
             de indicadores antropométricos y signos vitales en el ámbito de la salud.
             Nuestro objetivo es proporcionar a los profesionales de la nutrición y la salud
@@ -48,7 +48,7 @@ import { VAlert } from '@/components/ui/alert';
               <span class="text-success text-xl">✓</span>
               <div>
                 <h3 class="font-semibold text-lg">Cálculos Precisos</h3>
-                <p class="text-gray-600">
+                <p class="text-gray-600 dark:text-gray-400">
                   Algoritmos basados en Normas Oficiales Mexicanas (NOM) para garantizar
                   resultados confiables.
                 </p>
@@ -58,7 +58,7 @@ import { VAlert } from '@/components/ui/alert';
               <span class="text-success text-xl">✓</span>
               <div>
                 <h3 class="font-semibold text-lg">Validación en Tiempo Real</h3>
-                <p class="text-gray-600">
+                <p class="text-gray-600 dark:text-gray-400">
                   Los datos se validan automáticamente conforme se ingresan, evitando errores
                   de captura.
                 </p>
@@ -68,7 +68,7 @@ import { VAlert } from '@/components/ui/alert';
               <span class="text-success text-xl">✓</span>
               <div>
                 <h3 class="font-semibold text-lg">Clasificación Normalizada</h3>
-                <p class="text-gray-600">
+                <p class="text-gray-600 dark:text-gray-400">
                   Cada indicador se clasifica de acuerdo a las Normas Oficiales Mexicanas (NOM)
                   y estás pueden cambiar o actualizarse de acuerdo a la sección de soporte.
                 </p>
@@ -78,7 +78,7 @@ import { VAlert } from '@/components/ui/alert';
               <span class="text-success text-xl">✓</span>
               <div>
                 <h3 class="font-semibold text-lg">Interfaz Intuitiva</h3>
-                <p class="text-gray-600">
+                <p class="text-gray-600 dark:text-gray-400">
                   Diseño limpio y fácil de usar que permite una evaluación rápida sin
                   complicaciones.
                 </p>
@@ -97,11 +97,11 @@ import { VAlert } from '@/components/ui/alert';
             </svg>
             Estándares de nutrición
           </h2>
-          <p class="text-gray-700 leading-relaxed mb-4">
+          <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
             Todos los rangos de clasificación y valores de referencia utilizados en esta
             herramienta están basados en:
           </p>
-          <ul class="space-y-2 text-gray-700">
+          <ul class="space-y-2 text-gray-700 dark:text-gray-300">
             <li class="flex gap-2">
               <span class="text-primary">•</span>
               <span>Organización Mundial de la Salud (OMS) para IMC</span>
@@ -134,7 +134,7 @@ import { VAlert } from '@/components/ui/alert';
       </VAlert>
 
       <!-- Version Info -->
-      <div class="text-center mt-8 text-gray-500 text-sm">
+      <div class="text-center mt-8 text-gray-500 dark:text-gray-400 text-sm">
         <p>LPN Diagnósticos Virtual - Versión 1.0.0</p>
         <p class="mt-1">© 2026 Todos los derechos reservados</p>
       </div>
