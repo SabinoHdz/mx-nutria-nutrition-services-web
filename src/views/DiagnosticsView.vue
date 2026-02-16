@@ -59,7 +59,6 @@
                   :max="2.5"
                   :decimal-places="2"
                   :integer-digits="1"
-
                   required
                 />
               </div>
@@ -73,13 +72,7 @@
                 >
                   Calcular
                 </VButton>
-                <VButton
-                  variant="outline"
-                  full-width
-                  @click="clearForm"
-                >
-                  Limpiar
-                </VButton>
+                <VButton variant="outline" full-width @click="clearForm"> Limpiar </VButton>
               </div>
             </VCardBody>
           </VCard>
@@ -106,13 +99,23 @@
                       <td>IMC</td>
                       <td>
                         {{ antropomentric.imc || '-' }}
-                        <span v-if="antropomentric.imc" class="text-xs text-gray-500 dark:text-gray-400">kg/m²</span>
+                        <span
+                          v-if="antropomentric.imc"
+                          class="text-xs text-gray-500 dark:text-gray-400"
+                          >kg/m²</span
+                        >
                       </td>
                       <td>
                         <VBadge
                           variant="solid"
                           size="sm"
-                          :color="antropomentric.imcStatus === 'Normal' ? 'success' : antropomentric.imcStatus === 'Pendiente' ? 'ghost' : 'warning'"
+                          :color="
+                            antropomentric.imcStatus === 'Normal'
+                              ? 'success'
+                              : antropomentric.imcStatus === 'Pendiente'
+                                ? 'ghost'
+                                : 'warning'
+                          "
                           :class="antropomentric.imcBadgeClass || ''"
                         >
                           {{ antropomentric.imcStatus || 'Pendiente' }}
@@ -123,15 +126,14 @@
                       <td>Cintura</td>
                       <td>
                         {{ antropomentric.waistCircumference || '-' }}
-                        <span v-if="antropomentric.waistCircumference" class="text-xs text-gray-500 dark:text-gray-400"
+                        <span
+                          v-if="antropomentric.waistCircumference"
+                          class="text-xs text-gray-500 dark:text-gray-400"
                           >cm</span
                         >
                       </td>
                       <td>
-                        <VBadge
-                          size="sm"
-                          :class="antropomentric.waistBadgeClass || ''"
-                        >
+                        <VBadge size="sm" :class="antropomentric.waistBadgeClass || ''">
                           {{ antropomentric.waistStatus || 'Pendiente' }}
                         </VBadge>
                       </td>
@@ -140,15 +142,14 @@
                       <td>Cadera</td>
                       <td>
                         {{ antropomentric.hipCircumference || '-' }}
-                        <span v-if="antropomentric.hipCircumference" class="text-xs text-gray-500 dark:text-gray-400"
+                        <span
+                          v-if="antropomentric.hipCircumference"
+                          class="text-xs text-gray-500 dark:text-gray-400"
                           >cm</span
                         >
                       </td>
                       <td>
-                        <VBadge
-                          size="sm"
-                          :class="antropomentric.hipBadgeClass || ''"
-                        >
+                        <VBadge size="sm" :class="antropomentric.hipBadgeClass || ''">
                           {{ antropomentric.hipStatus || 'Pendiente' }}
                         </VBadge>
                       </td>
@@ -158,13 +159,14 @@
                       <td>Frec. Cardíaca</td>
                       <td>
                         {{ signalVital.heartRate || '-' }}
-                        <span v-if="signalVital.heartRate" class="text-xs text-gray-500 dark:text-gray-400">lpm</span>
+                        <span
+                          v-if="signalVital.heartRate"
+                          class="text-xs text-gray-500 dark:text-gray-400"
+                          >lpm</span
+                        >
                       </td>
                       <td>
-                        <VBadge
-                          size="sm"
-                          :class="signalVital.heartRateBadgeClass || ''"
-                        >
+                        <VBadge size="sm" :class="signalVital.heartRateBadgeClass || ''">
                           {{ signalVital.heartRateStatus || 'Pendiente' }}
                         </VBadge>
                       </td>
@@ -173,15 +175,14 @@
                       <td>Frec. Respiratoria</td>
                       <td>
                         {{ signalVital.respiratoryRate || '-' }}
-                        <span v-if="signalVital.respiratoryRate" class="text-xs text-gray-500 dark:text-gray-400"
+                        <span
+                          v-if="signalVital.respiratoryRate"
+                          class="text-xs text-gray-500 dark:text-gray-400"
                           >x Min</span
                         >
                       </td>
                       <td>
-                        <VBadge
-                          size="sm"
-                          :class="signalVital.respiratoryRateBadgeClass || ''"
-                        >
+                        <VBadge size="sm" :class="signalVital.respiratoryRateBadgeClass || ''">
                           {{ signalVital.respiratoryRateStatus || 'Pendiente' }}
                         </VBadge>
                       </td>
@@ -190,13 +191,14 @@
                       <td>Temperatura</td>
                       <td>
                         {{ signalVital.temperature || '-' }}
-                        <span v-if="signalVital.temperature" class="text-xs text-gray-500 dark:text-gray-400">°C</span>
+                        <span
+                          v-if="signalVital.temperature"
+                          class="text-xs text-gray-500 dark:text-gray-400"
+                          >°C</span
+                        >
                       </td>
                       <td>
-                        <VBadge
-                          size="sm"
-                          :class="signalVital.temperatureBadgeClass || ''"
-                        >
+                        <VBadge size="sm" :class="signalVital.temperatureBadgeClass || ''">
                           {{ signalVital.temperatureStatus || 'Pendiente' }}
                         </VBadge>
                       </td>
@@ -216,15 +218,14 @@
                       <td>Sat. Oxígeno</td>
                       <td>
                         {{ signalVital.oxygenSaturation || '-' }}
-                        <span v-if="signalVital.oxygenSaturation" class="text-xs text-gray-500 dark:text-gray-400"
+                        <span
+                          v-if="signalVital.oxygenSaturation"
+                          class="text-xs text-gray-500 dark:text-gray-400"
                           >%</span
                         >
                       </td>
                       <td>
-                        <VBadge
-                          size="sm"
-                          :class="signalVital.oxygenSaturationBadgeClass || ''"
-                        >
+                        <VBadge size="sm" :class="signalVital.oxygenSaturationBadgeClass || ''">
                           {{ signalVital.oxygenSaturationStatus || 'Pendiente' }}
                         </VBadge>
                       </td>
@@ -244,12 +245,16 @@
                     <tr class="opacity-50">
                       <td>Presión arterial</td>
                       <td>-</td>
-                      <td><VBadge size="sm" color="secondary" variant="soft">Próximamente</VBadge></td>
+                      <td>
+                        <VBadge size="sm" color="secondary" variant="soft">Próximamente</VBadge>
+                      </td>
                     </tr>
                     <tr class="opacity-50">
                       <td>Glucosa</td>
                       <td>-</td>
-                      <td><VBadge size="sm" color="secondary" variant="soft">Próximamente</VBadge></td>
+                      <td>
+                        <VBadge size="sm" color="secondary" variant="soft">Próximamente</VBadge>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -267,7 +272,9 @@
               <div class="space-y-3">
                 <!-- Peso máximo -->
                 <div class="flex items-center gap-3">
-                  <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Peso máximo</span>
+                  <span class="text-sm font-medium text-gray-700 dark:text-gray-300"
+                    >Peso máximo</span
+                  >
                   <div class="flex items-center gap-2">
                     <span class="text-lg font-semibold text-gray-900 dark:text-gray-100">
                       {{ healthyWeight.max || '-' }}
@@ -277,7 +284,9 @@
                 </div>
                 <!-- Peso mínimo -->
                 <div class="flex items-center gap-3">
-                  <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Peso mínimo</span>
+                  <span class="text-sm font-medium text-gray-700 dark:text-gray-300"
+                    >Peso mínimo</span
+                  >
                   <div class="flex items-center gap-2">
                     <span class="text-lg font-semibold text-gray-900 dark:text-gray-100">
                       {{ healthyWeight.min || '-' }}
@@ -315,7 +324,7 @@
                       'whitespace-nowrap justify-self-end',
                       antropomentric.imcStatus === 'Pendiente'
                         ? 'bg-base-200 text-gray-700 dark:text-gray-300'
-                        : (antropomentric.imcBadgeClass || ''),
+                        : antropomentric.imcBadgeClass || '',
                     ]"
                   >
                     {{ antropomentric.imcStatus || 'Pendiente' }}
@@ -344,7 +353,7 @@
                       'whitespace-nowrap justify-self-end',
                       antropomentric.waistStatus === 'Pendiente'
                         ? 'bg-base-200 text-gray-700 dark:text-gray-300'
-                        : (antropomentric.waistBadgeClass || ''),
+                        : antropomentric.waistBadgeClass || '',
                     ]"
                   >
                     {{ antropomentric.waistStatus || 'Pendiente' }}
@@ -373,7 +382,7 @@
                       'whitespace-nowrap justify-self-end',
                       antropomentric.hipStatus === 'Pendiente'
                         ? 'bg-base-200 text-gray-700 dark:text-gray-300'
-                        : (antropomentric.hipBadgeClass || ''),
+                        : antropomentric.hipBadgeClass || '',
                     ]"
                   >
                     {{ antropomentric.hipStatus || 'Pendiente' }}
@@ -381,7 +390,7 @@
                 </div>
 
                 <div class="pt-1">
-                  <span class="text-primary  font-semibold text-lg border-b border-base-300 pb-2">
+                  <span class="text-primary font-semibold text-lg border-b border-base-300 pb-2">
                     Índice Cintura/Estatura
                   </span>
                 </div>
@@ -426,7 +435,7 @@
                         'whitespace-nowrap',
                         antropomentric.waistHeightStatus === 'Pendiente'
                           ? 'bg-base-200 text-gray-700 dark:text-gray-300'
-                          : (antropomentric.waistHeightBadgeClass || ''),
+                          : antropomentric.waistHeightBadgeClass || '',
                       ]"
                     >
                       {{ antropomentric.waistHeightStatus || 'Pendiente' }}
@@ -522,7 +531,9 @@
                 </div>
 
                 <!-- Frecuencia cardíaca con unidades y estado -->
-                <div class="grid grid-cols-1 md:grid-cols-[minmax(120px,150px)_minmax(100px,140px)_auto] lg:grid-cols-[130px_180px_auto] items-center gap-1">
+                <div
+                  class="grid grid-cols-1 md:grid-cols-[minmax(120px,150px)_minmax(100px,140px)_auto] lg:grid-cols-[130px_180px_auto] items-center gap-1"
+                >
                   <span class="text-sm">Frecuencia cardíaca</span>
                   <VInput
                     type="number"
@@ -542,7 +553,7 @@
                       'whitespace-nowrap',
                       signalVital.heartRateStatus === 'Pendiente'
                         ? 'bg-base-200 text-gray-700 dark:text-gray-300'
-                        : (signalVital.heartRateBadgeClass || ''),
+                        : signalVital.heartRateBadgeClass || '',
                     ]"
                   >
                     {{ signalVital.heartRateStatus || 'Pendiente' }}
@@ -550,7 +561,9 @@
                 </div>
 
                 <!-- Frecuencia respiratoria con unidades y estado -->
-                <div class="grid grid-cols-1 md:grid-cols-[minmax(120px,150px)_minmax(100px,140px)_auto] lg:grid-cols-[150px_180px_auto] items-center gap-1">
+                <div
+                  class="grid grid-cols-1 md:grid-cols-[minmax(120px,150px)_minmax(100px,140px)_auto] lg:grid-cols-[150px_180px_auto] items-center gap-1"
+                >
                   <span class="text-sm">Frecuencia respiratoria</span>
                   <VInput
                     type="number"
@@ -570,7 +583,7 @@
                       'whitespace-nowrap',
                       signalVital.respiratoryRateStatus === 'Pendiente'
                         ? 'bg-base-200 text-gray-700 dark:text-gray-300'
-                        : (signalVital.respiratoryRateBadgeClass || ''),
+                        : signalVital.respiratoryRateBadgeClass || '',
                     ]"
                   >
                     {{ signalVital.respiratoryRateStatus || 'Pendiente' }}
@@ -579,7 +592,9 @@
 
                 <!-- Temperatura con unidades y estado -->
                 <div class="space-y-2">
-                  <div class="grid grid-cols-1 md:grid-cols-[minmax(120px,150px)_minmax(100px,140px)_auto] lg:grid-cols-[150px_180px_auto] items-center gap-1">
+                  <div
+                    class="grid grid-cols-1 md:grid-cols-[minmax(120px,150px)_minmax(100px,140px)_auto] lg:grid-cols-[150px_180px_auto] items-center gap-1"
+                  >
                     <span class="text-sm">Temperatura</span>
                     <VInput
                       type="decimal"
@@ -600,7 +615,7 @@
                         'whitespace-nowrap',
                         signalVital.temperatureStatus === 'Pendiente'
                           ? 'bg-base-200 text-gray-700 dark:text-gray-300'
-                          : (signalVital.temperatureBadgeClass || ''),
+                          : signalVital.temperatureBadgeClass || '',
                       ]"
                     >
                       {{ signalVital.temperatureStatus || 'Pendiente' }}
@@ -619,7 +634,9 @@
 
                 <!-- Saturación de oxígeno con unidades y estado -->
                 <div class="space-y-2">
-                  <div class="grid grid-cols-1 md:grid-cols-[minmax(120px,150px)_minmax(100px,140px)_auto] lg:grid-cols-[150px_180px_auto] items-center gap-1">
+                  <div
+                    class="grid grid-cols-1 md:grid-cols-[minmax(120px,150px)_minmax(100px,140px)_auto] lg:grid-cols-[150px_180px_auto] items-center gap-1"
+                  >
                     <span class="text-sm">Saturación de oxígeno</span>
                     <VInput
                       type="number"
@@ -639,7 +656,7 @@
                         'whitespace-nowrap',
                         signalVital.oxygenSaturationStatus === 'Pendiente'
                           ? 'bg-base-200 text-gray-700 dark:text-gray-300'
-                          : (signalVital.oxygenSaturationBadgeClass || ''),
+                          : signalVital.oxygenSaturationBadgeClass || '',
                       ]"
                     >
                       {{ signalVital.oxygenSaturationStatus || 'Pendiente' }}
@@ -820,10 +837,7 @@ watch(
 
 // Watcher para calcular el índice cintura/estatura en tiempo real
 watch(
-  [
-    () => antropomentric.value.waistCircumference,
-    () => formData.value.height,
-  ],
+  [() => antropomentric.value.waistCircumference, () => formData.value.height],
   ([newWaist, newHeight]) => {
     // Convertir cintura a cm (si existe)
     const waistValue = Number(newWaist) || 0;
