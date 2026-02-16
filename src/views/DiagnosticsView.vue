@@ -249,11 +249,27 @@
                         <VBadge size="sm" color="secondary" variant="soft">Próximamente</VBadge>
                       </td>
                     </tr>
-                    <tr class="opacity-50">
+                    <tr>
                       <td>Glucosa</td>
-                      <td>-</td>
                       <td>
-                        <VBadge size="sm" color="secondary" variant="soft">Próximamente</VBadge>
+                        {{ signalVital.glucose || '-' }}
+                        <span v-if="signalVital.glucose" class="text-xs text-gray-500 dark:text-gray-400">mg/dl</span>
+                      </td>
+                      <td>
+                        <VBadge size="sm" :class="signalVital.glucoseBadgeClass || ''">
+                          {{ signalVital.glucoseStatus || 'Pendiente' }}
+                        </VBadge>
+                      </td>
+                    </tr>
+                    <tr v-if="signalVital.glucoseAlert">
+                      <td colspan="3">
+                        <VAlert
+                          :color="signalVital.glucoseAlertColor || 'warning'"
+                          variant="soft"
+                          size="sm"
+                        >
+                          {{ signalVital.glucoseAlert }}
+                        </VAlert>
                       </td>
                     </tr>
                   </tbody>
@@ -673,20 +689,74 @@
                   </VAlert>
                 </div>
 
-                <!-- Glucosa (No implementado) -->
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
-                  <div class="flex items-center gap-2">
-                    <span class="text-sm">Glucosa</span>
-                    <VBadge size="xs" color="secondary" variant="soft">Próximamente</VBadge>
+                <!-- Glucosa capilar con unidades y estado -->
+                <div class="space-y-2">
+                  <div class="grid grid-cols-1 md:grid-cols-[minmax(120px,150px)_minmax(100px,140px)_auto] lg:grid-cols-[150px_180px_auto] items-center gap-1">
+                    <span class="text-sm">Glucosa capilar</span>
+                    <VInput
+                      type="number"
+                      size="sm"
+                      class="w-full"
+                      v-model="signalVital.glucose"
+                      :max="500"
+                      :min="0"
+                      :maxlength="3"
+                      :placeholder="'Ej: 90'"
+                      suffix="mg/dl"
+                    />
+                    <VBadge
+                      size="sm"
+                      :class="[
+                        'whitespace-nowrap',
+                        signalVital.glucoseStatus === 'Pendiente'
+                          ? 'bg-base-200 text-gray-700 dark:text-gray-300'
+                          : (signalVital.glucoseBadgeClass || ''),
+                      ]"
+                    >
+                      {{ signalVital.glucoseStatus || 'Pendiente' }}
+                    </VBadge>
                   </div>
-                  <VInput
-                    type="text"
+
+                  <div v-if="shouldAskGlucose" class="rounded-md border border-base-300 p-2">
+                    <p class="text-xs text-gray-600 dark:text-gray-300">
+                      ¿Ha comido algun alimento el paciente durante las ultimas dos horas?
+                    </p>
+                    <div class="mt-2 flex flex-wrap items-center gap-2">
+                      <VButton
+                        size="sm"
+                        :variant="glucoseAteRecently === true ? 'solid' : 'outline'"
+                        color="primary"
+                        @click="setGlucoseAnswer(true)"
+                      >
+                        SI
+                      </VButton>
+                      <VButton
+                        size="sm"
+                        :variant="glucoseAteRecently === false ? 'solid' : 'outline'"
+                        color="primary"
+                        @click="setGlucoseAnswer(false)"
+                      >
+                        NO
+                      </VButton>
+                      <VButton
+                        v-if="glucoseAteRecently !== null"
+                        size="sm"
+                        variant="outline"
+                        @click="resetGlucoseAnswer"
+                      >
+                        Cambiar respuesta
+                      </VButton>
+                    </div>
+                  </div>
+
+                  <VAlert
+                    v-if="signalVital.glucoseAlert"
+                    :color="signalVital.glucoseAlertColor || 'warning'"
+                    variant="soft"
                     size="sm"
-                    class="w-full md:w-48"
-                    v-model="signalVital.glucose"
-                    placeholder="En desarrollo..."
-                    disabled
-                  />
+                  >
+                    {{ signalVital.glucoseAlert }}
+                  </VAlert>
                 </div>
               </div>
             </VCardBody>
@@ -720,6 +790,7 @@ const {
   getRespiratoryRateStatus,
   getOxygenSaturationStatus,
   getTemperatureStatus,
+  getGlucoseStatus,
   getBadgeClass,
 } = useHealthIndicators();
 
@@ -738,6 +809,7 @@ const genderOptions: ValueLabel[] = [
 ];
 
 const isDark = ref(false);
+const glucoseAteRecently = ref<boolean | null>(null);
 const createDefaultFormData = (): Patient => {
   return {
     age: null,
@@ -752,6 +824,11 @@ const isFormValid = computed(() => {
   return (Object.keys(formData.value) as Array<keyof Patient>).every(
     (field) => !!formData.value[field],
   );
+});
+
+const shouldAskGlucose = computed(() => {
+  const glucoseValue = Number(signalVital.value.glucose);
+  return glucoseValue >= 100 && glucoseValue <= 125;
 });
 
 const healthyWeight = computed(() => {
@@ -903,6 +980,33 @@ function validateOxygenSaturationInteger(event: Event) {
   }
 }
 
+function updateGlucoseStatus() {
+  const glucoseValue = Number(signalVital.value.glucose);
+  if (!glucoseValue || glucoseValue <= 0) {
+    signalVital.value.glucoseStatus = 'Pendiente';
+    signalVital.value.glucoseBadgeClass = 'badge-ghost';
+    signalVital.value.glucoseAlert = undefined;
+    signalVital.value.glucoseAlertColor = undefined;
+    return;
+  }
+
+  const glucoseStatus = getGlucoseStatus(glucoseValue, glucoseAteRecently.value);
+  signalVital.value.glucoseStatus = glucoseStatus?.status || 'Pendiente';
+  signalVital.value.glucoseBadgeClass = getBadgeClass(glucoseStatus?.color);
+  signalVital.value.glucoseAlert = glucoseStatus?.alert;
+  signalVital.value.glucoseAlertColor = glucoseStatus?.color;
+}
+
+function setGlucoseAnswer(value: boolean) {
+  glucoseAteRecently.value = value;
+  updateGlucoseStatus();
+}
+
+function resetGlucoseAnswer() {
+  glucoseAteRecently.value = null;
+  updateGlucoseStatus();
+}
+
 // Watcher para calcular el estado de frecuencia cardíaca en tiempo real
 watch(
   () => signalVital.value.heartRate,
@@ -972,6 +1076,20 @@ watch(
       signalVital.value.oxygenSaturationAlert = oxygenSaturationStatus?.alert;
       signalVital.value.oxygenSaturationAlertColor = oxygenSaturationStatus?.color;
     }
+  },
+);
+
+// Watcher para calcular el estado de glucosa en tiempo real
+watch(
+  [
+    () => signalVital.value.glucose,
+    () => glucoseAteRecently.value,
+  ],
+  () => {
+    if (!shouldAskGlucose.value) {
+      glucoseAteRecently.value = null;
+    }
+    updateGlucoseStatus();
   },
 );
 

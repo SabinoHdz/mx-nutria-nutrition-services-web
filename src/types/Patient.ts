@@ -48,4 +48,8 @@ export interface SignalVital {
   oxygenSaturationAlert?: string;
   oxygenSaturationAlertColor?: 'success' | 'info' | 'warning' | 'error';
   glucose?: string | number;
+  glucoseStatus?: string;
+  glucoseBadgeClass?: string;
+  glucoseAlert?: string;
+  glucoseAlertColor?: 'success' | 'info' | 'warning' | 'error';
 }

@@ -151,6 +151,40 @@ export const HIP_RANGES_FEMALE: HealthRange[] = [
   },
 ];
 
+// Rangos de glucosa capilar (mg/dl)
+export const GLUCOSE_RANGES: HealthRange[] = [
+  {
+    min: 1,
+    max: 70,
+    status: 'Hipoglucemia',
+    color: 'warning',
+    description: '< 70 mg/dl',
+    alert: 'Requiere atencion medica',
+  },
+  {
+    min: 71,
+    max: 99,
+    status: 'Normal',
+    color: 'success',
+    description: '71 - 99 mg/dl',
+  },
+  {
+    min: 100,
+    max: 125,
+    status: 'Condicional',
+    color: 'warning',
+    description: '100 - 125 mg/dl',
+  },
+  {
+    min: 126,
+    max: Infinity,
+    status: 'Pre diabetico',
+    color: 'error',
+    description: '> 126 mg/dl',
+    alert: 'Realizar un prueba de HbA1c o glucosa plasmatica no mayor a 15 dias',
+  },
+];
+
 // Rangos de índice cintura/estatura (ICE)
 export const WAIST_HEIGHT_RATIO_RANGES: HealthRange[] = [
   {
@@ -407,6 +441,54 @@ export function useHealthIndicators() {
   };
 
   /**
+   * Calcula el estado de la glucosa capilar
+   */
+  const getGlucoseStatus = (glucose: number, ateRecently: boolean | null) => {
+    if (glucose < 70) {
+      return {
+        status: 'Hipoglucemia',
+        color: 'warning',
+        alert: 'Requiere atencion medica',
+      } as const;
+    }
+
+    if (glucose >= 71 && glucose <= 99) {
+      return {
+        status: 'Normal',
+        color: 'success',
+      } as const;
+    }
+
+    if (glucose >= 100 && glucose <= 125) {
+      if (ateRecently === null) {
+        return {
+          status: 'Pendiente',
+          color: 'info',
+        } as const;
+      }
+
+      if (ateRecently) {
+        return {
+          status: 'Normal',
+          color: 'success',
+        } as const;
+      }
+
+      return {
+        status: 'Alterada',
+        color: 'warning',
+        alert: 'Realizar un prueba de HbA1c o glucosa plasmatica no mayor a 15 dias',
+      } as const;
+    }
+
+    return {
+      status: 'Pre diabetico',
+      color: 'error',
+      alert: 'Realizar un prueba de HbA1c o glucosa plasmatica no mayor a 15 dias',
+    } as const;
+  };
+
+  /**
    * Calcula el índice cintura-cadera y su estado
    */
   const getWaistHipRatio = (waist: number, hip: number, gender: 'MALE' | 'FEMALE') => {
@@ -460,6 +542,7 @@ export function useHealthIndicators() {
     HIP_RANGES_FEMALE,
     ICC_RANGES_MALE,
     ICC_RANGES_FEMALE,
+    GLUCOSE_RANGES,
     WAIST_HEIGHT_RATIO_RANGES,
     HEART_RATE_RANGES,
     RESPIRATORY_RATE_RANGES,
@@ -477,6 +560,7 @@ export function useHealthIndicators() {
     getRespiratoryRateStatus,
     getOxygenSaturationStatus,
     getTemperatureStatus,
+    getGlucoseStatus,
     findRange,
     getBadgeClass,
   };
