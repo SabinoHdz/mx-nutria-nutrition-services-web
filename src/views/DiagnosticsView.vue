@@ -2,9 +2,9 @@
   <div class="min-h-screen bg-background dark:bg-gray-900 flex justify-center items-start py-10">
     <div class="w-full max-w-6xl px-4 md:px-0">
       <!-- Grid Masonry: Organización optimizada de cards -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
+      <div class="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-12 gap-4 items-start">
         <!-- Card Datos del Paciente -->
-        <div class="lg:col-span-7">
+        <div class="md:col-span-6 lg:col-span-7">
           <VCard variant="elevated" shadow bordered>
             <VCardBody class="space-y-4">
               <h2 class="text-primary font-semibold text-lg border-b border-base-300 pb-2">
@@ -92,7 +92,7 @@
           </VCard>
         </div>
         <!-- Card Resultados -->
-        <div class="lg:col-span-5">
+        <div class="md:col-span-6 lg:col-span-5">
           <VCard variant="elevated" shadow bordered>
             <VCardBody>
               <h2 class="text-primary font-semibold text-lg border-b border-base-300 pb-2">
@@ -242,7 +242,7 @@
           </VCard>
         </div>
         <!-- Card Peso Saludable -->
-        <div class="lg:col-span-3">
+        <div class="md:col-span-3 lg:col-span-3">
           <VCard variant="elevated" shadow bordered>
             <VCardBody class="space-y-4">
               <h2 class="text-primary font-semibold text-lg border-b border-base-300 pb-2">
@@ -274,7 +274,7 @@
           </VCard>
         </div>
         <!-- Card Antropometría -->
-        <div class="lg:col-span-4">
+        <div class="md:col-span-3 lg:col-span-4">
           <VCard variant="elevated" shadow bordered>
             <VCardBody class="space-y-4">
               <h2 class="text-primary font-semibold text-lg border-b border-base-300 pb-2">
@@ -282,76 +282,77 @@
               </h2>
               <div class="space-y-3">
                 <!-- IMC con unidades y estado -->
-                <div class="flex items-center gap-2">
-                  <span class="text-sm w-20">IMC</span>
+                <div class="grid grid-cols-[80px_120px_auto] items-center gap-1">
+                  <span class="text-sm">IMC</span>
                   <VInput
                     type="text"
                     size="sm"
-                    class="w-28"
+                    class="w-full"
                     v-model="antropomentric.imc"
                     placeholder="0.00"
+                    suffix="kg/m²"
                     disabled
                   />
-                  <span
-                    class="text-xs px-2 py-1 bg-base-200 rounded border border-gray-300 whitespace-nowrap"
-                  >
-                    kg/m²
-                  </span>
                   <VBadge
                     size="sm"
-                    class="whitespace-nowrap"
-                    :class="antropomentric.imcBadgeClass || ''"
+                    :class="[
+                      'whitespace-nowrap justify-self-end',
+                      antropomentric.imcStatus === 'Pendiente'
+                        ? 'bg-base-200 text-gray-700'
+                        : (antropomentric.imcBadgeClass || ''),
+                    ]"
                   >
                     {{ antropomentric.imcStatus || 'Pendiente' }}
                   </VBadge>
                 </div>
 
                 <!-- Circunferencia de cintura -->
-                <div class="flex items-center gap-2">
-                  <span class="text-sm w-20">Cintura</span>
-                  <CircumferenceInput
-                    class="w-28"
-                    :disabled="!formData.gender"
+                <div class="grid grid-cols-[80px_120px_auto] items-center gap-1">
+                  <span class="text-sm">Cintura</span>
+                  <VInput
+                    type="number"
+                    size="sm"
+                    class="w-full"
                     v-model="antropomentric.waistCircumference"
-                    :max-value="600"
-                    :placeholder="!!formData.gender ? 'Ej: 64' : ''"
-                    field-name="Circunferencia de cintura"
+                    :max="600"
+                    :min="1"
+                    :placeholder="'Ej: 64'"
+                    suffix="cm"
                   />
-                  <span
-                    class="text-xs px-2 py-1 bg-base-200 rounded border border-gray-300 whitespace-nowrap"
-                  >
-                    cm
-                  </span>
                   <VBadge
                     size="sm"
-                    class="whitespace-nowrap"
-                    :class="antropomentric.waistBadgeClass || ''"
+                    :class="[
+                      'whitespace-nowrap justify-self-end',
+                      antropomentric.waistStatus === 'Pendiente'
+                        ? 'bg-base-200 text-gray-700'
+                        : (antropomentric.waistBadgeClass || ''),
+                    ]"
                   >
                     {{ antropomentric.waistStatus || 'Pendiente' }}
                   </VBadge>
                 </div>
 
                 <!-- Circunferencia de cadera -->
-                <div class="flex items-center gap-2">
-                  <span class="text-sm w-20">Cadera</span>
-                  <CircumferenceInput
-                    class="w-28"
-                    :disabled="!formData.gender"
+                <div class="grid grid-cols-[80px_120px_auto] items-center gap-1">
+                  <span class="text-sm">Cadera</span>
+                  <VInput
+                    type="number"
+                    size="sm"
+                    class="w-full"
                     v-model="antropomentric.hipCircumference"
-                    :max-value="600"
-                    :placeholder="!!formData.gender ? 'Ej: 75' : ''"
-                    field-name="Circunferencia de cadera"
-                    unit="cm"
+                    :max="600"
+                    :min="1"
+                    :placeholder="'Ej: 75'"
+                    suffix="cm"
                   />
-                  <span
-                    class="text-xs px-2 py-1 bg-base-200 rounded border border-gray-300 whitespace-nowrap"
-                  >
-                    cm
-                  </span>
                   <VBadge
                     size="sm"
-                    class="whitespace-nowrap"
-                    :class="antropomentric.hipBadgeClass || ''"
+                    :class="[
+                      'whitespace-nowrap justify-self-end',
+                      antropomentric.hipStatus === 'Pendiente'
+                        ? 'bg-base-200 text-gray-700'
+                        : (antropomentric.hipBadgeClass || ''),
+                    ]"
                   >
                     {{ antropomentric.hipStatus || 'Pendiente' }}
                   </VBadge>
