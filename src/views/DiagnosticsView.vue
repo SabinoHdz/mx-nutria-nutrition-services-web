@@ -117,6 +117,7 @@
                       </td>
                       <td>
                         <VBadge
+                          variant="solid"
                           size="sm"
                           :color="antropomentric.imcStatus === 'Normal' ? 'success' : antropomentric.imcStatus === 'Pendiente' ? 'ghost' : 'warning'"
                           :class="antropomentric.imcBadgeClass || ''"
@@ -207,6 +208,17 @@
                         </VBadge>
                       </td>
                     </tr>
+                    <tr v-if="signalVital.temperatureAlert">
+                      <td colspan="3">
+                        <VAlert
+                          :color="signalVital.temperatureAlertColor || 'warning'"
+                          variant="soft"
+                          size="sm"
+                        >
+                          {{ signalVital.temperatureAlert }}
+                        </VAlert>
+                      </td>
+                    </tr>
                     <tr>
                       <td>Sat. Oxígeno</td>
                       <td>
@@ -222,6 +234,17 @@
                         >
                           {{ signalVital.oxygenSaturationStatus || 'Pendiente' }}
                         </VBadge>
+                      </td>
+                    </tr>
+                    <tr v-if="signalVital.oxygenSaturationAlert">
+                      <td colspan="3">
+                        <VAlert
+                          :color="signalVital.oxygenSaturationAlertColor || 'error'"
+                          variant="soft"
+                          size="sm"
+                        >
+                          {{ signalVital.oxygenSaturationAlert }}
+                        </VAlert>
                       </td>
                     </tr>
                     <!-- Pendientes -->
@@ -310,13 +333,16 @@
                 <div class="grid grid-cols-[80px_120px_auto] items-center gap-1">
                   <span class="text-sm">Cintura</span>
                   <VInput
-                    type="number"
+                    type="decimal"
                     size="sm"
                     class="w-full"
                     v-model="antropomentric.waistCircumference"
                     :max="600"
                     :min="1"
-                    :placeholder="'Ej: 64'"
+                    :integer-digits="3"
+                    :decimal-places="1"
+                    :placeholder="!!formData.gender ? 'Ej: 64' : ''"
+                    :disabled="!formData.gender"
                     suffix="cm"
                   />
                   <VBadge
@@ -336,13 +362,16 @@
                 <div class="grid grid-cols-[80px_120px_auto] items-center gap-1">
                   <span class="text-sm">Cadera</span>
                   <VInput
-                    type="number"
+                    type="decimal"
                     size="sm"
                     class="w-full"
                     v-model="antropomentric.hipCircumference"
                     :max="600"
                     :min="1"
-                    :placeholder="'Ej: 75'"
+                    :integer-digits="3"
+                    :decimal-places="1"
+                    :placeholder="!!formData.gender ? 'Ej: 75' : ''"
+                    :disabled="!formData.gender"
                     suffix="cm"
                   />
                   <VBadge
@@ -362,7 +391,7 @@
           </VCard>
         </div>
         <!-- Card Signos Vitales -->
-        <div class="lg:col-span-4">
+        <div class="md:col-span-6 lg:col-span-5">
           <VCard variant="elevated" shadow bordered>
             <VCardBody class="space-y-4">
               <h2 class="text-primary font-semibold text-lg border-b border-base-300 pb-2">
@@ -386,55 +415,56 @@
                 </div>
 
                 <!-- Frecuencia cardíaca con unidades y estado -->
-                <div class="flex items-center gap-2">
-                  <span class="text-sm w-20">Frecuencia cardíaca</span>
-                  <CircumferenceInput
-                    class="w-28"
+                <div class="grid grid-cols-1 md:grid-cols-[minmax(120px,150px)_minmax(100px,140px)_auto] lg:grid-cols-[130px_180px_auto] items-center gap-1">
+                  <span class="text-sm">Frecuencia cardíaca</span>
+                  <VInput
+                    type="number"
+                    size="sm"
+                    class="w-full"
                     v-model="signalVital.heartRate"
-                    decimalLimit="3"
-                    :max-value="500"
-                    :placeholder="!signalVital.heartRate ? 'Ej: 75' : ''"
+                    :max="500"
+                    :min="0"
+                    :maxlength="3"
+                    :placeholder="'Ej: 75'"
+                    suffix="Pul/min"
                     @input="validateHeartRateInteger"
-                    field-name="Frecuencia cardíaca"
-                    unit="Pul/min"
                   />
-                  <span
-                    class="text-xs px-2 py-1 bg-base-200 rounded border border-gray-300 whitespace-nowrap"
-                  >
-                    Pul/min
-                  </span>
                   <VBadge
                     size="sm"
-                    class="whitespace-nowrap"
-                    :class="signalVital.heartRateBadgeClass || ''"
+                    :class="[
+                      'whitespace-nowrap',
+                      signalVital.heartRateStatus === 'Pendiente'
+                        ? 'bg-base-200 text-gray-700'
+                        : (signalVital.heartRateBadgeClass || ''),
+                    ]"
                   >
                     {{ signalVital.heartRateStatus || 'Pendiente' }}
                   </VBadge>
                 </div>
 
                 <!-- Frecuencia respiratoria con unidades y estado -->
-                <div class="flex items-center gap-2">
-                  <span class="text-sm w-20">Frecuencia respiratoria</span>
-
-                  <CircumferenceInput
-                    class="w-28"
+                <div class="grid grid-cols-1 md:grid-cols-[minmax(120px,150px)_minmax(100px,140px)_auto] lg:grid-cols-[150px_180px_auto] items-center gap-1">
+                  <span class="text-sm">Frecuencia respiratoria</span>
+                  <VInput
+                    type="number"
+                    size="sm"
+                    class="w-full"
                     v-model="signalVital.respiratoryRate"
-                    decimalLimit="2"
-                    :max-value="100"
-                    :placeholder="!signalVital.respiratoryRate ? 'Ej: 15' : ''"
+                    :max="100"
+                    :min="0"
+                    :maxlength="2"
+                    :placeholder="'Ej: 15'"
+                    suffix="x Min"
                     @input="validateRespiratoryRateInteger"
-                    field-name="Frecuencia respiratoria"
-                    unit="x Min"
                   />
-                  <span
-                    class="text-xs px-2 py-1 bg-base-200 rounded border border-gray-300 whitespace-nowrap"
-                  >
-                    x Min
-                  </span>
                   <VBadge
                     size="sm"
-                    class="whitespace-nowrap"
-                    :class="signalVital.respiratoryRateBadgeClass || ''"
+                    :class="[
+                      'whitespace-nowrap',
+                      signalVital.respiratoryRateStatus === 'Pendiente'
+                        ? 'bg-base-200 text-gray-700'
+                        : (signalVital.respiratoryRateBadgeClass || ''),
+                    ]"
                   >
                     {{ signalVital.respiratoryRateStatus || 'Pendiente' }}
                   </VBadge>
@@ -442,28 +472,29 @@
 
                 <!-- Temperatura con unidades y estado -->
                 <div class="space-y-2">
-                  <div class="flex items-center gap-2">
-                    <span class="text-sm w-20">Temperatura</span>
-
-                    <CircumferenceInput
-                      class="w-28"
+                  <div class="grid grid-cols-1 md:grid-cols-[minmax(120px,150px)_minmax(100px,140px)_auto] lg:grid-cols-[150px_180px_auto] items-center gap-1">
+                    <span class="text-sm">Temperatura</span>
+                    <VInput
+                      type="decimal"
+                      size="sm"
+                      class="w-full"
                       v-model="signalVital.temperature"
-                      :max-value="100"
-                      decimalLimit="2,1"
-                      :placeholder="!signalVital.temperature ? 'Ej: 20.6' : ''"
+                      :max="100"
+                      :min="0"
+                      :integer-digits="2"
+                      :decimal-places="1"
+                      :placeholder="'Ej: 20.6'"
+                      suffix="°C"
                       @input="validateHeartRateInteger"
-                      field-name="Temperatura"
-                      unit="°C"
                     />
-                    <span
-                      class="text-xs px-2 py-1 bg-base-200 rounded border border-gray-300 whitespace-nowrap"
-                    >
-                      °C
-                    </span>
                     <VBadge
                       size="sm"
-                      class="whitespace-nowrap"
-                      :class="signalVital.temperatureBadgeClass || ''"
+                      :class="[
+                        'whitespace-nowrap',
+                        signalVital.temperatureStatus === 'Pendiente'
+                          ? 'bg-base-200 text-gray-700'
+                          : (signalVital.temperatureBadgeClass || ''),
+                      ]"
                     >
                       {{ signalVital.temperatureStatus || 'Pendiente' }}
                     </VBadge>
@@ -471,10 +502,9 @@
                   <!-- Alerta de fiebre -->
                   <VAlert
                     v-if="signalVital.temperatureAlert"
-                    :color="signalVital.temperatureStatus === 'Fiebre Muy Alta' ? 'error' : 'warning'"
+                    :color="signalVital.temperatureAlertColor || 'warning'"
+                    variant="soft"
                     size="sm"
-                    icon
-                    class="py-2 px-3"
                   >
                     {{ signalVital.temperatureAlert }}
                   </VAlert>
@@ -482,27 +512,28 @@
 
                 <!-- Saturación de oxígeno con unidades y estado -->
                 <div class="space-y-2">
-                  <div class="flex items-center gap-2">
-                    <span class="text-sm w-20">Saturación de oxígeno</span>
-                    <CircumferenceInput
-                      class="w-28"
+                  <div class="grid grid-cols-1 md:grid-cols-[minmax(120px,150px)_minmax(100px,140px)_auto] lg:grid-cols-[150px_180px_auto] items-center gap-1">
+                    <span class="text-sm">Saturación de oxígeno</span>
+                    <VInput
+                      type="number"
+                      size="sm"
+                      class="w-full"
                       v-model="signalVital.oxygenSaturation"
-                      decimalLimit="3"
-                      :max-value="100"
-                      :placeholder="!signalVital.oxygenSaturation ? 'Ej: 75' : ''"
+                      :max="100"
+                      :min="0"
+                      :maxlength="2"
+                      :placeholder="'Ej: 75'"
+                      suffix="%"
                       @input="validateOxygenSaturationInteger"
-                      field-name="Saturación de oxígeno"
-                      unit="%"
                     />
-                    <span
-                      class="text-xs px-2 py-1 bg-base-200 rounded border border-gray-300 whitespace-nowrap"
-                    >
-                      %
-                    </span>
                     <VBadge
                       size="sm"
-                      class="whitespace-nowrap"
-                      :class="signalVital.oxygenSaturationBadgeClass || ''"
+                      :class="[
+                        'whitespace-nowrap',
+                        signalVital.oxygenSaturationStatus === 'Pendiente'
+                          ? 'bg-base-200 text-gray-700'
+                          : (signalVital.oxygenSaturationBadgeClass || ''),
+                      ]"
                     >
                       {{ signalVital.oxygenSaturationStatus || 'Pendiente' }}
                     </VBadge>
@@ -510,10 +541,9 @@
                   <!-- Alerta de emergencia médica -->
                   <VAlert
                     v-if="signalVital.oxygenSaturationAlert"
-                    color="error"
+                    :color="signalVital.oxygenSaturationAlertColor || 'error'"
+                    variant="soft"
                     size="sm"
-                    icon
-                    class="py-2 px-3"
                   >
                     {{ signalVital.oxygenSaturationAlert }}
                   </VAlert>
@@ -544,7 +574,6 @@
 </template>
 
 <script setup lang="ts">
-import CircumferenceInput from '@/components/CircumferenceInput.vue';
 import { VCard, VCardBody } from '@/components/ui/card';
 import { VButton } from '@/components/ui/button';
 import { VSelect } from '@/components/ui/select';
@@ -751,12 +780,14 @@ watch(
       signalVital.value.temperatureStatus = 'Pendiente';
       signalVital.value.temperatureBadgeClass = 'badge-ghost';
       signalVital.value.temperatureAlert = undefined;
+      signalVital.value.temperatureAlertColor = undefined;
     } else {
       const temperatureValue = Number(newTemperature);
       const temperatureStatus = getTemperatureStatus(temperatureValue);
       signalVital.value.temperatureStatus = temperatureStatus?.status || 'Pendiente';
       signalVital.value.temperatureBadgeClass = getBadgeClass(temperatureStatus?.color);
       signalVital.value.temperatureAlert = temperatureStatus?.alert;
+      signalVital.value.temperatureAlertColor = temperatureStatus?.color;
     }
   },
 );
@@ -769,12 +800,14 @@ watch(
       signalVital.value.oxygenSaturationStatus = 'Pendiente';
       signalVital.value.oxygenSaturationBadgeClass = 'badge-ghost';
       signalVital.value.oxygenSaturationAlert = undefined;
+      signalVital.value.oxygenSaturationAlertColor = undefined;
     } else {
       const oxygenSaturationValue = Math.floor(Number(newOxygenSaturation)); // Asegurar que sea entero
       const oxygenSaturationStatus = getOxygenSaturationStatus(oxygenSaturationValue);
       signalVital.value.oxygenSaturationStatus = oxygenSaturationStatus?.status || 'Pendiente';
       signalVital.value.oxygenSaturationBadgeClass = getBadgeClass(oxygenSaturationStatus?.color);
       signalVital.value.oxygenSaturationAlert = oxygenSaturationStatus?.alert;
+      signalVital.value.oxygenSaturationAlertColor = oxygenSaturationStatus?.color;
     }
   },
 );

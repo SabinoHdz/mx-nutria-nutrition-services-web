@@ -35,9 +35,11 @@ export interface SignalVital {
   temperatureStatus?: string;
   temperatureBadgeClass?: string;
   temperatureAlert?: string;
+  temperatureAlertColor?: 'success' | 'info' | 'warning' | 'error';
   oxygenSaturation?: string | number;
   oxygenSaturationStatus?: string;
   oxygenSaturationBadgeClass?: string;
   oxygenSaturationAlert?: string;
+  oxygenSaturationAlertColor?: 'success' | 'info' | 'warning' | 'error';
   glucose?: string | number;
 }
