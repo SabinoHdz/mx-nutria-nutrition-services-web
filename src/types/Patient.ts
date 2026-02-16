@@ -22,6 +22,12 @@ export interface AntropometricData {
   hipCircumference?: number | string;
   hipStatus?: string;
   hipBadgeClass?: string;
+  // Índice Cintura/Estatura
+  waistInCm?: number | string;
+  heightInCm?: number | string;
+  waistHeightRatio?: number | string;
+  waistHeightStatus?: string;
+  waistHeightBadgeClass?: string;
 }
 export interface SignalVital {
   heartRate?: string | number;

@@ -379,10 +379,124 @@
                     {{ antropomentric.hipStatus || 'Pendiente' }}
                   </VBadge>
                 </div>
+
+                <div class="pt-1">
+                  <span class="text-primary  font-semibold text-lg border-b border-base-300 pb-2">
+                    Índice Cintura/Estatura
+                  </span>
+                </div>
+
+                <!-- Índice cintura/estatura (ICE) -->
+                <div class="grid grid-cols-[80px_120px_auto] items-center gap-1">
+                  <span class="text-sm">Cintura</span>
+                  <VInput
+                    type="text"
+                    size="sm"
+                    class="w-full"
+                    :model-value="antropomentric.waistInCm"
+                    placeholder="-"
+                    suffix="cm"
+                    disabled
+                    label=""
+                  />
+                  <div></div>
+                </div>
+
+                <div class="grid grid-cols-[80px_120px_auto] items-center gap-1">
+                  <span class="text-sm">Estatura</span>
+                  <VInput
+                    type="text"
+                    size="sm"
+                    class="w-full"
+                    :model-value="antropomentric.heightInCm"
+                    placeholder="-"
+                    suffix="cm"
+                    disabled
+                    label=""
+                  />
+                  <div></div>
+                </div>
+
+                <div class="pt-2 border-t border-base-300">
+                  <div class="flex items-center justify-between">
+                    <span class="text-sm font-medium">Diagnóstico Índice Cintura/Estatura</span>
+                    <VBadge
+                      size="sm"
+                      :class="[
+                        'whitespace-nowrap',
+                        antropomentric.waistHeightStatus === 'Pendiente'
+                          ? 'bg-base-200 text-gray-700 dark:text-gray-300'
+                          : (antropomentric.waistHeightBadgeClass || ''),
+                      ]"
+                    >
+                      {{ antropomentric.waistHeightStatus || 'Pendiente' }}
+                    </VBadge>
+                  </div>
+                </div>
               </div>
             </VCardBody>
           </VCard>
         </div>
+        <!-- Card Índice Cintura/Estatura (comentada por referencia) -->
+        <!--
+        <div class="md:col-span-3 lg:col-span-5">
+          <VCard variant="elevated" shadow bordered>
+            <VCardBody class="space-y-4">
+              <h2 class="text-primary font-semibold text-lg border-b border-base-300 pb-2">
+                Índice Cintura/Estatura
+              </h2>
+              <div class="space-y-3">
+                <div class="grid grid-cols-[100px_120px_auto] items-center gap-1">
+                  <span class="text-sm">Cintura</span>
+                  <VInput
+                    type="text"
+                    size="sm"
+                    class="w-full"
+                    :model-value="antropomentric.waistInCm"
+                    placeholder="-"
+                    suffix="cm"
+                    disabled
+                    label=""
+                  />
+                  <div></div>
+                </div>
+
+                <div class="grid grid-cols-[100px_120px_auto] items-center gap-1">
+                  <span class="text-sm">Estatura</span>
+                  <VInput
+                    type="text"
+                    size="sm"
+                    class="w-full"
+                    :model-value="antropomentric.heightInCm"
+                    placeholder="-"
+                    suffix="cm"
+                    disabled
+                    label=""
+                  />
+                  <div></div>
+                </div>
+
+                <div class="pt-2 border-t border-base-300">
+                  <div class="flex items-center justify-between">
+                    <span class="text-sm font-medium">Diagnóstico</span>
+                    <VBadge
+                      size="sm"
+                      :class="[
+                        'whitespace-nowrap',
+                        antropomentric.waistHeightStatus === 'Pendiente'
+                          ? 'bg-base-200 text-gray-700 dark:text-gray-300'
+                          : (antropomentric.waistHeightBadgeClass || ''),
+                      ]"
+                    >
+                      {{ antropomentric.waistHeightStatus || 'Pendiente' }}
+                    </VBadge>
+                  </div>
+                </div>
+              </div>
+            </VCardBody>
+          </VCard>
+        </div>
+        -->
         <!-- Card Signos Vitales -->
         <div class="md:col-span-6 lg:col-span-5">
           <VCard variant="elevated" shadow bordered>
@@ -584,6 +698,7 @@ const {
   getWaistStatus,
   getHipStatus,
   getWaistHipRatio,
+  getWaistHeightRatio,
   getHeartRateStatus,
   getRespiratoryRateStatus,
   getOxygenSaturationStatus,
@@ -699,6 +814,47 @@ watch(
         antropomentric.value.hipStatus = hipStatus?.status || 'Pendiente';
         antropomentric.value.hipBadgeClass = getBadgeClass(hipStatus?.color);
       }
+    }
+  },
+);
+
+// Watcher para calcular el índice cintura/estatura en tiempo real
+watch(
+  [
+    () => antropomentric.value.waistCircumference,
+    () => formData.value.height,
+  ],
+  ([newWaist, newHeight]) => {
+    // Convertir cintura a cm (si existe)
+    const waistValue = Number(newWaist) || 0;
+    if (waistValue > 0) {
+      antropomentric.value.waistInCm = waistValue.toFixed(1);
+    } else {
+      antropomentric.value.waistInCm = undefined;
+    }
+
+    // Convertir estatura a cm (de metros a centímetros)
+    const heightValue = Number(newHeight) || 0;
+    if (heightValue > 0) {
+      const heightInCm = heightValue * 100;
+      antropomentric.value.heightInCm = heightInCm.toFixed(1);
+
+      // Calcular índice cintura/estatura si ambos valores existen
+      if (waistValue > 0) {
+        const iceResult = getWaistHeightRatio(waistValue, heightInCm);
+        if (iceResult) {
+          antropomentric.value.waistHeightRatio = iceResult.ratio;
+          antropomentric.value.waistHeightStatus = iceResult.status?.status || 'Pendiente';
+          antropomentric.value.waistHeightBadgeClass = getBadgeClass(iceResult.status?.color);
+        }
+      } else {
+        antropomentric.value.waistHeightStatus = 'Pendiente';
+        antropomentric.value.waistHeightBadgeClass = 'badge-ghost';
+      }
+    } else {
+      antropomentric.value.heightInCm = undefined;
+      antropomentric.value.waistHeightStatus = 'Pendiente';
+      antropomentric.value.waistHeightBadgeClass = 'badge-ghost';
     }
   },
 );

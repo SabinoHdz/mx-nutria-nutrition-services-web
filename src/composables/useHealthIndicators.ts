@@ -151,6 +151,24 @@ export const HIP_RANGES_FEMALE: HealthRange[] = [
   },
 ];
 
+// Rangos de índice cintura/estatura (ICE)
+export const WAIST_HEIGHT_RATIO_RANGES: HealthRange[] = [
+  {
+    min: 0,
+    max: 0.4,
+    status: 'Normal',
+    color: 'success',
+    description: '≤ 0.4',
+  },
+  {
+    min: 0.4,
+    max: Infinity,
+    status: 'Riesgo de ECV Y Síndrome Metabólico',
+    color: 'error',
+    description: '> 0.4',
+  },
+];
+
 // Rangos de frecuencia cardíaca (lpm - latidos por minuto)
 export const HEART_RATE_RANGES: HealthRange[] = [
   {
@@ -404,6 +422,20 @@ export function useHealthIndicators() {
   };
 
   /**
+   * Calcula el índice cintura-estatura y su estado
+   */
+  const getWaistHeightRatio = (waistInCm: number, heightInCm: number) => {
+    if (heightInCm === 0) return null;
+
+    const ratio = waistInCm / heightInCm;
+
+    return {
+      ratio: ratio.toFixed(2),
+      status: findRange(ratio, WAIST_HEIGHT_RATIO_RANGES),
+    };
+  };
+
+  /**
    * Calcula el IMC
    */
   const calculateImc = (weight: number, height: number) => {
@@ -428,6 +460,7 @@ export function useHealthIndicators() {
     HIP_RANGES_FEMALE,
     ICC_RANGES_MALE,
     ICC_RANGES_FEMALE,
+    WAIST_HEIGHT_RATIO_RANGES,
     HEART_RATE_RANGES,
     RESPIRATORY_RATE_RANGES,
     OXYGEN_SATURATION_RANGES,
@@ -439,6 +472,7 @@ export function useHealthIndicators() {
     getWaistStatus,
     getHipStatus,
     getWaistHipRatio,
+    getWaistHeightRatio,
     getHeartRateStatus,
     getRespiratoryRateStatus,
     getOxygenSaturationStatus,
