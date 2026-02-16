@@ -113,7 +113,13 @@ export const limitDecimalPlaces = (value: string, decimalPlaces: number = 2): st
  * Limita dígitos enteros según la configuración
  */
 export const limitIntegerDigits = (value: string, integerDigits: number = 10): string => {
+  const hasTrailingDot = value.endsWith('.');
   const [integer = '', decimal = ''] = value.split('.');
   const limitedInteger = integer.slice(0, integerDigits);
+
+  if (hasTrailingDot && decimal === '') {
+    return `${limitedInteger}.`;
+  }
+
   return decimal ? `${limitedInteger}.${decimal}` : limitedInteger;
 };

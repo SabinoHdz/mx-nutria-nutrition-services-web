@@ -3,13 +3,19 @@
 @plugin "daisyui";
 
 /* Component CSS Imports */
+@import './css/components/badge.css';
 @import './css/components/icon.css';
+@import './css/components/button.css';
+@import './css/components/tooltip.css';
+@import './css/components/alert.css';
+@import './css/components/card.css';
 @import './css/components/input.css';
 @import './css/components/select.css';
-@import './css/components/card.css';
-@import './css/components/badge.css';
-@import './css/components/alert.css';
-@import './css/components/button.css';
+@import './css/components/radio.css';
+@import './css/components/checkbox.css';
+@import './css/components/toggle.css';
+@import './css/components/fab.css';
+@import './css/components/hero.css';
 
 @custom-variant dark (&:where(.dark, .dark *));
 

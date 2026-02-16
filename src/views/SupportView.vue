@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-base-200 py-12 px-4">
+  <div class="min-h-screen bg-background dark:bg-gray-900 py-12 px-4">
     <div class="max-w-5xl mx-auto">
       <!-- Header -->
       <div class="text-center mb-12">
@@ -166,24 +166,17 @@
         </div>
 
         <!-- Tips Card -->
-        <div class="alert alert-info shadow-lg">
-          <div>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current flex-shrink-0 w-6 h-6">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
-            <div>
-              <h3 class="font-bold">Consejos Útiles</h3>
-              <div class="text-sm">
-                <ul class="list-disc list-inside mt-2">
-                  <li>Los campos se validan en tiempo real mientras escribe</li>
-                  <li>Los mensajes de error le indicarán si un valor está fuera del rango permitido</li>
-                  <li>Puede navegar usando el teclado (Tab para avanzar, Shift+Tab para retroceder)</li>
-                  <li>Los resultados se actualizan automáticamente conforme ingresa los datos</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
+        <VAlert color="info" icon class="shadow-lg">
+          <template #title>
+            Consejos Útiles
+          </template>
+          <ul class="list-disc list-inside mt-2 text-sm">
+            <li>Los campos se validan en tiempo real mientras escribe</li>
+            <li>Los mensajes de error le indicarán si un valor está fuera del rango permitido</li>
+            <li>Puede navegar usando el teclado (Tab para avanzar, Shift+Tab para retroceder)</li>
+            <li>Los resultados se actualizan automáticamente conforme ingresa los datos</li>
+          </ul>
+        </VAlert>
       </div>
 
       <!-- Explicación de Indicadores Content -->
@@ -451,12 +444,9 @@
                   </tbody>
                 </table>
               </div>
-              <div class="alert alert-warning mt-4">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current flex-shrink-0 w-5 h-5">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
-                </svg>
-                <span class="text-sm">Temperaturas superiores a 39°C requieren atención médica inmediata.</span>
-              </div>
+              <VAlert color="warning" icon class="mt-4">
+                Temperaturas superiores a 39°C requieren atención médica inmediata.
+              </VAlert>
             </div>
           </div>
         </div>
@@ -501,15 +491,12 @@
                   </tbody>
                 </table>
               </div>
-              <div class="alert alert-error mt-4">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current flex-shrink-0 w-5 h-5">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-                <span class="text-sm font-semibold">
+              <VAlert color="error" icon class="mt-4">
+                <span class="font-semibold">
                   Una saturación de oxígeno inferior al 90% es una EMERGENCIA MÉDICA y requiere
                   atención inmediata. El paciente debe ser derivado de urgencia.
                 </span>
-              </div>
+              </VAlert>
             </div>
           </div>
         </div>
@@ -520,6 +507,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { VAlert } from '@/components/ui/alert';
 
 const activeTab = ref<'guide' | 'indicators'>('guide');
 

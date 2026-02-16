@@ -1,71 +1,100 @@
 <template>
-  <div class="min-h-screen bg-base-200 flex justify-center items-start py-10">
-    <div class="w-full max-w-6xl px-4 md:px-0 space-y-6">
-      <!-- FILA 1: Datos del Paciente + Resultados -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+  <div class="min-h-screen bg-background dark:bg-gray-900 flex justify-center items-start py-10">
+    <div class="w-full max-w-6xl px-4 md:px-0">
+      <!-- Grid Masonry: Organización optimizada de cards -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
         <!-- Card Datos del Paciente -->
         <div class="lg:col-span-7">
-          <div class="card bg-base-100 shadow-xl border border-base-300">
-            <div class="card-body space-y-4">
+          <VCard variant="elevated" shadow bordered>
+            <VCardBody class="space-y-4">
               <h2 class="text-primary font-semibold text-lg border-b border-base-300 pb-2">
                 Datos del Paciente
               </h2>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <!-- Sexo -->
-                <div class="space-y-1">
-                  <label class="text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Sexo<span class="text-red-500 ml-0.5">*</span>
-                  </label>
-                  <select
-                    v-model="formData.gender"
-                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 text-sm transition-colors"
-                  >
-                    <option value="" disabled>Seleccionar...</option>
-                    <option v-for="opt in genderOptions" :key="opt.value" :value="opt.value">
-                      {{ opt.label }}
-                    </option>
-                  </select>
-                </div>
+                <VSelect
+                  v-model="formData.gender"
+                  label="Sexo"
+                  :options="genderOptions"
+                  placeholder="Seleccionar..."
+                  label-tooltip="Sexo biológico del paciente"
+                  label-tooltip-placement="top"
+                  clearable
+                  required
+                />
                 <!-- Edad -->
 
-                <AgeInput
+                <VInput
                   v-model="formData.age"
+                  type="number"
                   label="Edad"
-                  :max-length="2"
+                  suffix="años"
+                  placeholder="Ej: 25"
+                  :min="1"
+                  :max="99"
+                  :maxlength="2"
+                  label-tooltip="Edad del paciente en años completos"
+                  label-tooltip-placement="top"
+                  clearable
                   required
-                  @clean="formData.age = null"
                 />
                 <!-- Peso actual -->
-                <WeightInput
-                  label="Peso actual"
-                  decimal-limit="3,2"
+                <VInput
                   v-model="formData.weight"
-                  @clean="formData.weight = null"
+                  type="decimal"
+                  label="Peso actual"
+                  suffix="kg"
+                  placeholder="Ej: 70.5"
+                  :min="1"
+                  :max="300"
+                  :integer-digits="3"
+                  :decimal-places="2"
+                  label-tooltip="Peso corporal del paciente en kilogramos"
+                  label-tooltip-placement="top"
+                  clearable
                   required
                 />
                 <!-- Talla -->
-                <HeightInput
-                  label="Talla"
-                  required
+                <VInput
                   v-model="formData.height"
-                  @clean="formData.height = null"
+                  type="decimal"
+                  label="Talla"
+                  suffix="mts"
+                  placeholder="Ej: 1.70"
+                  :min="0.5"
+                  :max="2.5"
+                  :decimal-places="2"
+                  :integer-digits="1"
+                  label-tooltip="Altura del paciente en metros"
+                  label-tooltip-placement="top"
+                  required
                 />
               </div>
-              <button
-                class="btn btn-primary w-full mt-2 normal-case"
-                @click.prevent="handleSubmit"
-                :disabled="!isFormValid"
-              >
-                Calcular
-              </button>
-              <button class="btn btn-outline w-full mt-2" @click="clearForm">Limpiar</button>
-            </div>
-          </div>
+              <!-- Botones -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
+                <VButton
+                  color="primary"
+                  full-width
+                  @click.prevent="handleSubmit"
+                  :disabled="!isFormValid"
+                >
+                  Calcular
+                </VButton>
+                <VButton
+                  variant="outline"
+                  full-width
+                  @click="clearForm"
+                >
+                  Limpiar
+                </VButton>
+              </div>
+            </VCardBody>
+          </VCard>
         </div>
         <!-- Card Resultados -->
         <div class="lg:col-span-5">
-          <div class="card bg-base-100 shadow-xl border border-base-300">
-            <div class="card-body">
+          <VCard variant="elevated" shadow bordered>
+            <VCardBody>
               <h2 class="text-primary font-semibold text-lg border-b border-base-300 pb-2">
                 Resultados
               </h2>
@@ -87,12 +116,13 @@
                         <span v-if="antropomentric.imc" class="text-xs text-gray-500">kg/m²</span>
                       </td>
                       <td>
-                        <span
-                          class="badge badge-sm"
-                          :class="antropomentric.imcBadgeClass || 'badge-ghost'"
+                        <VBadge
+                          size="sm"
+                          :color="antropomentric.imcStatus === 'Normal' ? 'success' : antropomentric.imcStatus === 'Pendiente' ? 'ghost' : 'warning'"
+                          :class="antropomentric.imcBadgeClass || ''"
                         >
                           {{ antropomentric.imcStatus || 'Pendiente' }}
-                        </span>
+                        </VBadge>
                       </td>
                     </tr>
                     <tr>
@@ -104,12 +134,12 @@
                         >
                       </td>
                       <td>
-                        <span
-                          class="badge badge-sm"
-                          :class="antropomentric.waistBadgeClass || 'badge-ghost'"
+                        <VBadge
+                          size="sm"
+                          :class="antropomentric.waistBadgeClass || ''"
                         >
                           {{ antropomentric.waistStatus || 'Pendiente' }}
-                        </span>
+                        </VBadge>
                       </td>
                     </tr>
                     <tr>
@@ -121,12 +151,12 @@
                         >
                       </td>
                       <td>
-                        <span
-                          class="badge badge-sm"
-                          :class="antropomentric.hipBadgeClass || 'badge-ghost'"
+                        <VBadge
+                          size="sm"
+                          :class="antropomentric.hipBadgeClass || ''"
                         >
                           {{ antropomentric.hipStatus || 'Pendiente' }}
-                        </span>
+                        </VBadge>
                       </td>
                     </tr>
                     <!-- Signos Vitales -->
@@ -137,12 +167,12 @@
                         <span v-if="signalVital.heartRate" class="text-xs text-gray-500">lpm</span>
                       </td>
                       <td>
-                        <span
-                          class="badge badge-sm"
-                          :class="signalVital.heartRateBadgeClass || 'badge-ghost'"
+                        <VBadge
+                          size="sm"
+                          :class="signalVital.heartRateBadgeClass || ''"
                         >
                           {{ signalVital.heartRateStatus || 'Pendiente' }}
-                        </span>
+                        </VBadge>
                       </td>
                     </tr>
                     <tr>
@@ -154,12 +184,12 @@
                         >
                       </td>
                       <td>
-                        <span
-                          class="badge badge-sm"
-                          :class="signalVital.respiratoryRateBadgeClass || 'badge-ghost'"
+                        <VBadge
+                          size="sm"
+                          :class="signalVital.respiratoryRateBadgeClass || ''"
                         >
                           {{ signalVital.respiratoryRateStatus || 'Pendiente' }}
-                        </span>
+                        </VBadge>
                       </td>
                     </tr>
                     <tr>
@@ -169,12 +199,12 @@
                         <span v-if="signalVital.temperature" class="text-xs text-gray-500">°C</span>
                       </td>
                       <td>
-                        <span
-                          class="badge badge-sm"
-                          :class="signalVital.temperatureBadgeClass || 'badge-ghost'"
+                        <VBadge
+                          size="sm"
+                          :class="signalVital.temperatureBadgeClass || ''"
                         >
                           {{ signalVital.temperatureStatus || 'Pendiente' }}
-                        </span>
+                        </VBadge>
                       </td>
                     </tr>
                     <tr>
@@ -186,38 +216,67 @@
                         >
                       </td>
                       <td>
-                        <span
-                          class="badge badge-sm"
-                          :class="signalVital.oxygenSaturationBadgeClass || 'badge-ghost'"
+                        <VBadge
+                          size="sm"
+                          :class="signalVital.oxygenSaturationBadgeClass || ''"
                         >
                           {{ signalVital.oxygenSaturationStatus || 'Pendiente' }}
-                        </span>
+                        </VBadge>
                       </td>
                     </tr>
                     <!-- Pendientes -->
                     <tr class="opacity-50">
                       <td>Presión arterial</td>
                       <td>-</td>
-                      <td><span class="badge badge-sm badge-ghost">Próximamente</span></td>
+                      <td><VBadge size="sm" color="secondary" variant="soft">Próximamente</VBadge></td>
                     </tr>
                     <tr class="opacity-50">
                       <td>Glucosa</td>
                       <td>-</td>
-                      <td><span class="badge badge-sm badge-ghost">Próximamente</span></td>
+                      <td><VBadge size="sm" color="secondary" variant="soft">Próximamente</VBadge></td>
                     </tr>
                   </tbody>
                 </table>
               </div>
-            </div>
-          </div>
+            </VCardBody>
+          </VCard>
         </div>
-      </div>
-      <!-- FILA 2: Antropometría + Signos Vitales -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
-        <!-- Antropometría -->
-        <div class="lg:col-span-5">
-          <div class="card bg-base-100 shadow-xl border border-base-300">
-            <div class="card-body space-y-4">
+        <!-- Card Peso Saludable -->
+        <div class="lg:col-span-3">
+          <VCard variant="elevated" shadow bordered>
+            <VCardBody class="space-y-4">
+              <h2 class="text-primary font-semibold text-lg border-b border-base-300 pb-2">
+                Peso Saludable
+              </h2>
+              <div class="space-y-3">
+                <!-- Peso máximo -->
+                <div class="flex items-center gap-3">
+                  <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Peso máximo</span>
+                  <div class="flex items-center gap-2">
+                    <span class="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                      {{ healthyWeight.max || '-' }}
+                    </span>
+                    <span class="text-sm text-gray-500">Kg</span>
+                  </div>
+                </div>
+                <!-- Peso mínimo -->
+                <div class="flex items-center gap-3">
+                  <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Peso mínimo</span>
+                  <div class="flex items-center gap-2">
+                    <span class="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                      {{ healthyWeight.min || '-' }}
+                    </span>
+                    <span class="text-sm text-gray-500">Kg</span>
+                  </div>
+                </div>
+              </div>
+            </VCardBody>
+          </VCard>
+        </div>
+        <!-- Card Antropometría -->
+        <div class="lg:col-span-4">
+          <VCard variant="elevated" shadow bordered>
+            <VCardBody class="space-y-4">
               <h2 class="text-primary font-semibold text-lg border-b border-base-300 pb-2">
                 Antropometría
               </h2>
@@ -225,9 +284,10 @@
                 <!-- IMC con unidades y estado -->
                 <div class="flex items-center gap-2">
                   <span class="text-sm w-20">IMC</span>
-                  <input
+                  <VInput
                     type="text"
-                    class="input input-bordered input-sm w-28 bg-base-100"
+                    size="sm"
+                    class="w-28"
                     v-model="antropomentric.imc"
                     placeholder="0.00"
                     disabled
@@ -237,12 +297,13 @@
                   >
                     kg/m²
                   </span>
-                  <span
-                    class="badge badge-sm whitespace-nowrap"
-                    :class="antropomentric.imcBadgeClass || 'badge-ghost'"
+                  <VBadge
+                    size="sm"
+                    class="whitespace-nowrap"
+                    :class="antropomentric.imcBadgeClass || ''"
                   >
                     {{ antropomentric.imcStatus || 'Pendiente' }}
-                  </span>
+                  </VBadge>
                 </div>
 
                 <!-- Circunferencia de cintura -->
@@ -261,12 +322,13 @@
                   >
                     cm
                   </span>
-                  <span
-                    class="badge badge-sm whitespace-nowrap"
-                    :class="antropomentric.waistBadgeClass || 'badge-ghost'"
+                  <VBadge
+                    size="sm"
+                    class="whitespace-nowrap"
+                    :class="antropomentric.waistBadgeClass || ''"
                   >
                     {{ antropomentric.waistStatus || 'Pendiente' }}
-                  </span>
+                  </VBadge>
                 </div>
 
                 <!-- Circunferencia de cadera -->
@@ -286,21 +348,22 @@
                   >
                     cm
                   </span>
-                  <span
-                    class="badge badge-sm whitespace-nowrap"
-                    :class="antropomentric.hipBadgeClass || 'badge-ghost'"
+                  <VBadge
+                    size="sm"
+                    class="whitespace-nowrap"
+                    :class="antropomentric.hipBadgeClass || ''"
                   >
                     {{ antropomentric.hipStatus || 'Pendiente' }}
-                  </span>
+                  </VBadge>
                 </div>
               </div>
-            </div>
-          </div>
+            </VCardBody>
+          </VCard>
         </div>
-        <!-- Signos Vitales debajo de Antropometría -->
-        <div class="lg:col-span-5 lg:col-start-1 mt-4">
-          <div class="card bg-base-100 shadow-xl border border-base-300">
-            <div class="card-body space-y-4">
+        <!-- Card Signos Vitales -->
+        <div class="lg:col-span-4">
+          <VCard variant="elevated" shadow bordered>
+            <VCardBody class="space-y-4">
               <h2 class="text-primary font-semibold text-lg border-b border-base-300 pb-2">
                 Signos Vitales
               </h2>
@@ -309,11 +372,12 @@
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
                   <div class="flex items-center gap-2">
                     <span class="text-sm">Presión arterial</span>
-                    <span class="badge badge-ghost badge-xs">Próximamente</span>
+                    <VBadge size="xs" color="secondary" variant="soft">Próximamente</VBadge>
                   </div>
-                  <input
+                  <VInput
                     type="text"
-                    class="input input-bordered input-sm w-full md:w-48 bg-base-200"
+                    size="sm"
+                    class="w-full md:w-48"
                     v-model="signalVital.bloodPressure"
                     placeholder="En desarrollo..."
                     disabled
@@ -338,12 +402,13 @@
                   >
                     Pul/min
                   </span>
-                  <span
-                    class="badge badge-sm whitespace-nowrap"
-                    :class="signalVital.heartRateBadgeClass || 'badge-ghost'"
+                  <VBadge
+                    size="sm"
+                    class="whitespace-nowrap"
+                    :class="signalVital.heartRateBadgeClass || ''"
                   >
                     {{ signalVital.heartRateStatus || 'Pendiente' }}
-                  </span>
+                  </VBadge>
                 </div>
 
                 <!-- Frecuencia respiratoria con unidades y estado -->
@@ -365,12 +430,13 @@
                   >
                     x Min
                   </span>
-                  <span
-                    class="badge badge-sm whitespace-nowrap"
-                    :class="signalVital.respiratoryRateBadgeClass || 'badge-ghost'"
+                  <VBadge
+                    size="sm"
+                    class="whitespace-nowrap"
+                    :class="signalVital.respiratoryRateBadgeClass || ''"
                   >
                     {{ signalVital.respiratoryRateStatus || 'Pendiente' }}
-                  </span>
+                  </VBadge>
                 </div>
 
                 <!-- Temperatura con unidades y estado -->
@@ -393,38 +459,24 @@
                     >
                       °C
                     </span>
-                    <span
-                      class="badge badge-sm whitespace-nowrap"
-                      :class="signalVital.temperatureBadgeClass || 'badge-ghost'"
+                    <VBadge
+                      size="sm"
+                      class="whitespace-nowrap"
+                      :class="signalVital.temperatureBadgeClass || ''"
                     >
                       {{ signalVital.temperatureStatus || 'Pendiente' }}
-                    </span>
+                    </VBadge>
                   </div>
                   <!-- Alerta de fiebre -->
-                  <div
+                  <VAlert
                     v-if="signalVital.temperatureAlert"
-                    :class="[
-                      'alert py-2 px-3 text-sm',
-                      signalVital.temperatureStatus === 'Fiebre Muy Alta'
-                        ? 'alert-error'
-                        : 'alert-warning',
-                    ]"
+                    :color="signalVital.temperatureStatus === 'Fiebre Muy Alta' ? 'error' : 'warning'"
+                    size="sm"
+                    icon
+                    class="py-2 px-3"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="stroke-current shrink-0 h-5 w-5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                      />
-                    </svg>
-                    <span>{{ signalVital.temperatureAlert }}</span>
-                  </div>
+                    {{ signalVital.temperatureAlert }}
+                  </VAlert>
                 </div>
 
                 <!-- Saturación de oxígeno con unidades y estado -->
@@ -446,52 +498,44 @@
                     >
                       %
                     </span>
-                    <span
-                      class="badge badge-sm whitespace-nowrap"
-                      :class="signalVital.oxygenSaturationBadgeClass || 'badge-ghost'"
+                    <VBadge
+                      size="sm"
+                      class="whitespace-nowrap"
+                      :class="signalVital.oxygenSaturationBadgeClass || ''"
                     >
                       {{ signalVital.oxygenSaturationStatus || 'Pendiente' }}
-                    </span>
+                    </VBadge>
                   </div>
                   <!-- Alerta de emergencia médica -->
-                  <div
+                  <VAlert
                     v-if="signalVital.oxygenSaturationAlert"
-                    class="alert alert-error py-2 px-3 text-sm"
+                    color="error"
+                    size="sm"
+                    icon
+                    class="py-2 px-3"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="stroke-current shrink-0 h-5 w-5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                      />
-                    </svg>
-                    <span>{{ signalVital.oxygenSaturationAlert }}</span>
-                  </div>
+                    {{ signalVital.oxygenSaturationAlert }}
+                  </VAlert>
                 </div>
 
                 <!-- Glucosa (No implementado) -->
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
                   <div class="flex items-center gap-2">
                     <span class="text-sm">Glucosa</span>
-                    <span class="badge badge-ghost badge-xs">Próximamente</span>
+                    <VBadge size="xs" color="secondary" variant="soft">Próximamente</VBadge>
                   </div>
-                  <input
+                  <VInput
                     type="text"
-                    class="input input-bordered input-sm w-full md:w-48 bg-base-200"
+                    size="sm"
+                    class="w-full md:w-48"
                     v-model="signalVital.glucose"
                     placeholder="En desarrollo..."
                     disabled
                   />
                 </div>
               </div>
-            </div>
-          </div>
+            </VCardBody>
+          </VCard>
         </div>
       </div>
     </div>
@@ -499,11 +543,13 @@
 </template>
 
 <script setup lang="ts">
-import AgeInput from '@/components/AgeInput.vue';
-import HeightInput from '@/components/HeightInput.vue';
 import CircumferenceInput from '@/components/CircumferenceInput.vue';
-import WeightInput from '@/components/WeightInput.vue';
-import { VSelect } from '@/components/ui';
+import { VCard, VCardBody } from '@/components/ui/card';
+import { VButton } from '@/components/ui/button';
+import { VSelect } from '@/components/ui/select';
+import { VBadge } from '@/components/ui/badge';
+import { VAlert } from '@/components/ui/alert';
+import { VInput } from '@/components/ui/input';
 import type { AntropometricData, SignalVital, Patient, ResultPatient } from '@/types';
 import type { ValueLabel } from '@/types/Common';
 import { ref, computed, onMounted, watch } from 'vue';
@@ -551,6 +597,21 @@ const isFormValid = computed(() => {
   return (Object.keys(formData.value) as Array<keyof Patient>).every(
     (field) => !!formData.value[field],
   );
+});
+
+const healthyWeight = computed(() => {
+  const height = formData.value.height ?? 0;
+  if (!height || height <= 0) {
+    return { min: null, max: null } as const;
+  }
+
+  const min = 18.5 * height * height;
+  const max = 24.9 * height * height;
+
+  return {
+    min: min.toFixed(1),
+    max: max.toFixed(1),
+  } as const;
 });
 
 function handleSubmit() {
