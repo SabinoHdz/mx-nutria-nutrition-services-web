@@ -768,7 +768,7 @@
 
                   <div v-if="shouldAskGlucose" class="rounded-md border border-base-300 p-2">
                     <p class="text-xs text-gray-600 dark:text-gray-300">
-                      ¿Ha comido algun alimento el paciente durante las ultimas dos horas?
+                      ¿Ha comido algún alimento el paciente durante las últimas dos horas?
                     </p>
                     <div class="mt-2 flex flex-wrap items-center gap-2">
                       <VButton

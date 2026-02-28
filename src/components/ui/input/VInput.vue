@@ -294,7 +294,7 @@ const handleBlur = async () => {
 const handleFocus = () => {
   focused.value = true;
   if (!touched.value) {
-    errorMessage.value = ''; // Limpiar error solo si aun no se ha validado
+    errorMessage.value = ''; // Limpiar error solo si aún no se ha validado
   }
   emit('focus');
 };

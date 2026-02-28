@@ -159,7 +159,7 @@ export const GLUCOSE_RANGES: HealthRange[] = [
     status: 'Hipoglucemia',
     color: 'warning',
     description: '< 70 mg/dl',
-    alert: 'Requiere atencion medica',
+    alert: 'Requiere atención médica',
   },
   {
     min: 71,
@@ -178,10 +178,10 @@ export const GLUCOSE_RANGES: HealthRange[] = [
   {
     min: 126,
     max: Infinity,
-    status: 'Pre diabetico',
+    status: 'Pre diabético',
     color: 'error',
     description: '> 126 mg/dl',
-    alert: 'Realizar un prueba de HbA1c o glucosa plasmatica no mayor a 15 dias',
+    alert: 'Realizar una prueba de HbA1c o glucosa plasmática no mayor a 15 días',
   },
 ];
 
@@ -261,7 +261,7 @@ export const OXYGEN_SATURATION_RANGES: HealthRange[] = [
     status: 'Emergencia médica',
     color: 'error',
     description: '<90%',
-    alert: 'Requiere atención Médica Urgente',
+    alert: 'Requiere atención médica urgente',
   },
   {
     min: 91,
@@ -301,7 +301,7 @@ export const TEMPERATURE_RANGES: HealthRange[] = [
     status: 'Fiebre Moderada',
     color: 'warning',
     description: '38.1 - 38.5 °C',
-    alert: 'Requiere atención Médica',
+    alert: 'Requiere atención médica',
   },
   {
     min: 38.6,
@@ -309,7 +309,7 @@ export const TEMPERATURE_RANGES: HealthRange[] = [
     status: 'Fiebre Alta',
     color: 'warning',
     description: '38.6 - 39.9 °C',
-    alert: 'Requiere atención Médica',
+    alert: 'Requiere atención médica',
   },
   {
     min: 40.0,
@@ -317,7 +317,7 @@ export const TEMPERATURE_RANGES: HealthRange[] = [
     status: 'Fiebre Muy Alta',
     color: 'error',
     description: '>40.0 °C',
-    alert: 'Requiere atención Médica Urgente',
+    alert: 'Requiere atención médica urgente',
   },
 ];
 
@@ -448,7 +448,7 @@ export function useHealthIndicators() {
       return {
         status: 'Hipoglucemia',
         color: 'warning',
-        alert: 'Requiere atencion medica',
+        alert: 'Requiere atención médica',
       } as const;
     }
 
@@ -477,14 +477,14 @@ export function useHealthIndicators() {
       return {
         status: 'Alterada',
         color: 'warning',
-        alert: 'Realizar un prueba de HbA1c o glucosa plasmatica no mayor a 15 dias',
+        alert: 'Realizar una prueba de HbA1c o glucosa plasmática no mayor a 15 días',
       } as const;
     }
 
     return {
-      status: 'Pre diabetico',
+      status: 'Pre diabético',
       color: 'error',
-      alert: 'Realizar un prueba de HbA1c o glucosa plasmatica no mayor a 15 dias',
+      alert: 'Realizar una prueba de HbA1c o glucosa plasmática no mayor a 15 días',
     } as const;
   };
 
@@ -506,7 +506,7 @@ export function useHealthIndicators() {
     if (s >= 180) return { severity: BP_SEVERITY.H3, status: 'Hipertensión 3', color: 'error' };
     if (s >= 160) return { severity: BP_SEVERITY.H2, status: 'Hipertensión 2', color: 'error', alert: 'Tratamiento urgente' };
     if (s >= 140) return { severity: BP_SEVERITY.H1, status: 'Hipertensión 1', color: 'error', alert: 'Prevención' };
-    if (s >= 130) return { severity: BP_SEVERITY.LIMITROFE, status: 'Limítrofe', color: 'warning', alert: 'Primer nivel de atención Médica' };
+    if (s >= 130) return { severity: BP_SEVERITY.LIMITROFE, status: 'Limítrofe', color: 'warning', alert: 'Primer nivel de atención médica' };
     if (s >= 120) return { severity: BP_SEVERITY.SUB_OPTIMA, status: 'Sub Óptima', color: 'warning' };
     return { severity: BP_SEVERITY.NORMAL, status: 'Normal', color: 'success' };
   };
@@ -516,7 +516,7 @@ export function useHealthIndicators() {
     if (d >= 110) return { severity: BP_SEVERITY.H3, status: 'Hipertensión 3', color: 'error' };
     if (d >= 91) return { severity: BP_SEVERITY.H2, status: 'Hipertensión 2', color: 'error', alert: 'Tratamiento urgente' };
     if (d >= 86) return { severity: BP_SEVERITY.H1, status: 'Hipertensión 1', color: 'error', alert: 'Prevención' };
-    if (d >= 85) return { severity: BP_SEVERITY.LIMITROFE, status: 'Limítrofe', color: 'warning', alert: 'Primer nivel de atención Médica' };
+    if (d >= 85) return { severity: BP_SEVERITY.LIMITROFE, status: 'Limítrofe', color: 'warning', alert: 'Primer nivel de atención médica' };
     if (d >= 84) return { severity: BP_SEVERITY.SUB_OPTIMA, status: 'Sub Óptima', color: 'warning' };
     if (d >= 80) return { severity: BP_SEVERITY.NORMAL, status: 'Normal', color: 'success' };
     return { severity: BP_SEVERITY.NORMAL, status: 'Normal', color: 'success' };

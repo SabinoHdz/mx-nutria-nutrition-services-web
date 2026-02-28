@@ -440,7 +440,7 @@
                 </tr>
                 <tr>
                   <td>&lt; 90%</td>
-                  <td>Emergencia Médica</td>
+                  <td>Emergencia médica</td>
                   <td><VBadge color="error">Crítico</VBadge></td>
                 </tr>
               </tbody>
