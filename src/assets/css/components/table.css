@@ -1,0 +1,38 @@
+/* VTable - Tailwind table (replaces DaisyUI table) */
+.table-wrapper {
+  @apply w-full;
+}
+
+.table {
+  @apply w-full border-collapse text-left;
+}
+
+.table--size-sm {
+  @apply text-sm;
+}
+
+.table--size-sm th,
+.table--size-sm td {
+  @apply px-2 py-1.5;
+}
+
+.table--size-md th,
+.table--size-md td {
+  @apply px-4 py-3;
+}
+
+.table th {
+  @apply font-semibold text-text-primary border-b border-border bg-surface-variant;
+}
+
+.table td {
+  @apply border-b border-border text-text-primary;
+}
+
+.table--striped tbody tr:nth-child(even) {
+  @apply bg-surface-variant/50;
+}
+
+.table tbody tr:hover {
+  @apply bg-surface-variant/70;
+}

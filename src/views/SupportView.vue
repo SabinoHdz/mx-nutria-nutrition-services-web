@@ -12,41 +12,32 @@
       </div>
 
       <!-- Tabs Navigation -->
-      <div class="tabs tabs-boxed bg-base-100 shadow-lg mb-6 justify-center flex-wrap">
-        <a
-          class="tab tab-lg"
-          :class="{ 'tab-active': activeTab === 'guide' }"
-          @click="activeTab = 'guide'"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-          </svg>
-          Guía de Uso
-        </a>
-        <a
-          class="tab tab-lg"
-          :class="{ 'tab-active': activeTab === 'indicators' }"
-          @click="activeTab = 'indicators'"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
-          </svg>
-          Explicación de Indicadores
-        </a>
-      </div>
-
-      <!-- Guía de Uso Content -->
-      <div v-if="activeTab === 'guide'" class="space-y-6">
-        <div class="card bg-base-100 shadow-xl">
-          <div class="card-body">
-            <h2 class="card-title text-2xl text-primary mb-4">
+      <div class="tabs-container mb-6">
+        <VTabs>
+          <VTabsList variant="boxed" class="justify-center flex-wrap">
+            <VTabsTab :active="activeTab === 'guide'" size="lg" @click="activeTab = 'guide'">
+              <VIcon name="menu_book" size="md" />
+              Guía de Uso
+            </VTabsTab>
+            <VTabsTab :active="activeTab === 'indicators'" size="lg" @click="activeTab = 'indicators'">
+              <VIcon name="bar_chart" size="md" />
+              Explicación de Indicadores
+            </VTabsTab>
+          </VTabsList>
+        </VTabs>
+        <div class="tab-panels mt-4" :key="activeTab">
+        <!-- Guía de Uso Content -->
+        <div v-if="activeTab === 'guide'" class="tab-panel space-y-6">
+        <VCard variant="elevated" shadow>
+          <VCardBody>
+            <VCardTitle class="text-2xl text-primary mb-4">
               Cómo Usar la Calculadora de Diagnósticos
-            </h2>
+            </VCardTitle>
 
             <div class="space-y-6">
               <!-- Paso 1 -->
               <div class="flex gap-4">
-                <div class="badge badge-primary badge-lg font-bold">1</div>
+                <VBadge color="primary" size="lg" class="font-bold shrink-0">1</VBadge>
                 <div class="flex-1">
                   <h3 class="font-bold text-lg mb-2">Seleccionar Sexo del Paciente</h3>
                   <p class="text-gray-700 dark:text-gray-300">
@@ -57,11 +48,11 @@
                 </div>
               </div>
 
-              <div class="divider"></div>
+              <VDivider />
 
               <!-- Paso 2 -->
               <div class="flex gap-4">
-                <div class="badge badge-primary badge-lg font-bold">2</div>
+                <VBadge color="primary" size="lg" class="font-bold shrink-0">2</VBadge>
                 <div class="flex-1">
                   <h3 class="font-bold text-lg mb-2">Ingresar Datos Básicos</h3>
                   <p class="text-gray-700 dark:text-gray-300 mb-2">Complete los siguientes campos:</p>
@@ -73,11 +64,11 @@
                 </div>
               </div>
 
-              <div class="divider"></div>
+              <VDivider />
 
               <!-- Paso 3 -->
               <div class="flex gap-4">
-                <div class="badge badge-primary badge-lg font-bold">3</div>
+                <VBadge color="primary" size="lg" class="font-bold shrink-0">3</VBadge>
                 <div class="flex-1">
                   <h3 class="font-bold text-lg mb-2">Completar Datos Antropométricos</h3>
                   <p class="text-gray-700 dark:text-gray-300 mb-2">
@@ -93,11 +84,11 @@
                 </div>
               </div>
 
-              <div class="divider"></div>
+              <VDivider />
 
               <!-- Paso 4 -->
               <div class="flex gap-4">
-                <div class="badge badge-primary badge-lg font-bold">4</div>
+                <VBadge color="primary" size="lg" class="font-bold shrink-0">4</VBadge>
                 <div class="flex-1">
                   <h3 class="font-bold text-lg mb-2">Ingresar Signos Vitales</h3>
                   <p class="text-gray-700 dark:text-gray-300 mb-2">
@@ -112,31 +103,31 @@
                 </div>
               </div>
 
-              <div class="divider"></div>
+              <VDivider />
 
               <!-- Paso 5 -->
               <div class="flex gap-4">
-                <div class="badge badge-primary badge-lg font-bold">5</div>
+                <VBadge color="primary" size="lg" class="font-bold shrink-0">5</VBadge>
                 <div class="flex-1">
                   <h3 class="font-bold text-lg mb-2">Calcular e Interpretar Resultados</h3>
                   <p class="text-gray-700 dark:text-gray-300 mb-2">
-                    Presione el botón <span class="badge badge-primary">Calcular</span> para obtener
+                    Presione el botón <VBadge color="primary">Calcular</VBadge> para obtener
                     todos los resultados. Los indicadores se mostrarán en la tabla de resultados con:
                   </p>
                   <ul class="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300 ml-4">
-                    <li><span class="badge badge-success badge-sm">Verde</span> - Valores normales</li>
-                    <li><span class="badge badge-info badge-sm">Azul</span> - Valores límite o informativos</li>
-                    <li><span class="badge badge-warning badge-sm">Amarillo</span> - Valores que requieren atención</li>
-                    <li><span class="badge badge-error badge-sm">Rojo</span> - Valores críticos o preocupantes</li>
+                    <li><VBadge color="success" size="sm">Verde</VBadge> - Valores normales</li>
+                    <li><VBadge color="info" size="sm">Azul</VBadge> - Valores límite o informativos</li>
+                    <li><VBadge color="warning" size="sm">Amarillo</VBadge> - Valores que requieren atención</li>
+                    <li><VBadge color="error" size="sm">Rojo</VBadge> - Valores críticos o preocupantes</li>
                   </ul>
                 </div>
               </div>
 
-              <div class="divider"></div>
+              <VDivider />
 
               <!-- Paso 6 -->
               <div class="flex gap-4">
-                <div class="badge badge-primary badge-lg font-bold">6</div>
+                <VBadge color="primary" size="lg" class="font-bold shrink-0">6</VBadge>
                 <div class="flex-1">
                   <h3 class="font-bold text-lg mb-2">Alertas Médicas</h3>
                   <p class="text-gray-700 dark:text-gray-300">
@@ -147,23 +138,23 @@
                 </div>
               </div>
 
-              <div class="divider"></div>
+              <VDivider />
 
               <!-- Paso 7 -->
               <div class="flex gap-4">
-                <div class="badge badge-primary badge-lg font-bold">7</div>
+                <VBadge color="primary" size="lg" class="font-bold shrink-0">7</VBadge>
                 <div class="flex-1">
                   <h3 class="font-bold text-lg mb-2">Limpiar Formulario</h3>
                   <p class="text-gray-700 dark:text-gray-300">
                     Para evaluar un nuevo paciente, presione el botón
-                    <span class="badge badge-outline">Limpiar</span> para resetear todos los campos
+                    <VBadge variant="outline">Limpiar</VBadge> para resetear todos los campos
                     y comenzar una nueva evaluación.
                   </p>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+          </VCardBody>
+        </VCard>
 
         <!-- Tips Card -->
         <VAlert color="info" icon class="shadow-lg">
@@ -177,328 +168,292 @@
             <li>Los resultados se actualizan automáticamente conforme ingresa los datos</li>
           </ul>
         </VAlert>
-      </div>
-
-      <!-- Explicación de Indicadores Content -->
-      <div v-if="activeTab === 'indicators'" class="space-y-4">
-        <!-- IMC Collapse -->
-        <div class="collapse collapse-arrow bg-base-100 shadow-xl" :class="{ 'collapse-open': collapseState.imc }">
-          <div class="collapse-title text-xl font-bold text-primary cursor-pointer" @click="toggleCollapse('imc')">
-            Índice de Masa Corporal (IMC)
-          </div>
-          <div class="collapse-content">
-            <div class="pt-4 space-y-3">
-              <p class="text-gray-700 dark:text-gray-300">
-                El IMC es un indicador de la relación entre el peso y la altura. Se calcula
-                dividiendo el peso (kg) entre la altura al cuadrado (m²).
-              </p>
-              <h4 class="font-semibold">Clasificación:</h4>
-              <div class="overflow-x-auto">
-                <table class="table table-sm table-zebra">
-                  <thead>
-                    <tr>
-                      <th>Rango</th>
-                      <th>Clasificación</th>
-                      <th>Estado</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>&lt; 18.5</td>
-                      <td>Desnutrición</td>
-                      <td><span class="badge badge-warning">Atención</span></td>
-                    </tr>
-                    <tr>
-                      <td>18.5 - 24.9</td>
-                      <td>Peso Normal</td>
-                      <td><span class="badge badge-success">Normal</span></td>
-                    </tr>
-                    <tr>
-                      <td>25.0 - 29.9</td>
-                      <td>Sobrepeso</td>
-                      <td><span class="badge badge-info">Observación</span></td>
-                    </tr>
-                    <tr>
-                      <td>30.0 - 34.9</td>
-                      <td>Obesidad Grado I</td>
-                      <td><span class="badge badge-warning">Atención</span></td>
-                    </tr>
-                    <tr>
-                      <td>35.0 - 39.9</td>
-                      <td>Obesidad Grado II</td>
-                      <td><span class="badge badge-warning">Atención</span></td>
-                    </tr>
-                    <tr>
-                      <td>≥ 40.0</td>
-                      <td>Obesidad Mórbida</td>
-                      <td><span class="badge badge-error">Crítico</span></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
         </div>
+
+        <!-- Explicación de Indicadores Content -->
+        <div v-if="activeTab === 'indicators'" class="tab-panel space-y-4">
+        <!-- IMC Collapse -->
+        <VCollapse v-model:open="collapseState.imc">
+          <template #title>Índice de Masa Corporal (IMC)</template>
+          <div class="pt-4 space-y-3">
+            <p class="text-gray-700 dark:text-gray-300">
+              El IMC es un indicador de la relación entre el peso y la altura. Se calcula
+              dividiendo el peso (kg) entre la altura al cuadrado (m²).
+            </p>
+            <h4 class="font-semibold">Clasificación:</h4>
+            <VTable striped size="sm">
+              <thead>
+                <tr>
+                  <th>Rango</th>
+                  <th>Clasificación</th>
+                  <th>Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>&lt; 18.5</td>
+                  <td>Desnutrición</td>
+                  <td><VBadge color="warning">Atención</VBadge></td>
+                </tr>
+                <tr>
+                  <td>18.5 - 24.9</td>
+                  <td>Peso Normal</td>
+                  <td><VBadge color="success">Normal</VBadge></td>
+                </tr>
+                <tr>
+                  <td>25.0 - 29.9</td>
+                  <td>Sobrepeso</td>
+                  <td><VBadge color="info">Observación</VBadge></td>
+                </tr>
+                <tr>
+                  <td>30.0 - 34.9</td>
+                  <td>Obesidad Grado I</td>
+                  <td><VBadge color="warning">Atención</VBadge></td>
+                </tr>
+                <tr>
+                  <td>35.0 - 39.9</td>
+                  <td>Obesidad Grado II</td>
+                  <td><VBadge color="warning">Atención</VBadge></td>
+                </tr>
+                <tr>
+                  <td>≥ 40.0</td>
+                  <td>Obesidad Mórbida</td>
+                  <td><VBadge color="error">Crítico</VBadge></td>
+                </tr>
+              </tbody>
+            </VTable>
+          </div>
+        </VCollapse>
 
         <!-- Circunferencia Cintura Collapse -->
-        <div class="collapse collapse-arrow bg-base-100 shadow-xl" :class="{ 'collapse-open': collapseState.waist }">
-          <div class="collapse-title text-xl font-bold text-primary cursor-pointer" @click="toggleCollapse('waist')">
-            Circunferencia de Cintura
-          </div>
-          <div class="collapse-content">
-            <div class="pt-4 space-y-3">
-              <p class="text-gray-700 dark:text-gray-300">
-                La circunferencia de cintura es un indicador de grasa abdominal y riesgo
-                cardiovascular. Los valores de referencia varían según el sexo.
-              </p>
-              <div class="grid md:grid-cols-2 gap-4 mt-4">
-                <div>
-                  <h4 class="font-semibold mb-2">Hombres:</h4>
-                  <ul class="space-y-2 text-sm">
-                    <li><span class="badge badge-success badge-sm">Normal</span> &lt; 94 cm</li>
-                    <li><span class="badge badge-warning badge-sm">Riesgo Aumentado</span> 94-102 cm</li>
-                    <li><span class="badge badge-error badge-sm">Riesgo Alto</span> &gt; 102 cm</li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 class="font-semibold mb-2">Mujeres:</h4>
-                  <ul class="space-y-2 text-sm">
-                    <li><span class="badge badge-success badge-sm">Normal</span> &lt; 80 cm</li>
-                    <li><span class="badge badge-warning badge-sm">Riesgo Aumentado</span> 80-88 cm</li>
-                    <li><span class="badge badge-error badge-sm">Riesgo Alto</span> &gt; 88 cm</li>
-                  </ul>
-                </div>
+        <VCollapse v-model:open="collapseState.waist">
+          <template #title>Circunferencia de Cintura</template>
+          <div class="pt-4 space-y-3">
+            <p class="text-gray-700 dark:text-gray-300">
+              La circunferencia de cintura es un indicador de grasa abdominal y riesgo
+              cardiovascular. Los valores de referencia varían según el sexo.
+            </p>
+            <div class="grid md:grid-cols-2 gap-4 mt-4">
+              <div>
+                <h4 class="font-semibold mb-2">Hombres:</h4>
+                <ul class="space-y-2 text-sm">
+                  <li><VBadge color="success" size="sm">Normal</VBadge> &lt; 94 cm</li>
+                  <li><VBadge color="warning" size="sm">Riesgo Aumentado</VBadge> 94-102 cm</li>
+                  <li><VBadge color="error" size="sm">Riesgo Alto</VBadge> &gt; 102 cm</li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="font-semibold mb-2">Mujeres:</h4>
+                <ul class="space-y-2 text-sm">
+                  <li><VBadge color="success" size="sm">Normal</VBadge> &lt; 80 cm</li>
+                  <li><VBadge color="warning" size="sm">Riesgo Aumentado</VBadge> 80-88 cm</li>
+                  <li><VBadge color="error" size="sm">Riesgo Alto</VBadge> &gt; 88 cm</li>
+                </ul>
               </div>
             </div>
           </div>
-        </div>
+        </VCollapse>
 
         <!-- Circunferencia Cadera Collapse -->
-        <div class="collapse collapse-arrow bg-base-100 shadow-xl" :class="{ 'collapse-open': collapseState.hip }">
-          <div class="collapse-title text-xl font-bold text-primary cursor-pointer" @click="toggleCollapse('hip')">
-            Circunferencia de Cadera
-          </div>
-          <div class="collapse-content">
-            <div class="pt-4 space-y-3">
-              <p class="text-gray-700 dark:text-gray-300">
-                La circunferencia de cadera, junto con la cintura, ayuda a determinar la
-                distribución de grasa corporal y el riesgo metabólico.
-              </p>
-              <div class="grid md:grid-cols-2 gap-4 mt-4">
-                <div>
-                  <h4 class="font-semibold mb-2">Hombres:</h4>
-                  <ul class="space-y-2 text-sm">
-                    <li><span class="badge badge-success badge-sm">Normal</span> &lt; 99 cm</li>
-                    <li><span class="badge badge-warning badge-sm">Riesgo Aumentado</span> 99-104 cm</li>
-                    <li><span class="badge badge-error badge-sm">Riesgo Alto</span> &gt; 104 cm</li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 class="font-semibold mb-2">Mujeres:</h4>
-                  <ul class="space-y-2 text-sm">
-                    <li><span class="badge badge-success badge-sm">Normal</span> &lt; 104 cm</li>
-                    <li><span class="badge badge-warning badge-sm">Riesgo Aumentado</span> 104-109 cm</li>
-                    <li><span class="badge badge-error badge-sm">Riesgo Alto</span> &gt; 109 cm</li>
-                  </ul>
-                </div>
+        <VCollapse v-model:open="collapseState.hip">
+          <template #title>Circunferencia de Cadera</template>
+          <div class="pt-4 space-y-3">
+            <p class="text-gray-700 dark:text-gray-300">
+              La circunferencia de cadera, junto con la cintura, ayuda a determinar la
+              distribución de grasa corporal y el riesgo metabólico.
+            </p>
+            <div class="grid md:grid-cols-2 gap-4 mt-4">
+              <div>
+                <h4 class="font-semibold mb-2">Hombres:</h4>
+                <ul class="space-y-2 text-sm">
+                  <li><VBadge color="success" size="sm">Normal</VBadge> &lt; 99 cm</li>
+                  <li><VBadge color="warning" size="sm">Riesgo Aumentado</VBadge> 99-104 cm</li>
+                  <li><VBadge color="error" size="sm">Riesgo Alto</VBadge> &gt; 104 cm</li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="font-semibold mb-2">Mujeres:</h4>
+                <ul class="space-y-2 text-sm">
+                  <li><VBadge color="success" size="sm">Normal</VBadge> &lt; 104 cm</li>
+                  <li><VBadge color="warning" size="sm">Riesgo Aumentado</VBadge> 104-109 cm</li>
+                  <li><VBadge color="error" size="sm">Riesgo Alto</VBadge> &gt; 109 cm</li>
+                </ul>
               </div>
             </div>
           </div>
-        </div>
+        </VCollapse>
 
         <!-- Frecuencia Cardíaca Collapse -->
-        <div class="collapse collapse-arrow bg-base-100 shadow-xl" :class="{ 'collapse-open': collapseState.heartRate }">
-          <div class="collapse-title text-xl font-bold text-primary cursor-pointer" @click="toggleCollapse('heartRate')">
-            Frecuencia Cardíaca
+        <VCollapse v-model:open="collapseState.heartRate">
+          <template #title>Frecuencia Cardíaca</template>
+          <div class="pt-4 space-y-3">
+            <p class="text-gray-700 dark:text-gray-300">
+              La frecuencia cardíaca indica el número de latidos del corazón por minuto
+              en reposo. Es un signo vital fundamental.
+            </p>
+            <h4 class="font-semibold">Rangos de Referencia (adultos en reposo):</h4>
+            <VTable striped size="sm">
+              <thead>
+                <tr>
+                  <th>Rango</th>
+                  <th>Clasificación</th>
+                  <th>Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>≤ 59 pul/min</td>
+                  <td>Bradicardia</td>
+                  <td><VBadge color="info">Observación</VBadge></td>
+                </tr>
+                <tr>
+                  <td>60 - 100 pul/min</td>
+                  <td>Normal</td>
+                  <td><VBadge color="success">Normal</VBadge></td>
+                </tr>
+                <tr>
+                  <td>≥ 101 pul/min</td>
+                  <td>Taquicardia</td>
+                  <td><VBadge color="warning">Atención</VBadge></td>
+                </tr>
+              </tbody>
+            </VTable>
           </div>
-          <div class="collapse-content">
-            <div class="pt-4 space-y-3">
-              <p class="text-gray-700 dark:text-gray-300">
-                La frecuencia cardíaca indica el número de latidos del corazón por minuto
-                en reposo. Es un signo vital fundamental.
-              </p>
-              <h4 class="font-semibold">Rangos de Referencia (adultos en reposo):</h4>
-              <div class="overflow-x-auto">
-                <table class="table table-sm table-zebra">
-                  <thead>
-                    <tr>
-                      <th>Rango</th>
-                      <th>Clasificación</th>
-                      <th>Estado</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>≤ 59 pul/min</td>
-                      <td>Bradicardia</td>
-                      <td><span class="badge badge-info">Observación</span></td>
-                    </tr>
-                    <tr>
-                      <td>60 - 100 pul/min</td>
-                      <td>Normal</td>
-                      <td><span class="badge badge-success">Normal</span></td>
-                    </tr>
-                    <tr>
-                      <td>≥ 101 pul/min</td>
-                      <td>Taquicardia</td>
-                      <td><span class="badge badge-warning">Atención</span></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
+        </VCollapse>
 
         <!-- Frecuencia Respiratoria Collapse -->
-        <div class="collapse collapse-arrow bg-base-100 shadow-xl" :class="{ 'collapse-open': collapseState.respiratoryRate }">
-          <div class="collapse-title text-xl font-bold text-primary cursor-pointer" @click="toggleCollapse('respiratoryRate')">
-            Frecuencia Respiratoria
+        <VCollapse v-model:open="collapseState.respiratoryRate">
+          <template #title>Frecuencia Respiratoria</template>
+          <div class="pt-4 space-y-3">
+            <p class="text-gray-700 dark:text-gray-300">
+              La frecuencia respiratoria es el número de respiraciones por minuto.
+              Valores anormales pueden indicar problemas respiratorios o metabólicos.
+            </p>
+            <h4 class="font-semibold">Rangos de Referencia (adultos):</h4>
+            <VTable striped size="sm">
+              <thead>
+                <tr>
+                  <th>Rango</th>
+                  <th>Clasificación</th>
+                  <th>Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>≤ 11 resp/min</td>
+                  <td>Baja (Bradipnea)</td>
+                  <td><VBadge color="warning">Atención</VBadge></td>
+                </tr>
+                <tr>
+                  <td>12 - 20 resp/min</td>
+                  <td>Normal</td>
+                  <td><VBadge color="success">Normal</VBadge></td>
+                </tr>
+                <tr>
+                  <td>≥ 21 resp/min</td>
+                  <td>Alta (Taquipnea)</td>
+                  <td><VBadge color="warning">Atención</VBadge></td>
+                </tr>
+              </tbody>
+            </VTable>
           </div>
-          <div class="collapse-content">
-            <div class="pt-4 space-y-3">
-              <p class="text-gray-700 dark:text-gray-300">
-                La frecuencia respiratoria es el número de respiraciones por minuto.
-                Valores anormales pueden indicar problemas respiratorios o metabólicos.
-              </p>
-              <h4 class="font-semibold">Rangos de Referencia (adultos):</h4>
-              <div class="overflow-x-auto">
-                <table class="table table-sm table-zebra">
-                  <thead>
-                    <tr>
-                      <th>Rango</th>
-                      <th>Clasificación</th>
-                      <th>Estado</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>≤ 11 resp/min</td>
-                      <td>Baja (Bradipnea)</td>
-                      <td><span class="badge badge-warning">Atención</span></td>
-                    </tr>
-                    <tr>
-                      <td>12 - 20 resp/min</td>
-                      <td>Normal</td>
-                      <td><span class="badge badge-success">Normal</span></td>
-                    </tr>
-                    <tr>
-                      <td>≥ 21 resp/min</td>
-                      <td>Alta (Taquipnea)</td>
-                      <td><span class="badge badge-warning">Atención</span></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
+        </VCollapse>
 
         <!-- Temperatura Collapse -->
-        <div class="collapse collapse-arrow bg-base-100 shadow-xl" :class="{ 'collapse-open': collapseState.temperature }">
-          <div class="collapse-title text-xl font-bold text-primary cursor-pointer" @click="toggleCollapse('temperature')">
-            Temperatura Corporal
+        <VCollapse v-model:open="collapseState.temperature">
+          <template #title>Temperatura Corporal</template>
+          <div class="pt-4 space-y-3">
+            <p class="text-gray-700 dark:text-gray-300">
+              La temperatura corporal es un indicador del equilibrio térmico del organismo.
+              Valores elevados pueden indicar procesos infecciosos o inflamatorios.
+            </p>
+            <h4 class="font-semibold">Rangos de Referencia:</h4>
+            <VTable striped size="sm">
+              <thead>
+                <tr>
+                  <th>Rango</th>
+                  <th>Clasificación</th>
+                  <th>Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>35.7 - 37.3 °C</td>
+                  <td>Normal</td>
+                  <td><VBadge color="success">Normal</VBadge></td>
+                </tr>
+                <tr>
+                  <td>37.4 - 37.9 °C</td>
+                  <td>Febrícula (Fiebre Leve)</td>
+                  <td><VBadge color="info">Observación</VBadge></td>
+                </tr>
+                <tr>
+                  <td>38.0 - 38.9 °C</td>
+                  <td>Fiebre Moderada</td>
+                  <td><VBadge color="warning">Atención</VBadge></td>
+                </tr>
+                <tr>
+                  <td>39.0 - 40.0 °C</td>
+                  <td>Fiebre Alta</td>
+                  <td><VBadge color="warning">Atención</VBadge></td>
+                </tr>
+                <tr>
+                  <td>&gt; 40.0 °C</td>
+                  <td>Fiebre Muy Alta (Hiperpirexia)</td>
+                  <td><VBadge color="error">Crítico</VBadge></td>
+                </tr>
+              </tbody>
+            </VTable>
+            <VAlert color="warning" icon class="mt-4">
+              Temperaturas superiores a 39°C requieren atención médica inmediata.
+            </VAlert>
           </div>
-          <div class="collapse-content">
-            <div class="pt-4 space-y-3">
-              <p class="text-gray-700 dark:text-gray-300">
-                La temperatura corporal es un indicador del equilibrio térmico del organismo.
-                Valores elevados pueden indicar procesos infecciosos o inflamatorios.
-              </p>
-              <h4 class="font-semibold">Rangos de Referencia:</h4>
-              <div class="overflow-x-auto">
-                <table class="table table-sm table-zebra">
-                  <thead>
-                    <tr>
-                      <th>Rango</th>
-                      <th>Clasificación</th>
-                      <th>Estado</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>35.7 - 37.3 °C</td>
-                      <td>Normal</td>
-                      <td><span class="badge badge-success">Normal</span></td>
-                    </tr>
-                    <tr>
-                      <td>37.4 - 37.9 °C</td>
-                      <td>Febrícula (Fiebre Leve)</td>
-                      <td><span class="badge badge-info">Observación</span></td>
-                    </tr>
-                    <tr>
-                      <td>38.0 - 38.9 °C</td>
-                      <td>Fiebre Moderada</td>
-                      <td><span class="badge badge-warning">Atención</span></td>
-                    </tr>
-                    <tr>
-                      <td>39.0 - 40.0 °C</td>
-                      <td>Fiebre Alta</td>
-                      <td><span class="badge badge-warning">Atención</span></td>
-                    </tr>
-                    <tr>
-                      <td>&gt; 40.0 °C</td>
-                      <td>Fiebre Muy Alta (Hiperpirexia)</td>
-                      <td><span class="badge badge-error">Crítico</span></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <VAlert color="warning" icon class="mt-4">
-                Temperaturas superiores a 39°C requieren atención médica inmediata.
-              </VAlert>
-            </div>
-          </div>
-        </div>
+        </VCollapse>
 
         <!-- Saturación de Oxígeno Collapse -->
-        <div class="collapse collapse-arrow bg-base-100 shadow-xl" :class="{ 'collapse-open': collapseState.oxygenSaturation }">
-          <div class="collapse-title text-xl font-bold text-primary cursor-pointer" @click="toggleCollapse('oxygenSaturation')">
-            Saturación de Oxígeno (SpO₂)
+        <VCollapse v-model:open="collapseState.oxygenSaturation">
+          <template #title>Saturación de Oxígeno (SpO₂)</template>
+          <div class="pt-4 space-y-3">
+            <p class="text-gray-700 dark:text-gray-300">
+              La saturación de oxígeno indica el porcentaje de hemoglobina saturada con oxígeno
+              en la sangre. Es un indicador vital de la función respiratoria.
+            </p>
+            <h4 class="font-semibold">Rangos de Referencia:</h4>
+            <VTable striped size="sm">
+              <thead>
+                <tr>
+                  <th>Rango</th>
+                  <th>Clasificación</th>
+                  <th>Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>95 - 100%</td>
+                  <td>Niveles Normales</td>
+                  <td><VBadge color="success">Normal</VBadge></td>
+                </tr>
+                <tr>
+                  <td>91 - 94%</td>
+                  <td>Niveles Bajos</td>
+                  <td><VBadge color="warning">Atención</VBadge></td>
+                </tr>
+                <tr>
+                  <td>&lt; 90%</td>
+                  <td>Emergencia Médica</td>
+                  <td><VBadge color="error">Crítico</VBadge></td>
+                </tr>
+              </tbody>
+            </VTable>
+            <VAlert color="error" icon class="mt-4">
+              <span class="font-semibold">
+                Una saturación de oxígeno inferior al 90% es una EMERGENCIA MÉDICA y requiere
+                atención inmediata. El paciente debe ser derivado de urgencia.
+              </span>
+            </VAlert>
           </div>
-          <div class="collapse-content">
-            <div class="pt-4 space-y-3">
-              <p class="text-gray-700 dark:text-gray-300">
-                La saturación de oxígeno indica el porcentaje de hemoglobina saturada con oxígeno
-                en la sangre. Es un indicador vital de la función respiratoria.
-              </p>
-              <h4 class="font-semibold">Rangos de Referencia:</h4>
-              <div class="overflow-x-auto">
-                <table class="table table-sm table-zebra">
-                  <thead>
-                    <tr>
-                      <th>Rango</th>
-                      <th>Clasificación</th>
-                      <th>Estado</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>95 - 100%</td>
-                      <td>Niveles Normales</td>
-                      <td><span class="badge badge-success">Normal</span></td>
-                    </tr>
-                    <tr>
-                      <td>91 - 94%</td>
-                      <td>Niveles Bajos</td>
-                      <td><span class="badge badge-warning">Atención</span></td>
-                    </tr>
-                    <tr>
-                      <td>&lt; 90%</td>
-                      <td>Emergencia Médica</td>
-                      <td><span class="badge badge-error">Crítico</span></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <VAlert color="error" icon class="mt-4">
-                <span class="font-semibold">
-                  Una saturación de oxígeno inferior al 90% es una EMERGENCIA MÉDICA y requiere
-                  atención inmediata. El paciente debe ser derivado de urgencia.
-                </span>
-              </VAlert>
-            </div>
-          </div>
+        </VCollapse>
+        </div>
         </div>
       </div>
     </div>
@@ -508,6 +463,13 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { VAlert } from '@/components/ui/alert';
+import { VCard, VCardBody, VCardTitle } from '@/components/ui/card';
+import { VBadge } from '@/components/ui/badge';
+import { VDivider } from '@/components/ui/divider';
+import { VTabs, VTabsList, VTabsTab } from '@/components/ui/tabs';
+import { VCollapse } from '@/components/ui/collapse';
+import { VTable } from '@/components/ui/table';
+import { VIcon } from '@/components/ui/icon';
 
 const activeTab = ref<'guide' | 'indicators'>('guide');
 
@@ -522,7 +484,4 @@ const collapseState = ref({
   oxygenSaturation: false,
 });
 
-const toggleCollapse = (key: keyof typeof collapseState.value) => {
-  collapseState.value[key] = !collapseState.value[key];
-};
 </script>

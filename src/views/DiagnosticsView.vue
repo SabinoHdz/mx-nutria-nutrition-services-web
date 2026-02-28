@@ -84,9 +84,8 @@
               <h2 class="text-primary font-semibold text-lg border-b border-base-300 pb-2">
                 Resultados
               </h2>
-              <div class="overflow-x-auto">
-                <table class="table table-sm">
-                  <thead>
+              <VTable size="sm">
+                <thead>
                     <tr>
                       <th>Indicador</th>
                       <th>Valor</th>
@@ -107,16 +106,9 @@
                       </td>
                       <td>
                         <VBadge
-                          variant="solid"
                           size="sm"
-                          :color="
-                            antropomentric.imcStatus === 'Normal'
-                              ? 'success'
-                              : antropomentric.imcStatus === 'Pendiente'
-                                ? 'ghost'
-                                : 'warning'
-                          "
-                          :class="antropomentric.imcBadgeClass || ''"
+                          :variant="(antropomentric.imcStatus === 'Pendiente' || !antropomentric.imcStatus) ? 'ghost' : 'solid'"
+                          :color="antropomentric.imcColor || 'primary'"
                         >
                           {{ antropomentric.imcStatus || 'Pendiente' }}
                         </VBadge>
@@ -133,7 +125,11 @@
                         >
                       </td>
                       <td>
-                        <VBadge size="sm" :class="antropomentric.waistBadgeClass || ''">
+                        <VBadge
+                          size="sm"
+                          :variant="(antropomentric.waistStatus === 'Pendiente' || !antropomentric.waistStatus) ? 'ghost' : 'solid'"
+                          :color="antropomentric.waistColor || 'primary'"
+                        >
                           {{ antropomentric.waistStatus || 'Pendiente' }}
                         </VBadge>
                       </td>
@@ -149,7 +145,11 @@
                         >
                       </td>
                       <td>
-                        <VBadge size="sm" :class="antropomentric.hipBadgeClass || ''">
+                        <VBadge
+                          size="sm"
+                          :variant="(antropomentric.hipStatus === 'Pendiente' || !antropomentric.hipStatus) ? 'ghost' : 'solid'"
+                          :color="antropomentric.hipColor || 'primary'"
+                        >
                           {{ antropomentric.hipStatus || 'Pendiente' }}
                         </VBadge>
                       </td>
@@ -166,7 +166,11 @@
                         >
                       </td>
                       <td>
-                        <VBadge size="sm" :class="signalVital.heartRateBadgeClass || ''">
+                        <VBadge
+                          size="sm"
+                          :variant="(signalVital.heartRateStatus === 'Pendiente' || !signalVital.heartRateStatus) ? 'ghost' : 'solid'"
+                          :color="signalVital.heartRateColor || 'primary'"
+                        >
                           {{ signalVital.heartRateStatus || 'Pendiente' }}
                         </VBadge>
                       </td>
@@ -182,7 +186,11 @@
                         >
                       </td>
                       <td>
-                        <VBadge size="sm" :class="signalVital.respiratoryRateBadgeClass || ''">
+                        <VBadge
+                          size="sm"
+                          :variant="(signalVital.respiratoryRateStatus === 'Pendiente' || !signalVital.respiratoryRateStatus) ? 'ghost' : 'solid'"
+                          :color="signalVital.respiratoryRateColor || 'primary'"
+                        >
                           {{ signalVital.respiratoryRateStatus || 'Pendiente' }}
                         </VBadge>
                       </td>
@@ -198,7 +206,11 @@
                         >
                       </td>
                       <td>
-                        <VBadge size="sm" :class="signalVital.temperatureBadgeClass || ''">
+                        <VBadge
+                          size="sm"
+                          :variant="(signalVital.temperatureStatus === 'Pendiente' || !signalVital.temperatureStatus) ? 'ghost' : 'solid'"
+                          :color="signalVital.temperatureColor || 'primary'"
+                        >
                           {{ signalVital.temperatureStatus || 'Pendiente' }}
                         </VBadge>
                       </td>
@@ -225,7 +237,11 @@
                         >
                       </td>
                       <td>
-                        <VBadge size="sm" :class="signalVital.oxygenSaturationBadgeClass || ''">
+                        <VBadge
+                          size="sm"
+                          :variant="(signalVital.oxygenSaturationStatus === 'Pendiente' || !signalVital.oxygenSaturationStatus) ? 'ghost' : 'solid'"
+                          :color="signalVital.oxygenSaturationColor || 'primary'"
+                        >
                           {{ signalVital.oxygenSaturationStatus || 'Pendiente' }}
                         </VBadge>
                       </td>
@@ -241,12 +257,34 @@
                         </VAlert>
                       </td>
                     </tr>
-                    <!-- Pendientes -->
-                    <tr class="opacity-50">
+                    <tr>
                       <td>Presión arterial</td>
-                      <td>-</td>
                       <td>
-                        <VBadge size="sm" color="secondary" variant="soft">Próximamente</VBadge>
+                        {{ signalVital.systolic ?? '-' }}/{{ signalVital.diastolic ?? '-' }}
+                        <span
+                          v-if="signalVital.systolic != null && signalVital.diastolic != null"
+                          class="text-xs text-gray-500 dark:text-gray-400"
+                        >mmHg</span>
+                      </td>
+                      <td>
+                        <VBadge
+                          size="sm"
+                          :variant="(signalVital.bloodPressureStatus === 'Pendiente' || !signalVital.bloodPressureStatus) ? 'ghost' : 'solid'"
+                          :color="signalVital.bloodPressureColor || 'primary'"
+                        >
+                          {{ signalVital.bloodPressureStatus || 'Pendiente' }}
+                        </VBadge>
+                      </td>
+                    </tr>
+                    <tr v-if="signalVital.bloodPressureComment">
+                      <td colspan="3">
+                        <VAlert
+                          :color="signalVital.bloodPressureCommentColor || 'warning'"
+                          variant="soft"
+                          size="sm"
+                        >
+                          {{ signalVital.bloodPressureComment }}
+                        </VAlert>
                       </td>
                     </tr>
                     <tr>
@@ -256,7 +294,11 @@
                         <span v-if="signalVital.glucose" class="text-xs text-gray-500 dark:text-gray-400">mg/dl</span>
                       </td>
                       <td>
-                        <VBadge size="sm" :class="signalVital.glucoseBadgeClass || ''">
+                        <VBadge
+                          size="sm"
+                          :variant="(signalVital.glucoseStatus === 'Pendiente' || !signalVital.glucoseStatus) ? 'ghost' : 'solid'"
+                          :color="signalVital.glucoseColor || 'primary'"
+                        >
                           {{ signalVital.glucoseStatus || 'Pendiente' }}
                         </VBadge>
                       </td>
@@ -272,9 +314,8 @@
                         </VAlert>
                       </td>
                     </tr>
-                  </tbody>
-                </table>
-              </div>
+                </tbody>
+              </VTable>
             </VCardBody>
           </VCard>
         </div>
@@ -336,12 +377,9 @@
                   />
                   <VBadge
                     size="sm"
-                    :class="[
-                      'whitespace-nowrap justify-self-end',
-                      antropomentric.imcStatus === 'Pendiente'
-                        ? 'bg-base-200 text-gray-700 dark:text-gray-300'
-                        : antropomentric.imcBadgeClass || '',
-                    ]"
+                    :variant="(antropomentric.imcStatus === 'Pendiente' || !antropomentric.imcStatus) ? 'ghost' : 'solid'"
+                    :color="antropomentric.imcColor || 'primary'"
+                    class="whitespace-nowrap justify-self-end"
                   >
                     {{ antropomentric.imcStatus || 'Pendiente' }}
                   </VBadge>
@@ -365,12 +403,9 @@
                   />
                   <VBadge
                     size="sm"
-                    :class="[
-                      'whitespace-nowrap justify-self-end',
-                      antropomentric.waistStatus === 'Pendiente'
-                        ? 'bg-base-200 text-gray-700 dark:text-gray-300'
-                        : antropomentric.waistBadgeClass || '',
-                    ]"
+                    :variant="(antropomentric.waistStatus === 'Pendiente' || !antropomentric.waistStatus) ? 'ghost' : 'solid'"
+                    :color="antropomentric.waistColor || 'primary'"
+                    class="whitespace-nowrap justify-self-end"
                   >
                     {{ antropomentric.waistStatus || 'Pendiente' }}
                   </VBadge>
@@ -394,12 +429,9 @@
                   />
                   <VBadge
                     size="sm"
-                    :class="[
-                      'whitespace-nowrap justify-self-end',
-                      antropomentric.hipStatus === 'Pendiente'
-                        ? 'bg-base-200 text-gray-700 dark:text-gray-300'
-                        : antropomentric.hipBadgeClass || '',
-                    ]"
+                    :variant="(antropomentric.hipStatus === 'Pendiente' || !antropomentric.hipStatus) ? 'ghost' : 'solid'"
+                    :color="antropomentric.hipColor || 'primary'"
+                    class="whitespace-nowrap justify-self-end"
                   >
                     {{ antropomentric.hipStatus || 'Pendiente' }}
                   </VBadge>
@@ -447,12 +479,9 @@
                     <span class="text-sm font-medium">Diagnóstico Índice Cintura/Estatura</span>
                     <VBadge
                       size="sm"
-                      :class="[
-                        'whitespace-nowrap',
-                        antropomentric.waistHeightStatus === 'Pendiente'
-                          ? 'bg-base-200 text-gray-700 dark:text-gray-300'
-                          : antropomentric.waistHeightBadgeClass || '',
-                      ]"
+                      :variant="(antropomentric.waistHeightStatus === 'Pendiente' || !antropomentric.waistHeightStatus) ? 'ghost' : 'solid'"
+                      :color="antropomentric.waistHeightColor || 'primary'"
+                      class="whitespace-nowrap"
                     >
                       {{ antropomentric.waistHeightStatus || 'Pendiente' }}
                     </VBadge>
@@ -506,12 +535,9 @@
                     <span class="text-sm font-medium">Diagnóstico</span>
                     <VBadge
                       size="sm"
-                      :class="[
-                        'whitespace-nowrap',
-                        antropomentric.waistHeightStatus === 'Pendiente'
-                          ? 'bg-base-200 text-gray-700 dark:text-gray-300'
-                          : (antropomentric.waistHeightBadgeClass || ''),
-                      ]"
+                      :variant="(antropomentric.waistHeightStatus === 'Pendiente' || !antropomentric.waistHeightStatus) ? 'ghost' : 'solid'"
+                      :color="antropomentric.waistHeightColor || 'primary'"
+                      class="whitespace-nowrap"
                     >
                       {{ antropomentric.waistHeightStatus || 'Pendiente' }}
                     </VBadge>
@@ -530,25 +556,61 @@
                 Signos Vitales
               </h2>
               <div class="space-y-3">
-                <!-- Presión arterial (No implementado) -->
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-2">
-                  <div class="flex items-center gap-2">
+                <!-- Presión arterial: Sistólica y Diastólica -->
+                <div class="space-y-2">
+                  <div
+                    class="grid grid-cols-1 md:grid-cols-[minmax(140px,max-content)_minmax(110px,150px)_minmax(85px,max-content)] lg:grid-cols-[minmax(140px,max-content)_150px_minmax(85px,max-content)] items-center gap-2 md:gap-x-3"
+                  >
                     <span class="text-sm">Presión arterial</span>
-                    <VBadge size="xs" color="secondary" variant="soft">Próximamente</VBadge>
+                    <div class="flex items-end gap-2 flex-wrap">
+                      <VInput
+                        label="Sis"
+                        type="number"
+                        size="sm"
+                        class="w-full min-w-[100px] max-w-[130px]"
+                        v-model="signalVital.systolic"
+                        :max="300"
+                        :min="1"
+                        :maxlength="3"
+                        placeholder="Ej: 120"
+                        suffix="mmHg"
+                      />
+                      <span class="text-gray-500 dark:text-gray-400 font-medium shrink-0 pb-1">/</span>
+                      <VInput
+                        label="Dia"
+                        type="number"
+                        size="sm"
+                        class="w-full min-w-[100px] max-w-[130px]"
+                        v-model="signalVital.diastolic"
+                        :max="200"
+                        :min="1"
+                        :maxlength="3"
+                        placeholder="Ej: 80"
+                        suffix="mmHg"
+                      />
+                    </div>
+                    <VBadge
+                      size="sm"
+                      :variant="(signalVital.bloodPressureStatus === 'Pendiente' || !signalVital.bloodPressureStatus) ? 'ghost' : 'solid'"
+                      :color="signalVital.bloodPressureColor || 'primary'"
+                      class="whitespace-nowrap"
+                    >
+                      {{ signalVital.bloodPressureStatus || 'Pendiente' }}
+                    </VBadge>
                   </div>
-                  <VInput
-                    type="text"
+                  <VAlert
+                    v-if="signalVital.bloodPressureComment"
+                    :color="signalVital.bloodPressureCommentColor || 'warning'"
+                    variant="soft"
                     size="sm"
-                    class="w-full md:w-48"
-                    v-model="signalVital.bloodPressure"
-                    placeholder="En desarrollo..."
-                    disabled
-                  />
+                  >
+                    {{ signalVital.bloodPressureComment }}
+                  </VAlert>
                 </div>
 
                 <!-- Frecuencia cardíaca con unidades y estado -->
                 <div
-                  class="grid grid-cols-1 md:grid-cols-[minmax(120px,150px)_minmax(100px,140px)_auto] lg:grid-cols-[130px_180px_auto] items-center gap-1"
+                  class="grid grid-cols-1 md:grid-cols-[minmax(140px,max-content)_minmax(110px,150px)_minmax(85px,max-content)] lg:grid-cols-[minmax(140px,max-content)_150px_minmax(85px,max-content)] items-center gap-2 md:gap-x-3"
                 >
                   <span class="text-sm">Frecuencia cardíaca</span>
                   <VInput
@@ -565,12 +627,9 @@
                   />
                   <VBadge
                     size="sm"
-                    :class="[
-                      'whitespace-nowrap',
-                      signalVital.heartRateStatus === 'Pendiente'
-                        ? 'bg-base-200 text-gray-700 dark:text-gray-300'
-                        : signalVital.heartRateBadgeClass || '',
-                    ]"
+                    :variant="(signalVital.heartRateStatus === 'Pendiente' || !signalVital.heartRateStatus) ? 'ghost' : 'solid'"
+                    :color="signalVital.heartRateColor || 'primary'"
+                    class="whitespace-nowrap"
                   >
                     {{ signalVital.heartRateStatus || 'Pendiente' }}
                   </VBadge>
@@ -578,7 +637,7 @@
 
                 <!-- Frecuencia respiratoria con unidades y estado -->
                 <div
-                  class="grid grid-cols-1 md:grid-cols-[minmax(120px,150px)_minmax(100px,140px)_auto] lg:grid-cols-[150px_180px_auto] items-center gap-1"
+                  class="grid grid-cols-1 md:grid-cols-[minmax(140px,max-content)_minmax(110px,150px)_minmax(85px,max-content)] lg:grid-cols-[minmax(140px,max-content)_150px_minmax(85px,max-content)] items-center gap-2 md:gap-x-3"
                 >
                   <span class="text-sm">Frecuencia respiratoria</span>
                   <VInput
@@ -595,12 +654,9 @@
                   />
                   <VBadge
                     size="sm"
-                    :class="[
-                      'whitespace-nowrap',
-                      signalVital.respiratoryRateStatus === 'Pendiente'
-                        ? 'bg-base-200 text-gray-700 dark:text-gray-300'
-                        : signalVital.respiratoryRateBadgeClass || '',
-                    ]"
+                    :variant="(signalVital.respiratoryRateStatus === 'Pendiente' || !signalVital.respiratoryRateStatus) ? 'ghost' : 'solid'"
+                    :color="signalVital.respiratoryRateColor || 'primary'"
+                    class="whitespace-nowrap"
                   >
                     {{ signalVital.respiratoryRateStatus || 'Pendiente' }}
                   </VBadge>
@@ -609,7 +665,7 @@
                 <!-- Temperatura con unidades y estado -->
                 <div class="space-y-2">
                   <div
-                    class="grid grid-cols-1 md:grid-cols-[minmax(120px,150px)_minmax(100px,140px)_auto] lg:grid-cols-[150px_180px_auto] items-center gap-1"
+                    class="grid grid-cols-1 md:grid-cols-[minmax(140px,max-content)_minmax(110px,150px)_minmax(85px,max-content)] lg:grid-cols-[minmax(140px,max-content)_150px_minmax(85px,max-content)] items-center gap-2 md:gap-x-3"
                   >
                     <span class="text-sm">Temperatura</span>
                     <VInput
@@ -627,12 +683,9 @@
                     />
                     <VBadge
                       size="sm"
-                      :class="[
-                        'whitespace-nowrap',
-                        signalVital.temperatureStatus === 'Pendiente'
-                          ? 'bg-base-200 text-gray-700 dark:text-gray-300'
-                          : signalVital.temperatureBadgeClass || '',
-                      ]"
+                      :variant="(signalVital.temperatureStatus === 'Pendiente' || !signalVital.temperatureStatus) ? 'ghost' : 'solid'"
+                      :color="signalVital.temperatureColor || 'primary'"
+                      class="whitespace-nowrap"
                     >
                       {{ signalVital.temperatureStatus || 'Pendiente' }}
                     </VBadge>
@@ -651,7 +704,7 @@
                 <!-- Saturación de oxígeno con unidades y estado -->
                 <div class="space-y-2">
                   <div
-                    class="grid grid-cols-1 md:grid-cols-[minmax(120px,150px)_minmax(100px,140px)_auto] lg:grid-cols-[150px_180px_auto] items-center gap-1"
+                    class="grid grid-cols-1 md:grid-cols-[minmax(140px,max-content)_minmax(110px,150px)_minmax(85px,max-content)] lg:grid-cols-[minmax(140px,max-content)_150px_minmax(85px,max-content)] items-center gap-2 md:gap-x-3"
                   >
                     <span class="text-sm">Saturación de oxígeno</span>
                     <VInput
@@ -668,12 +721,9 @@
                     />
                     <VBadge
                       size="sm"
-                      :class="[
-                        'whitespace-nowrap',
-                        signalVital.oxygenSaturationStatus === 'Pendiente'
-                          ? 'bg-base-200 text-gray-700 dark:text-gray-300'
-                          : signalVital.oxygenSaturationBadgeClass || '',
-                      ]"
+                      :variant="(signalVital.oxygenSaturationStatus === 'Pendiente' || !signalVital.oxygenSaturationStatus) ? 'ghost' : 'solid'"
+                      :color="signalVital.oxygenSaturationColor || 'primary'"
+                      class="whitespace-nowrap"
                     >
                       {{ signalVital.oxygenSaturationStatus || 'Pendiente' }}
                     </VBadge>
@@ -691,7 +741,9 @@
 
                 <!-- Glucosa capilar con unidades y estado -->
                 <div class="space-y-2">
-                  <div class="grid grid-cols-1 md:grid-cols-[minmax(120px,150px)_minmax(100px,140px)_auto] lg:grid-cols-[150px_180px_auto] items-center gap-1">
+                  <div
+                    class="grid grid-cols-1 md:grid-cols-[minmax(140px,max-content)_minmax(110px,150px)_minmax(85px,max-content)] lg:grid-cols-[minmax(140px,max-content)_150px_minmax(85px,max-content)] items-center gap-2 md:gap-x-3"
+                  >
                     <span class="text-sm">Glucosa capilar</span>
                     <VInput
                       type="number"
@@ -706,12 +758,9 @@
                     />
                     <VBadge
                       size="sm"
-                      :class="[
-                        'whitespace-nowrap',
-                        signalVital.glucoseStatus === 'Pendiente'
-                          ? 'bg-base-200 text-gray-700 dark:text-gray-300'
-                          : (signalVital.glucoseBadgeClass || ''),
-                      ]"
+                      :variant="(signalVital.glucoseStatus === 'Pendiente' || !signalVital.glucoseStatus) ? 'ghost' : 'solid'"
+                      :color="signalVital.glucoseColor || 'primary'"
+                      class="whitespace-nowrap"
                     >
                       {{ signalVital.glucoseStatus || 'Pendiente' }}
                     </VBadge>
@@ -774,6 +823,7 @@ import { VSelect } from '@/components/ui/select';
 import { VBadge } from '@/components/ui/badge';
 import { VAlert } from '@/components/ui/alert';
 import { VInput } from '@/components/ui/input';
+import { VTable } from '@/components/ui/table';
 import type { AntropometricData, SignalVital, Patient, ResultPatient } from '@/types';
 import type { ValueLabel } from '@/types/Common';
 import { ref, computed, onMounted, watch } from 'vue';
@@ -791,7 +841,7 @@ const {
   getOxygenSaturationStatus,
   getTemperatureStatus,
   getGlucoseStatus,
-  getBadgeClass,
+  getBloodPressureStatus,
 } = useHealthIndicators();
 
 const results = ref<ResultPatient>({});
@@ -857,7 +907,7 @@ function handleSubmit() {
     results.value.imc = imcResult.formatted;
     antropomentric.value.imc = imcResult.formatted;
     antropomentric.value.imcStatus = imcResult.status?.status || 'Pendiente';
-    antropomentric.value.imcBadgeClass = getBadgeClass(imcResult.status?.color);
+    antropomentric.value.imcColor = imcResult.status?.color ?? undefined;
   }
 
   // Calcular índice cintura-cadera
@@ -867,7 +917,7 @@ function handleSubmit() {
     const iccResult = getWaistHipRatio(waist, hip, gender);
     if (iccResult) {
       antropomentric.value.hipStatus = iccResult.status?.status || 'Pendiente';
-      antropomentric.value.hipBadgeClass = getBadgeClass(iccResult.status?.color);
+      antropomentric.value.hipColor = iccResult.status?.color ?? undefined;
     }
   }
 }
@@ -878,7 +928,7 @@ watch(
   (newWaist) => {
     if (!newWaist || newWaist === '' || Number(newWaist) <= 0) {
       antropomentric.value.waistStatus = 'Pendiente';
-      antropomentric.value.waistBadgeClass = 'badge-ghost';
+      antropomentric.value.waistColor = undefined;
     } else {
       const waistValue = Number(newWaist);
       const gender = formData.value.gender as 'MALE' | 'FEMALE';
@@ -886,7 +936,7 @@ watch(
       if (gender) {
         const waistStatus = getWaistStatus(waistValue, gender);
         antropomentric.value.waistStatus = waistStatus?.status || 'Pendiente';
-        antropomentric.value.waistBadgeClass = getBadgeClass(waistStatus?.color);
+        antropomentric.value.waistColor = waistStatus?.color ?? undefined;
       }
     }
   },
@@ -898,7 +948,7 @@ watch(
   (newHip) => {
     if (!newHip || newHip === '' || Number(newHip) <= 0) {
       antropomentric.value.hipStatus = 'Pendiente';
-      antropomentric.value.hipBadgeClass = 'badge-ghost';
+      antropomentric.value.hipColor = undefined;
     } else {
       const hipValue = Number(newHip);
       const gender = formData.value.gender as 'MALE' | 'FEMALE';
@@ -906,7 +956,7 @@ watch(
       if (gender) {
         const hipStatus = getHipStatus(hipValue, gender);
         antropomentric.value.hipStatus = hipStatus?.status || 'Pendiente';
-        antropomentric.value.hipBadgeClass = getBadgeClass(hipStatus?.color);
+        antropomentric.value.hipColor = hipStatus?.color ?? undefined;
       }
     }
   },
@@ -936,16 +986,16 @@ watch(
         if (iceResult) {
           antropomentric.value.waistHeightRatio = iceResult.ratio;
           antropomentric.value.waistHeightStatus = iceResult.status?.status || 'Pendiente';
-          antropomentric.value.waistHeightBadgeClass = getBadgeClass(iceResult.status?.color);
+          antropomentric.value.waistHeightColor = iceResult.status?.color ?? undefined;
         }
       } else {
         antropomentric.value.waistHeightStatus = 'Pendiente';
-        antropomentric.value.waistHeightBadgeClass = 'badge-ghost';
+        antropomentric.value.waistHeightColor = undefined;
       }
     } else {
       antropomentric.value.heightInCm = undefined;
       antropomentric.value.waistHeightStatus = 'Pendiente';
-      antropomentric.value.waistHeightBadgeClass = 'badge-ghost';
+      antropomentric.value.waistHeightColor = undefined;
     }
   },
 );
@@ -984,7 +1034,7 @@ function updateGlucoseStatus() {
   const glucoseValue = Number(signalVital.value.glucose);
   if (!glucoseValue || glucoseValue <= 0) {
     signalVital.value.glucoseStatus = 'Pendiente';
-    signalVital.value.glucoseBadgeClass = 'badge-ghost';
+    signalVital.value.glucoseColor = undefined;
     signalVital.value.glucoseAlert = undefined;
     signalVital.value.glucoseAlertColor = undefined;
     return;
@@ -992,7 +1042,7 @@ function updateGlucoseStatus() {
 
   const glucoseStatus = getGlucoseStatus(glucoseValue, glucoseAteRecently.value);
   signalVital.value.glucoseStatus = glucoseStatus?.status || 'Pendiente';
-  signalVital.value.glucoseBadgeClass = getBadgeClass(glucoseStatus?.color);
+  signalVital.value.glucoseColor = glucoseStatus?.color ?? undefined;
   signalVital.value.glucoseAlert = glucoseStatus?.alert;
   signalVital.value.glucoseAlertColor = glucoseStatus?.color;
 }
@@ -1013,12 +1063,12 @@ watch(
   (newHeartRate) => {
     if (!newHeartRate || newHeartRate === '' || Number(newHeartRate) <= 0) {
       signalVital.value.heartRateStatus = 'Pendiente';
-      signalVital.value.heartRateBadgeClass = 'badge-ghost';
+      signalVital.value.heartRateColor = undefined;
     } else {
       const heartRateValue = Math.floor(Number(newHeartRate)); // Asegurar que sea entero
       const heartRateStatus = getHeartRateStatus(heartRateValue);
       signalVital.value.heartRateStatus = heartRateStatus?.status || 'Pendiente';
-      signalVital.value.heartRateBadgeClass = getBadgeClass(heartRateStatus?.color);
+      signalVital.value.heartRateColor = heartRateStatus?.color ?? undefined;
     }
   },
 );
@@ -1029,12 +1079,12 @@ watch(
   (newRespiratoryRate) => {
     if (!newRespiratoryRate || newRespiratoryRate === '' || Number(newRespiratoryRate) <= 0) {
       signalVital.value.respiratoryRateStatus = 'Pendiente';
-      signalVital.value.respiratoryRateBadgeClass = 'badge-ghost';
+      signalVital.value.respiratoryRateColor = undefined;
     } else {
       const respiratoryRateValue = Math.floor(Number(newRespiratoryRate)); // Asegurar que sea entero
       const respiratoryRateStatus = getRespiratoryRateStatus(respiratoryRateValue);
       signalVital.value.respiratoryRateStatus = respiratoryRateStatus?.status || 'Pendiente';
-      signalVital.value.respiratoryRateBadgeClass = getBadgeClass(respiratoryRateStatus?.color);
+      signalVital.value.respiratoryRateColor = respiratoryRateStatus?.color ?? undefined;
     }
   },
 );
@@ -1045,14 +1095,14 @@ watch(
   (newTemperature) => {
     if (!newTemperature || newTemperature === '' || Number(newTemperature) <= 0) {
       signalVital.value.temperatureStatus = 'Pendiente';
-      signalVital.value.temperatureBadgeClass = 'badge-ghost';
+      signalVital.value.temperatureColor = undefined;
       signalVital.value.temperatureAlert = undefined;
       signalVital.value.temperatureAlertColor = undefined;
     } else {
       const temperatureValue = Number(newTemperature);
       const temperatureStatus = getTemperatureStatus(temperatureValue);
       signalVital.value.temperatureStatus = temperatureStatus?.status || 'Pendiente';
-      signalVital.value.temperatureBadgeClass = getBadgeClass(temperatureStatus?.color);
+      signalVital.value.temperatureColor = temperatureStatus?.color ?? undefined;
       signalVital.value.temperatureAlert = temperatureStatus?.alert;
       signalVital.value.temperatureAlertColor = temperatureStatus?.color;
     }
@@ -1065,14 +1115,14 @@ watch(
   (newOxygenSaturation) => {
     if (!newOxygenSaturation || newOxygenSaturation === '' || Number(newOxygenSaturation) <= 0) {
       signalVital.value.oxygenSaturationStatus = 'Pendiente';
-      signalVital.value.oxygenSaturationBadgeClass = 'badge-ghost';
+      signalVital.value.oxygenSaturationColor = undefined;
       signalVital.value.oxygenSaturationAlert = undefined;
       signalVital.value.oxygenSaturationAlertColor = undefined;
     } else {
       const oxygenSaturationValue = Math.floor(Number(newOxygenSaturation)); // Asegurar que sea entero
       const oxygenSaturationStatus = getOxygenSaturationStatus(oxygenSaturationValue);
       signalVital.value.oxygenSaturationStatus = oxygenSaturationStatus?.status || 'Pendiente';
-      signalVital.value.oxygenSaturationBadgeClass = getBadgeClass(oxygenSaturationStatus?.color);
+      signalVital.value.oxygenSaturationColor = oxygenSaturationStatus?.color ?? undefined;
       signalVital.value.oxygenSaturationAlert = oxygenSaturationStatus?.alert;
       signalVital.value.oxygenSaturationAlertColor = oxygenSaturationStatus?.color;
     }
@@ -1093,6 +1143,27 @@ watch(
   },
 );
 
+// Watcher para calcular el estado de presión arterial (sistólica y diastólica)
+watch(
+  [() => signalVital.value.systolic, () => signalVital.value.diastolic],
+  ([systolic, diastolic]) => {
+    const s = Number(systolic);
+    const d = Number(diastolic);
+    if (!systolic || systolic === '' || !diastolic || diastolic === '' || Number.isNaN(s) || Number.isNaN(d) || s <= 0 || d <= 0) {
+      signalVital.value.bloodPressureStatus = 'Pendiente';
+      signalVital.value.bloodPressureColor = undefined;
+      signalVital.value.bloodPressureComment = undefined;
+      signalVital.value.bloodPressureCommentColor = undefined;
+    } else {
+      const bpStatus = getBloodPressureStatus(s, d);
+      signalVital.value.bloodPressureStatus = bpStatus.status;
+      signalVital.value.bloodPressureColor = bpStatus.color ?? undefined;
+      signalVital.value.bloodPressureComment = bpStatus.alert;
+      signalVital.value.bloodPressureCommentColor = bpStatus.color;
+    }
+  },
+);
+
 // Watcher para actualizar cintura y cadera cuando cambia el género
 watch(
   () => formData.value.gender,
@@ -1100,9 +1171,9 @@ watch(
     if (!newGender) {
       // Limpiar estado si no hay género
       antropomentric.value.waistStatus = 'Pendiente';
-      antropomentric.value.waistBadgeClass = 'badge-ghost';
+      antropomentric.value.waistColor = undefined;
       antropomentric.value.hipStatus = 'Pendiente';
-      antropomentric.value.hipBadgeClass = 'badge-ghost';
+      antropomentric.value.hipColor = undefined;
       antropomentric.value.waistCircumference = undefined;
       return;
     }
@@ -1115,7 +1186,7 @@ watch(
       const waistValue = Number(antropomentric.value.waistCircumference);
       const waistStatus = getWaistStatus(waistValue, newGender as 'MALE' | 'FEMALE');
       antropomentric.value.waistStatus = waistStatus?.status || 'Pendiente';
-      antropomentric.value.waistBadgeClass = getBadgeClass(waistStatus?.color);
+      antropomentric.value.waistColor = waistStatus?.color ?? undefined;
     }
 
     // Calcular cadera si existe (con sus propios rangos)
@@ -1126,7 +1197,7 @@ watch(
       const hipValue = Number(antropomentric.value.hipCircumference);
       const hipStatus = getHipStatus(hipValue, newGender as 'MALE' | 'FEMALE');
       antropomentric.value.hipStatus = hipStatus?.status || 'Pendiente';
-      antropomentric.value.hipBadgeClass = getBadgeClass(hipStatus?.color);
+      antropomentric.value.hipColor = hipStatus?.color ?? undefined;
     }
   },
 );

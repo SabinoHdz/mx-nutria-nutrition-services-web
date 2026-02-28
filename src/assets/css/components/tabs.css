@@ -1,0 +1,53 @@
+/* VTabs - Tailwind tabs (replaces DaisyUI tabs) */
+.tabs {
+  @apply w-full;
+}
+
+.tabs-list {
+  @apply flex flex-wrap gap-1;
+}
+
+.tabs-list--boxed {
+  @apply p-1 rounded-lg bg-surface shadow-lg border border-border;
+}
+
+.tabs-list--underline {
+  @apply border-b border-border;
+}
+
+.tabs-tab {
+  @apply inline-flex items-center justify-center gap-2 font-medium rounded-md transition-colors cursor-pointer border border-transparent;
+}
+
+.tabs-tab--size-sm {
+  @apply px-3 py-1.5 text-sm;
+}
+
+.tabs-tab--size-md {
+  @apply px-4 py-2 text-base;
+}
+
+.tabs-tab--size-lg {
+  @apply px-5 py-2.5 text-lg;
+}
+
+.tabs-list--boxed .tabs-tab {
+  @apply text-text-secondary hover:text-text-primary hover:bg-surface-variant;
+}
+
+.tabs-list--boxed .tabs-tab--active {
+  @apply bg-primary text-white border-primary hover:bg-primary hover:text-white;
+}
+
+.tabs-list--underline .tabs-tab {
+  @apply rounded-none border-b-2 border-transparent -mb-px text-text-secondary hover:text-text-primary;
+}
+
+.tabs-list--underline .tabs-tab--active {
+  @apply text-primary border-primary;
+}
+
+/* Tab panels: one panel at a time via v-if (no CSS visibility needed) */
+.tab-panels {
+  @apply w-full;
+}

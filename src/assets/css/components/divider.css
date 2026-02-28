@@ -1,0 +1,24 @@
+/* VDivider - Tailwind-only divider (replaces DaisyUI divider) */
+.divider {
+  @apply flex items-center gap-2;
+}
+
+.divider--horizontal {
+  @apply w-full flex-row;
+}
+
+.divider--vertical {
+  @apply flex-col h-full min-h-[1.5em] w-auto;
+}
+
+.divider__line {
+  @apply flex-1 border-t border-divider;
+}
+
+.divider--vertical .divider__line {
+  @apply flex-1 border-t-0 border-l border-divider w-px min-h-[1em];
+}
+
+.divider__label {
+  @apply px-2 text-sm text-text-secondary;
+}

@@ -1,31 +1,44 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { useTheme } from '@/composables/useTheme';
 import { RouterLink, RouterView } from 'vue-router';
 import { VIcon } from '@/components/ui/icon';
+import { VButton } from '@/components/ui/button';
+import { VDrawer } from '@/components/ui/drawer';
+import { VNavbar } from '@/components/ui/navbar';
+import { VDivider } from '@/components/ui/divider';
 
 const { isDarkMode, toggleDarkMode } = useTheme();
+const drawerOpen = ref(false);
 </script>
 
 <template>
-  <div class="drawer min-h-screen bg-background dark:bg-gray-900">
-    <input id="main-drawer" type="checkbox" class="drawer-toggle" />
-    <div class="drawer-content flex flex-col min-h-screen">
-      <!-- Navbar -->
-      <div class="navbar bg-surface dark:bg-gray-800 shadow-lg sticky top-0 z-50">
-        <div class="flex-none lg:hidden">
-          <label for="main-drawer" class="btn btn-square btn-ghost">
+  <VDrawer v-model:open="drawerOpen">
+    <template #default>
+      <VNavbar>
+        <template #start>
+          <VButton
+            variant="ghost"
+            square
+            aria-label="Abrir menú"
+            @click="drawerOpen = true"
+          >
             <VIcon name="menu" size="lg" />
-          </label>
-        </div>
-        <div class="flex-1">
-          <RouterLink to="/" class="btn btn-ghost text-xl font-bold text-primary">
+          </VButton>
+        </template>
+        <template #center>
+          <RouterLink to="/" class="text-xl font-bold text-primary hover:opacity-90">
             🩺 LPN Diagnósticos Virtual
           </RouterLink>
-        </div>
-        <div class="flex-none hidden lg:flex">
-          <ul class="menu menu-horizontal px-1 gap-1">
+        </template>
+        <template #end>
+          <ul class="flex flex-wrap items-center gap-1 px-1 list-none">
             <li>
-              <RouterLink to="/" class="font-medium" active-class="bg-primary text-primary-content">
+              <RouterLink
+                to="/"
+                class="flex items-center gap-1 rounded-md px-2 py-1.5 font-medium transition-colors hover:bg-primary/10"
+                active-class="!bg-primary !text-white"
+              >
                 <VIcon name="home" size="md" />
                 Inicio
               </RouterLink>
@@ -33,8 +46,8 @@ const { isDarkMode, toggleDarkMode } = useTheme();
             <li>
               <RouterLink
                 to="/diagnostics"
-                class="font-medium"
-                active-class="bg-primary text-primary-content"
+                class="flex items-center gap-1 rounded-md px-2 py-1.5 font-medium transition-colors hover:bg-primary/10"
+                active-class="!bg-primary !text-white"
               >
                 <VIcon name="assignment" size="md" />
                 Diagnósticos
@@ -43,8 +56,8 @@ const { isDarkMode, toggleDarkMode } = useTheme();
             <li>
               <RouterLink
                 to="/about"
-                class="font-medium"
-                active-class="bg-primary text-primary-content"
+                class="flex items-center gap-1 rounded-md px-2 py-1.5 font-medium transition-colors hover:bg-primary/10"
+                active-class="!bg-primary !text-white"
               >
                 <VIcon name="info" size="md" />
                 Nosotros
@@ -53,8 +66,8 @@ const { isDarkMode, toggleDarkMode } = useTheme();
             <li>
               <RouterLink
                 to="/support"
-                class="font-medium"
-                active-class="bg-primary text-primary-content"
+                class="flex items-center gap-1 rounded-md px-2 py-1.5 font-medium transition-colors hover:bg-primary/10"
+                active-class="!bg-primary !text-white"
               >
                 <VIcon name="help" size="md" />
                 Soporte
@@ -62,36 +75,43 @@ const { isDarkMode, toggleDarkMode } = useTheme();
             </li>
             <li>
               <button
-                @click="toggleDarkMode"
-                class="font-medium"
+                type="button"
+                class="flex items-center gap-1 rounded-md px-2 py-1.5 font-medium transition-colors hover:bg-primary/10"
                 :title="isDarkMode ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'"
+                @click="toggleDarkMode"
               >
                 <VIcon :name="isDarkMode ? 'light_mode' : 'dark_mode'" size="md" />
                 {{ isDarkMode ? 'Modo Claro' : 'Modo Oscuro' }}
               </button>
             </li>
           </ul>
-        </div>
-      </div>
+        </template>
+      </VNavbar>
 
-      <!-- Page content -->
       <div class="flex-1 bg-background dark:bg-gray-900">
         <RouterView />
       </div>
-    </div>
+    </template>
 
-    <!-- Mobile drawer sidebar -->
-    <div class="drawer-side z-50">
-      <label for="main-drawer" class="drawer-overlay"></label>
-      <ul class="menu p-4 w-80 min-h-full bg-base-200">
+    <template #sidebar>
+      <ul class="p-4 w-80 min-h-full flex flex-col gap-1 list-none">
         <li class="mb-4">
-          <RouterLink to="/" class="text-lg font-bold text-primary">
+          <RouterLink
+            to="/"
+            class="text-lg font-bold text-primary hover:opacity-90"
+            @click="drawerOpen = false"
+          >
             🩺 LPN Diagnósticos Virtual
           </RouterLink>
         </li>
-        <div class="divider"></div>
+        <VDivider />
         <li>
-          <RouterLink to="/" class="text-lg" active-class="bg-primary text-primary-content">
+          <RouterLink
+            to="/"
+            class="flex items-center gap-2 rounded-md px-3 py-2 text-lg transition-colors hover:bg-primary/10"
+            active-class="!bg-primary !text-white"
+            @click="drawerOpen = false"
+          >
             <VIcon name="home" size="lg" />
             Inicio
           </RouterLink>
@@ -99,37 +119,49 @@ const { isDarkMode, toggleDarkMode } = useTheme();
         <li>
           <RouterLink
             to="/diagnostics"
-            class="text-lg"
-            active-class="bg-primary text-primary-content"
+            class="flex items-center gap-2 rounded-md px-3 py-2 text-lg transition-colors hover:bg-primary/10"
+            active-class="!bg-primary !text-white"
+            @click="drawerOpen = false"
           >
             <VIcon name="assignment" size="lg" />
             Diagnósticos
           </RouterLink>
         </li>
         <li>
-          <RouterLink to="/about" class="text-lg" active-class="bg-primary text-primary-content">
+          <RouterLink
+            to="/about"
+            class="flex items-center gap-2 rounded-md px-3 py-2 text-lg transition-colors hover:bg-primary/10"
+            active-class="!bg-primary !text-white"
+            @click="drawerOpen = false"
+          >
             <VIcon name="info" size="lg" />
             Nosotros
           </RouterLink>
         </li>
         <li>
-          <RouterLink to="/support" class="text-lg" active-class="bg-primary text-primary-content">
+          <RouterLink
+            to="/support"
+            class="flex items-center gap-2 rounded-md px-3 py-2 text-lg transition-colors hover:bg-primary/10"
+            active-class="!bg-primary !text-white"
+            @click="drawerOpen = false"
+          >
             <VIcon name="help" size="lg" />
             Soporte
           </RouterLink>
         </li>
-        <div class="divider"></div>
+        <VDivider />
         <li>
           <button
-            @click="toggleDarkMode"
-            class="text-lg"
+            type="button"
+            class="flex w-full items-center gap-2 rounded-md px-3 py-2 text-lg transition-colors hover:bg-primary/10"
             :title="isDarkMode ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'"
+            @click="toggleDarkMode"
           >
             <VIcon :name="isDarkMode ? 'light_mode' : 'dark_mode'" size="lg" />
             {{ isDarkMode ? 'Modo Claro' : 'Modo Oscuro' }}
           </button>
         </li>
       </ul>
-    </div>
-  </div>
+    </template>
+  </VDrawer>
 </template>

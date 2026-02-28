@@ -1,6 +1,5 @@
 @import url(./icons.css);
 @import 'tailwindcss';
-@plugin "daisyui";
 
 /* Component CSS Imports */
 @import './css/components/badge.css';
@@ -16,6 +15,12 @@
 @import './css/components/toggle.css';
 @import './css/components/fab.css';
 @import './css/components/hero.css';
+@import './css/components/divider.css';
+@import './css/components/table.css';
+@import './css/components/tabs.css';
+@import './css/components/collapse.css';
+@import './css/components/drawer.css';
+@import './css/components/navbar.css';
 
 @custom-variant dark (&:where(.dark, .dark *));
 
