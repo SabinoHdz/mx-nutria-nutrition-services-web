@@ -377,6 +377,56 @@
                 </div>
               </VCollapse>
 
+              <!-- Peso saludable y Gasto Energético Basal -->
+              <VCollapse v-model:open="collapseState.healthyWeight">
+                <template #title>Peso saludable y Gasto Energético Basal</template>
+                <div class="pt-4 space-y-3">
+                  <p class="text-gray-700 dark:text-gray-300">
+                    El peso saludable se calcula a partir de la talla usando el rango de IMC
+                    considerado normal (18.5 a 24.9 kg/m²). El gasto energético basal (TMB) y el
+                    requerimiento hídrico se muestran en la misma tarjeta según los datos del
+                    paciente.
+                  </p>
+                  <h4 class="font-semibold">Peso mínimo y máximo</h4>
+                  <ul class="list-disc pl-5 space-y-1 text-sm text-gray-700 dark:text-gray-300">
+                    <li>Mínimo: 18.5 × talla² (talla en metros).</li>
+                    <li>Máximo: 24.9 × talla² (talla en metros).</li>
+                    <li>Unidad: kilogramos (kg).</li>
+                  </ul>
+
+                  <h4 class="font-semibold">Gasto Energético Basal (Kcal/Día)</h4>
+                  <div class="space-y-4 text-sm text-gray-700 dark:text-gray-300">
+                    <div>
+                      <p class="font-medium mb-1">Harris Benedict</p>
+                      <p class="mb-2">Se usa cuando el IMC es Normal o Desnutrición.</p>
+                      <ul class="list-disc pl-5 space-y-1">
+                        <li>Hombre: 66.5 + (13.75 × peso kg) + (5 × talla cm) − (6.78 × edad)</li>
+                        <li>Mujer: 655 + (9.6 × peso kg) + (1.95 × talla cm) − (4.68 × edad)</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <p class="font-medium mb-1">Mifflin-St. Jeor</p>
+                      <p class="mb-2">Se usa cuando el IMC es Sobrepeso, Obesidad I, II o Mórbida.</p>
+                      <ul class="list-disc pl-5 space-y-1">
+                        <li>Hombre: (10 × peso) + (6.25 × talla cm) − (5 × edad) + 5</li>
+                        <li>Mujer: (10 × peso) + (6.25 × talla cm) − (5 × edad) − 161</li>
+                      </ul>
+                    </div>
+                    <p class="text-sm">
+                      Si no se ha calculado el IMC (estado Pendiente), se muestra Harris Benedict
+                      con valor "-" hasta que el usuario pulse Calcular.
+                    </p>
+                  </div>
+
+                  <h4 class="font-semibold">Requerimiento hídrico</h4>
+                  <ul class="list-disc pl-5 space-y-1 text-sm text-gray-700 dark:text-gray-300">
+                    <li>Fórmula: <strong>Peso (kg) × 30 a 35 ml</strong></li>
+                    <li>Se muestra el rango resultante en Kg/ml (ejemplo: 900 a 1050 Kg/ml para 30 kg)</li>
+                    <li>Siempre visible cuando hay peso</li>
+                  </ul>
+                </div>
+              </VCollapse>
+
               <!-- Frecuencia Cardíaca Collapse -->
               <VCollapse v-model:open="collapseState.heartRate">
                 <template #title>Frecuencia Cardíaca</template>
@@ -504,6 +554,73 @@
                 </div>
               </VCollapse>
 
+              <!-- Presión arterial Collapse -->
+              <VCollapse v-model:open="collapseState.bloodPressure">
+                <template #title>Presión arterial</template>
+                <div class="pt-4 space-y-3">
+                  <p class="text-gray-700 dark:text-gray-300">
+                    La presión arterial se mide con dos valores: sistólica (máxima) y diastólica
+                    (mínima), en mmHg. El diagnóstico se obtiene evaluando ambos; si pertenecen a
+                    categorías distintas, se muestra la más grave.
+                  </p>
+                  <h4 class="font-semibold">Clasificación (adultos):</h4>
+                  <VTable striped size="sm">
+                    <thead>
+                      <tr>
+                        <th>Sistólica (mmHg)</th>
+                        <th>Diastólica (mmHg)</th>
+                        <th>Diagnóstico</th>
+                        <th>Comentario</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>&lt; 90</td>
+                        <td>&lt; 60</td>
+                        <td><VBadge color="warning">Hipotensión</VBadge></td>
+                        <td>—</td>
+                      </tr>
+                      <tr>
+                        <td>90 - 119</td>
+                        <td>80 - 83</td>
+                        <td><VBadge color="success">Normal</VBadge></td>
+                        <td>—</td>
+                      </tr>
+                      <tr>
+                        <td>120 - 129</td>
+                        <td>84</td>
+                        <td><VBadge color="warning">Sub Óptima</VBadge></td>
+                        <td>—</td>
+                      </tr>
+                      <tr>
+                        <td>130 - 139</td>
+                        <td>85</td>
+                        <td><VBadge color="warning">Limítrofe</VBadge></td>
+                        <td>Primer nivel de atención médica</td>
+                      </tr>
+                      <tr>
+                        <td>140 - 159</td>
+                        <td>86 - 90</td>
+                        <td><VBadge color="error">Hipertensión 1</VBadge></td>
+                        <td>Prevención</td>
+                      </tr>
+                      <tr>
+                        <td>160 - 179</td>
+                        <td>91 - 100</td>
+                        <td><VBadge color="error">Hipertensión 2</VBadge></td>
+                        <td>Tratamiento urgente</td>
+                      </tr>
+                      <tr>
+                        <td>≥ 180</td>
+                        <td>≥ 110</td>
+                        <td><VBadge color="error">Hipertensión 3</VBadge></td>
+                        <td>—</td>
+                      </tr>
+                    </tbody>
+                  </VTable>
+                </div>
+              </VCollapse>
+
               <!-- Saturación de Oxígeno Collapse -->
               <VCollapse v-model:open="collapseState.oxygenSaturation">
                 <template #title>Saturación de Oxígeno (SpO₂)</template>
@@ -574,46 +691,55 @@
                       <li class="flex gap-2">
                         <span class="text-primary shrink-0">•</span>
                         <span
-                          >Migración de componentes DaisyUI a Tailwind (navbar, drawer, tabs,
-                          collapse, table, divider).</span
+                          >Presión arterial en diagnósticos: captura de sistólica y diastólica con
+                          clasificación según rangos de referencia (normal, sub óptima, limítrofe,
+                          hipertensión 1/2/3, hipotensión).</span
                         >
                       </li>
                       <li class="flex gap-2">
                         <span class="text-primary shrink-0">•</span>
                         <span
-                          >Presión arterial con campos sistólica y diastólica y rangos según
-                          referencia.</span
+                          >Peso saludable ampliado: peso mínimo y máximo por IMC, gasto energético
+                          basal (Harris Benedict para IMC normal/desnutrición, Mifflin-St. Jeor para
+                          sobrepeso/obesidad) y requerimiento hídrico (peso × 30–35 ml).</span
                         >
                       </li>
                       <li class="flex gap-2">
                         <span class="text-primary shrink-0">•</span>
                         <span
-                          >Badges de indicadores y signos vitales con colores por rango (variant y
-                          color en VBadge).</span
+                          >Descarga de PDF con resultados del diagnóstico nutricional.</span
                         >
                       </li>
                       <li class="flex gap-2">
                         <span class="text-primary shrink-0">•</span>
-                        <span>Descarga de PDF con resultados del diagnóstico nutricional.</span>
+                        <span
+                          >Soporte: manual de indicadores descargable en PDF y explicación de
+                          indicadores por pestañas (guía, indicadores, notas de versión).</span
+                        >
                       </li>
                       <li class="flex gap-2">
                         <span class="text-primary shrink-0">•</span>
-                        <span>Logo de la aplicación en la barra de navegación (reemplazo del emoji).</span>
+                        <span
+                          >Explicación de indicadores actualizada: IMC, circunferencias, frecuencia
+                          cardíaca y respiratoria, temperatura, presión arterial (tabla de rangos y
+                          comentarios) y peso saludable con fórmulas de gasto basal y requerimiento
+                          hídrico.</span
+                        >
+                      </li>
+                      <li class="flex gap-2">
+                        <span class="text-primary shrink-0">•</span>
+                        <span
+                          >Indicadores y signos vitales muestran colores según el rango del resultado
+                          (normal, advertencia, riesgo).</span
+                        >
+                      </li>
+                      <li class="flex gap-2">
+                        <span class="text-primary shrink-0">•</span>
+                        <span>Logo de la aplicación en la barra de navegación.</span>
                       </li>
                       <li class="flex gap-2">
                         <span class="text-primary shrink-0">•</span>
                         <span>Correcciones ortográficas en textos de la aplicación.</span>
-                      </li>
-                      <li class="flex gap-2">
-                        <span class="text-primary shrink-0">•</span>
-                        <span
-                          >Sección de explicación de indicadores visible al cambiar de pestaña en
-                          Soporte.</span
-                        >
-                      </li>
-                      <li class="flex gap-2">
-                        <span class="text-primary shrink-0">•</span>
-                        <span>Correcciones de tipos TypeScript y ESLint en build (input, select, PDF, tooltip).</span>
                       </li>
                     </ul>
                   </div>
@@ -675,9 +801,11 @@ const collapseState = reactive({
   imc: false,
   waist: false,
   hip: false,
+  healthyWeight: false,
   heartRate: false,
   respiratoryRate: false,
   temperature: false,
+  bloodPressure: false,
   oxygenSaturation: false,
 });
 </script>

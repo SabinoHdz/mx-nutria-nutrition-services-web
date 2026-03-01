@@ -32,11 +32,25 @@ function diagnosisCell(text: string, color?: BadgeColor): ContentObject {
   return { text: text || 'Pendiente', fillColor: hex };
 }
 
+export type BasalMethod = 'Harris Benedict' | 'Mifflin-St. Jeor';
+
+export interface BasalEnergyExpenditurePayload {
+  method: BasalMethod;
+  value: number | null;
+}
+
+export interface HydrationRequirementPayload {
+  min: number | null;
+  max: number | null;
+}
+
 export interface DiagnosticoResultadosPayload {
   patient: Patient;
   antropometric: AntropometricData;
   signalVital: SignalVital;
   healthyWeight: { min: string | null; max: string | null };
+  basalEnergyExpenditure: BasalEnergyExpenditurePayload;
+  hydrationRequirement: HydrationRequirementPayload;
 }
 
 /**
@@ -45,7 +59,14 @@ export interface DiagnosticoResultadosPayload {
 export function buildDiagnosticoResultadosDocDefinition(
   payload: DiagnosticoResultadosPayload,
 ): DocumentDefinition {
-  const { patient, antropometric, signalVital, healthyWeight } = payload;
+  const {
+    patient,
+    antropometric,
+    signalVital,
+    healthyWeight,
+    basalEnergyExpenditure,
+    hydrationRequirement,
+  } = payload;
 
   const tableBody: (string | ContentObject)[][] = [
     [
@@ -150,6 +171,35 @@ export function buildDiagnosticoResultadosDocDefinition(
     },
     {
       text: `Mín: ${healthyWeight.min ?? '-'} kg — Máx: ${healthyWeight.max ?? '-'} kg`,
+      margin: [0, 0, 0, 8] as [number, number, number, number],
+    },
+    {
+      text: 'Gasto Energético Basal',
+      style: 'heading',
+      margin: [0, 8, 0, 4] as [number, number, number, number],
+    },
+    {
+      text: `${basalEnergyExpenditure.method}: ${
+        basalEnergyExpenditure.value != null
+          ? `${basalEnergyExpenditure.value} Kcal/Día`
+          : '—'
+      }`,
+      margin: [0, 0, 0, 8] as [number, number, number, number],
+    },
+    {
+      text: 'Requerimiento hídrico',
+      style: 'heading',
+      margin: [0, 0, 0, 4] as [number, number, number, number],
+    },
+    /*{
+      text: 'Peso (kg) × 30 a 35 ml',
+      margin: [0, 0, 0, 2] as [number, number, number, number],
+    },*/
+    {
+      text:
+        hydrationRequirement.min != null && hydrationRequirement.max != null
+          ? `${hydrationRequirement.min} a ${hydrationRequirement.max} ml`
+          : '—',
       margin: [0, 0, 0, 12] as [number, number, number, number],
     },
     {

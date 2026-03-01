@@ -405,6 +405,49 @@
                     <span class="text-sm text-gray-500">Kg</span>
                   </div>
                 </div>
+
+                <!-- Gasto Energético Basal -->
+                <h3
+                  class="text-primary font-semibold text-base border-b border-base-300 pb-1 pt-1"
+                >
+                  Gasto Energético Basal
+                </h3>
+                <div class="space-y-2">
+                  <div class="flex items-center gap-3">
+                    <span class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                      {{ basalEnergyExpenditure.method }}
+                    </span>
+                    <div class="flex items-center gap-2">
+                      <span class="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                        {{ basalEnergyExpenditure.value != null ? basalEnergyExpenditure.value : '—' }}
+                      </span>
+                      <span class="text-sm text-gray-500">Kcal/Día</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Requerimiento hídrico -->
+                <div class="space-y-1">
+                  <span class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Requerimiento hídrico
+                  </span>
+                  <!--<p class="text-xs text-gray-500 dark:text-gray-400">Peso (kg) × 30 a 35 ml</p> -->
+                  <div class="flex items-center gap-2">
+                    <span class="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                      {{
+                        hydrationRequirement.min != null && hydrationRequirement.max != null
+                          ? `${hydrationRequirement.min} a ${hydrationRequirement.max}`
+                          : '—'
+                      }}
+                    </span>
+                    <span
+                      v-if="hydrationRequirement.min != null"
+                      class="text-sm text-gray-500"
+                    >
+                    Kg/ml
+                    </span>
+                  </div>
+                </div>
               </div>
             </VCardBody>
           </VCard>
@@ -972,6 +1015,8 @@ async function handleDownloadResultadosPdf() {
       antropometric: antropomentric.value,
       signalVital: signalVital.value,
       healthyWeight: healthyWeight.value,
+      basalEnergyExpenditure: basalEnergyExpenditure.value,
+      hydrationRequirement: hydrationRequirement.value,
     });
   } finally {
     isDownloadingResultadosPdf.value = false;
@@ -1011,6 +1056,59 @@ const healthyWeight = computed(() => {
     min: min.toFixed(1),
     max: max.toFixed(1),
   } as const;
+});
+
+type BasalMethod = 'Harris Benedict' | 'Mifflin-St. Jeor';
+const basalEnergyExpenditure = computed<{
+  method: BasalMethod;
+  value: number | null;
+}>(() => {
+  const age = formData.value.age ?? 0;
+  const weight = formData.value.weight ?? 0;
+  const heightM = formData.value.height ?? 0;
+  const gender = formData.value.gender as 'MALE' | 'FEMALE' | null;
+  const imcStatus = antropomentric.value.imcStatus || 'Pendiente';
+
+  const hasData = age > 0 && weight > 0 && heightM > 0 && !!gender;
+  if (!hasData || imcStatus === 'Pendiente') {
+    return { method: 'Harris Benedict', value: null };
+  }
+
+  const heightCm = heightM * 100;
+
+  if (imcStatus === 'Normal' || imcStatus === 'Desnutrición') {
+    const value =
+      gender === 'MALE'
+        ? 66.5 + 13.75 * weight + 5 * heightCm - 6.78 * age
+        : 655 + 9.6 * weight + 1.95 * heightCm - 4.68 * age;
+    return { method: 'Harris Benedict', value: Math.round(value) };
+  }
+
+  if (
+    imcStatus === 'Sobrepeso' ||
+    imcStatus === 'Obesidad I' ||
+    imcStatus === 'Obesidad II' ||
+    imcStatus === 'Obesidad Mórbida'
+  ) {
+    const value =
+      gender === 'MALE'
+        ? 10 * weight + 6.25 * heightCm - 5 * age + 5
+        : 10 * weight + 6.25 * heightCm - 5 * age - 161;
+    return { method: 'Mifflin-St. Jeor', value: Math.round(value) };
+  }
+
+  return { method: 'Harris Benedict', value: null };
+});
+
+const hydrationRequirement = computed<{ min: number | null; max: number | null }>(() => {
+  const weight = formData.value.weight ?? 0;
+  if (!weight || weight <= 0) {
+    return { min: null, max: null };
+  }
+  return {
+    min: Math.round(weight * 30),
+    max: Math.round(weight * 35),
+  };
 });
 
 function handleSubmit() {
