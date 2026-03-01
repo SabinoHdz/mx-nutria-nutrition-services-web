@@ -81,9 +81,19 @@
         <div class="md:col-span-6 lg:col-span-5">
           <VCard variant="elevated" shadow bordered>
             <VCardBody>
-              <h2 class="text-primary font-semibold text-lg border-b border-base-300 pb-2">
-                Resultados
-              </h2>
+              <div class="flex justify-between items-center border-b border-base-300 pb-2">
+                <h2 class="text-primary font-semibold text-lg">
+                  Resultados
+                </h2>
+                <VButton
+                  size="sm"
+                  color="primary"
+                  :disabled="isDownloadingResultadosPdf"
+                  @click="handleDownloadResultadosPdf"
+                >
+                  {{ isDownloadingResultadosPdf ? 'Generando…' : 'Descargar' }}
+                </VButton>
+              </div>
               <VTable size="sm">
                 <thead>
                     <tr>
@@ -826,6 +836,7 @@ import { VInput } from '@/components/ui/input';
 import { VTable } from '@/components/ui/table';
 import type { AntropometricData, SignalVital, Patient, ResultPatient } from '@/types';
 import type { ValueLabel } from '@/types/Common';
+import { downloadDiagnosticoResultadosPdf } from '@/utils/pdf';
 import { ref, computed, onMounted, watch } from 'vue';
 import { useHealthIndicators } from '@/composables/useHealthIndicators';
 
@@ -859,7 +870,22 @@ const genderOptions: ValueLabel[] = [
 ];
 
 const isDark = ref(false);
+const isDownloadingResultadosPdf = ref(false);
 const glucoseAteRecently = ref<boolean | null>(null);
+
+async function handleDownloadResultadosPdf() {
+  isDownloadingResultadosPdf.value = true;
+  try {
+    await downloadDiagnosticoResultadosPdf({
+      patient: formData.value,
+      antropometric: antropomentric.value,
+      signalVital: signalVital.value,
+      healthyWeight: healthyWeight.value,
+    });
+  } finally {
+    isDownloadingResultadosPdf.value = false;
+  }
+}
 const createDefaultFormData = (): Patient => {
   return {
     age: null,

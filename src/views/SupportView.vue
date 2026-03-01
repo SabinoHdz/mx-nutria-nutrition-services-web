@@ -230,6 +230,34 @@
           <!-- Explicación de Indicadores Content -->
           <div v-if="activeTab === 'indicators'" class="tab-panel tab-panel--indicators">
             <div class="indicators-panel-content space-y-4">
+              <!-- Manual / Descarga -->
+              <VCard variant="elevated" shadow>
+                <VCardBody>
+                  <VCardTitle class="text-xl text-primary mb-3 flex items-center gap-2">
+                    <VIcon name="menu_book" size="lg" />
+                    Manual de indicadores y uso
+                  </VCardTitle>
+                  <p class="text-gray-700 dark:text-gray-300 mb-4">
+                    Consulta el manual en PDF con la descripción de los indicadores antropométricos
+                    y signos vitales, rangos de referencia y recomendaciones para la interpretación
+                    de resultados en la calculadora de diagnósticos.
+                  </p>
+                  <div class="flex flex-wrap items-center gap-2">
+                    <VButton
+                      variant="solid"
+                      color="primary"
+                      class="inline-flex items-center gap-2"
+                      :disabled="manualPdfLoading"
+                      @click="handleDownloadManualPdf"
+                    >
+                      <VIcon name="download" size="md" />
+                      {{ manualPdfLoading ? 'Generando…' : 'Descargar manual (PDF)' }}
+                    </VButton>
+                    <VBadge variant="soft" color="info" size="sm">Ejemplo</VBadge>
+                  </div>
+                </VCardBody>
+              </VCard>
+
               <!-- IMC Collapse -->
               <VCollapse v-model:open="collapseState.imc">
               <template #title>Índice de Masa Corporal (IMC)</template>
@@ -599,6 +627,7 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
 import { VAlert } from '@/components/ui/alert';
+import { VButton } from '@/components/ui/button';
 import { VCard, VCardBody, VCardTitle } from '@/components/ui/card';
 import { VBadge } from '@/components/ui/badge';
 import { VDivider } from '@/components/ui/divider';
@@ -606,10 +635,22 @@ import { VTabs, VTabsList, VTabsTab } from '@/components/ui/tabs';
 import { VCollapse } from '@/components/ui/collapse';
 import { VTable } from '@/components/ui/table';
 import { VIcon } from '@/components/ui/icon';
+import { downloadManualIndicadoresPdf } from '@/utils/pdf';
 
 const activeTab = ref<'guide' | 'indicators' | 'changelog'>('guide');
 
 const appVersion = typeof __APP_VERSION__ !== 'undefined' ? __APP_VERSION__ : '0.0.0';
+
+const manualPdfLoading = ref(false);
+
+async function handleDownloadManualPdf() {
+  manualPdfLoading.value = true;
+  try {
+    await downloadManualIndicadoresPdf();
+  } finally {
+    manualPdfLoading.value = false;
+  }
+}
 
 // Estado de cada collapse (true = abierto, false = cerrado)
 const collapseState = reactive({
