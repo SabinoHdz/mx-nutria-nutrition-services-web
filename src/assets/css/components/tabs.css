@@ -47,7 +47,11 @@
   @apply text-primary border-primary;
 }
 
-/* Tab panels: one panel at a time via v-if (no CSS visibility needed) */
+/* Tab panels: visibility controlled by v-show + .tab-panel--hidden */
 .tab-panels {
-  @apply w-full;
+  @apply w-full min-h-[200px];
+}
+
+.tab-panel--hidden {
+  display: none !important;
 }

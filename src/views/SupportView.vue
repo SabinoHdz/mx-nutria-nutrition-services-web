@@ -23,11 +23,20 @@
               <VIcon name="bar_chart" size="md" />
               Explicación de Indicadores
             </VTabsTab>
+            <VTabsTab :active="activeTab === 'changelog'" size="lg" @click="activeTab = 'changelog'">
+              <VIcon name="new_releases" size="md" />
+              Notas de versión
+            </VTabsTab>
           </VTabsList>
         </VTabs>
-        <div class="tab-panels mt-4" :key="activeTab">
-        <!-- Guía de Uso Content -->
-        <div v-if="activeTab === 'guide'" class="tab-panel space-y-6">
+        <div class="tab-panels mt-4">
+          <!-- Guía de Uso Content -->
+          <div
+            v-show="activeTab === 'guide'"
+            class="tab-panel tab-panel--guide space-y-6"
+            :class="{ 'tab-panel--hidden': activeTab !== 'guide' }"
+          >
+            <div class="space-y-6">
         <VCard variant="elevated" shadow>
           <VCardBody>
             <VCardTitle class="text-2xl text-primary mb-4">
@@ -168,11 +177,16 @@
             <li>Los resultados se actualizan automáticamente conforme ingresa los datos</li>
           </ul>
         </VAlert>
-        </div>
+            </div>
+          </div>
 
-        <!-- Explicación de Indicadores Content -->
-        <div v-if="activeTab === 'indicators'" class="tab-panel space-y-4">
-        <!-- IMC Collapse -->
+          <!-- Explicación de Indicadores Content -->
+          <div
+            v-show="activeTab === 'indicators'"
+            class="tab-panel tab-panel--indicators space-y-4"
+            :class="{ 'tab-panel--hidden': activeTab !== 'indicators' }"
+          >
+          <!-- IMC Collapse -->
         <VCollapse v-model:open="collapseState.imc">
           <template #title>Índice de Masa Corporal (IMC)</template>
           <div class="pt-4 space-y-3">
@@ -453,7 +467,73 @@
             </VAlert>
           </div>
         </VCollapse>
-        </div>
+          </div>
+
+          <!-- Notas de versión / Changelog -->
+          <div
+            v-show="activeTab === 'changelog'"
+            class="tab-panel tab-panel--changelog space-y-6"
+            :class="{ 'tab-panel--hidden': activeTab !== 'changelog' }"
+          >
+            <VCard variant="elevated" shadow>
+              <VCardBody>
+                <VCardTitle class="text-2xl text-primary mb-4 flex items-center gap-2">
+                  <VIcon name="new_releases" size="lg" />
+                  Notas de versión
+                </VCardTitle>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                  Cambios, mejoras y correcciones incorporadas en la aplicación. Actualiza esta sección al subir nuevas versiones.
+                </p>
+                <p class="text-sm font-medium text-primary mb-6">
+                  Versión: {{ appVersion }}
+                </p>
+
+                <div class="space-y-6">
+                  <!-- Versión actual / En desarrollo -->
+                  <div>
+                    <h3 class="font-bold text-lg text-primary border-b border-border pb-2 mb-3">
+                      En desarrollo
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+                      <li class="flex gap-2">
+                        <span class="text-primary shrink-0">•</span>
+                        <span>Migración de componentes DaisyUI a Tailwind (navbar, drawer, tabs, collapse, table, divider).</span>
+                      </li>
+                      <li class="flex gap-2">
+                        <span class="text-primary shrink-0">•</span>
+                        <span>Presión arterial con campos sistólica y diastólica y rangos según referencia.</span>
+                      </li>
+                      <li class="flex gap-2">
+                        <span class="text-primary shrink-0">•</span>
+                        <span>Badges de indicadores y signos vitales con colores por rango (variant y color en VBadge).</span>
+                      </li>
+                      <li class="flex gap-2">
+                        <span class="text-primary shrink-0">•</span>
+                        <span>Correcciones ortográficas en textos de la aplicación.</span>
+                      </li>
+                      <li class="flex gap-2">
+                        <span class="text-primary shrink-0">•</span>
+                        <span>Sección de explicación de indicadores visible al cambiar de pestaña en Soporte.</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <VDivider />
+
+                  <!-- Plantilla para futuras versiones -->
+                  <div>
+                    <h3 class="font-semibold text-base text-gray-600 dark:text-gray-400 mb-2">
+                      Cómo documentar cambios
+                    </h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                      Al publicar una nueva versión, añade aquí una entrada con la fecha o número de versión y lista bajo:
+                      <strong>Nuevas funciones</strong>, <strong>Mejoras</strong> o <strong>Correcciones</strong> según corresponda.
+                    </p>
+                  </div>
+                </div>
+              </VCardBody>
+            </VCard>
+          </div>
         </div>
       </div>
     </div>
@@ -471,7 +551,9 @@ import { VCollapse } from '@/components/ui/collapse';
 import { VTable } from '@/components/ui/table';
 import { VIcon } from '@/components/ui/icon';
 
-const activeTab = ref<'guide' | 'indicators'>('guide');
+const activeTab = ref<'guide' | 'indicators' | 'changelog'>('guide');
+
+const appVersion = typeof __APP_VERSION__ !== 'undefined' ? __APP_VERSION__ : '0.0.0';
 
 // Estado de cada collapse (true = abierto, false = cerrado)
 const collapseState = ref({
