@@ -565,10 +565,10 @@
                 <p class="text-sm font-medium text-primary mb-6">Versión: {{ appVersion }}</p>
 
                 <div class="space-y-6">
-                  <!-- Versión actual / En desarrollo -->
+                  <!-- Versión actual (desde package.json vía __APP_VERSION__) -->
                   <div>
                     <h3 class="font-bold text-lg text-primary border-b border-border pb-2 mb-3">
-                      En desarrollo
+                      v{{ appVersion }}
                     </h3>
                     <ul class="space-y-2 text-gray-700 dark:text-gray-300">
                       <li class="flex gap-2">
@@ -594,6 +594,14 @@
                       </li>
                       <li class="flex gap-2">
                         <span class="text-primary shrink-0">•</span>
+                        <span>Descarga de PDF con resultados del diagnóstico nutricional.</span>
+                      </li>
+                      <li class="flex gap-2">
+                        <span class="text-primary shrink-0">•</span>
+                        <span>Logo de la aplicación en la barra de navegación (reemplazo del emoji).</span>
+                      </li>
+                      <li class="flex gap-2">
+                        <span class="text-primary shrink-0">•</span>
                         <span>Correcciones ortográficas en textos de la aplicación.</span>
                       </li>
                       <li class="flex gap-2">
@@ -602,6 +610,10 @@
                           >Sección de explicación de indicadores visible al cambiar de pestaña en
                           Soporte.</span
                         >
+                      </li>
+                      <li class="flex gap-2">
+                        <span class="text-primary shrink-0">•</span>
+                        <span>Correcciones de tipos TypeScript y ESLint en build (input, select, PDF, tooltip).</span>
                       </li>
                     </ul>
                   </div>
