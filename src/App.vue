@@ -22,8 +22,12 @@ const drawerOpen = ref(false);
           </VButton>
         </template>
         <template #center>
-          <RouterLink to="/" class="text-xl font-bold text-primary hover:opacity-90">
-            🩺 LPN Diagnósticos Virtual
+          <RouterLink
+            to="/"
+            class="inline-flex items-center gap-2 text-xl font-bold text-primary hover:opacity-90"
+          >
+            <img src="/logo.png" alt="LPN" class="h-8 w-auto object-contain" />
+            LPN Diagnósticos Virtual
           </RouterLink>
         </template>
         <template #end>
