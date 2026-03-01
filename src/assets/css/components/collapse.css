@@ -1,28 +1,28 @@
-/* VCollapse - accordion (replaces DaisyUI collapse) */
-.collapse {
+/* VCollapse - accordion (replaces DaisyUI collapse). Prefix vc- to avoid Tailwind/collapse conflicts */
+.vc-collapse {
   @apply border border-border rounded-xl bg-surface shadow-lg overflow-hidden;
 }
 
-.collapse__title {
+.vc-collapse__title {
   @apply flex items-center justify-between gap-2 w-full px-4 py-4 text-left font-bold text-primary cursor-pointer transition-colors hover:bg-surface-variant/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
 }
 
-.collapse__arrow {
+.vc-collapse__arrow {
   @apply shrink-0 transition-transform duration-200 text-primary;
 }
 
-.collapse--open .collapse__arrow {
+.vc-collapse--open .vc-collapse__arrow {
   @apply rotate-180;
 }
 
-.collapse__content {
+.vc-collapse__content {
   @apply overflow-hidden max-h-0 transition-[max-height] duration-200 ease-out;
 }
 
-.collapse__content--open {
+.vc-collapse__content--open {
   @apply max-h-[2000px];
 }
 
-.collapse__content-inner {
+.vc-collapse__content-inner {
   @apply px-4 pb-4 pt-0;
 }

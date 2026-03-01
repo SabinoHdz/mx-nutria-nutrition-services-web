@@ -1,8 +1,8 @@
 <template>
-  <div class="collapse" :class="{ 'collapse--open': model }">
+  <div class="vc-collapse" :class="{ 'vc-collapse--open': model }">
     <div
       :id="titleId"
-      class="collapse__title"
+      class="vc-collapse__title"
       role="button"
       :aria-expanded="model"
       :aria-controls="contentId"
@@ -13,19 +13,19 @@
       <slot name="title">
         {{ title }}
       </slot>
-      <span v-if="arrow" class="collapse__arrow" aria-hidden="true">
+      <span v-if="arrow" class="vc-collapse__arrow" aria-hidden="true">
         <VIcon name="expand_more" size="md" />
       </span>
     </div>
     <div
       :id="contentId"
-      class="collapse__content"
-      :class="{ 'collapse__content--open': model }"
+      class="vc-collapse__content"
+      :class="{ 'vc-collapse__content--open': model }"
       role="region"
       :aria-labelledby="titleId"
       :aria-hidden="!model"
     >
-      <div class="collapse__content-inner">
+      <div class="vc-collapse__content-inner">
         <slot />
       </div>
     </div>

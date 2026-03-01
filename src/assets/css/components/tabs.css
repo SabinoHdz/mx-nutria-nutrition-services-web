@@ -55,3 +55,8 @@
 .tab-panel--hidden {
   display: none !important;
 }
+
+.tab-panel--indicators .indicators-panel-content {
+  display: block;
+  overflow: visible;
+}
