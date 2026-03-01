@@ -51,9 +51,9 @@ export type InputRounded = (typeof INPUT_ROUNDED)[number];
 // ========================================
 export interface InputProps {
   // Básicos
-  modelValue?: string | number;
+  modelValue?: string | number | null;
   type?: InputType;
-  label: string;
+  label?: string;
   placeholder?: string;
 
   // Estados

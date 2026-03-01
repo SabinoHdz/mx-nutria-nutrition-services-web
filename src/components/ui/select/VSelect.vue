@@ -301,19 +301,19 @@ const emitChangeIfNeeded = (nextValue: string | number | Array<string | number>)
 // ===== METHODS =====
 const getOptionLabel = (option: SelectOption): string => {
   const key = optionLabelKey.value;
-  const value = (option as Record<string, unknown>)[key];
+  const value = (option as unknown as Record<string, unknown>)[key];
   return String(value ?? '');
 };
 
 const getOptionValue = (option: SelectOption): string | number => {
   const key = optionValueKey.value;
-  const value = (option as Record<string, unknown>)[key];
+  const value = (option as unknown as Record<string, unknown>)[key];
   return (value as string | number) ?? '';
 };
 
 const isOptionDisabled = (option: SelectOption): boolean => {
   const key = optionDisableKey.value;
-  const disabled = Boolean((option as Record<string, unknown>)[key]);
+  const disabled = Boolean((option as unknown as Record<string, unknown>)[key]);
   if (disabled) return true;
   if (maxReached.value && !isSelected(option)) return true;
   return false;

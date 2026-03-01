@@ -31,8 +31,8 @@ export async function getPdfMake(): Promise<PdfMakeInstance> {
 
   const vfsModule = await import('pdfmake/build/vfs_fonts');
   const vfs =
-    (vfsModule as { default?: Record<string, string> }).default ??
-    (vfsModule as Record<string, string>);
+    (vfsModule as unknown as { default?: Record<string, string> }).default ??
+    (vfsModule as unknown as Record<string, string>);
 
   if (pdfMake.addVirtualFileSystem && vfs) {
     pdfMake.addVirtualFileSystem(vfs);

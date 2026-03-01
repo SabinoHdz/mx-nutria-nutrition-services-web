@@ -200,7 +200,7 @@ const effectiveRules = computed(() => {
     const requiredRule: ValidationRule = (val) => {
       const strVal = String(val).trim();
       if (!strVal) {
-        return props.messageRequired || getDefaultRequiredMessage(props.label);
+        return props.messageRequired || getDefaultRequiredMessage(props.label ?? 'Campo');
       }
       return true;
     };

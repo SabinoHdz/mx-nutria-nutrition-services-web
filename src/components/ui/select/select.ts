@@ -37,7 +37,6 @@ export interface SelectOption {
   disable?: boolean;
   description?: string;
   icon?: string;
-  [key: string]: unknown;
 }
 
 // ========================================
@@ -45,7 +44,7 @@ export interface SelectOption {
 // ========================================
 export interface SelectProps {
   // Basicos
-  modelValue?: string | number | Array<string | number>;
+  modelValue?: string | number | Array<string | number> | null;
   options: SelectOption[];
   label: string;
   placeholder?: string;
