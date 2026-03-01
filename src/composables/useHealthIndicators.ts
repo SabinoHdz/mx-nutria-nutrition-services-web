@@ -151,6 +151,58 @@ export const HIP_RANGES_FEMALE: HealthRange[] = [
   },
 ];
 
+// Rangos de glucosa capilar (mg/dl)
+export const GLUCOSE_RANGES: HealthRange[] = [
+  {
+    min: 1,
+    max: 70,
+    status: 'Hipoglucemia',
+    color: 'warning',
+    description: '< 70 mg/dl',
+    alert: 'Requiere atención médica',
+  },
+  {
+    min: 71,
+    max: 99,
+    status: 'Normal',
+    color: 'success',
+    description: '71 - 99 mg/dl',
+  },
+  {
+    min: 100,
+    max: 125,
+    status: 'Condicional',
+    color: 'warning',
+    description: '100 - 125 mg/dl',
+  },
+  {
+    min: 126,
+    max: Infinity,
+    status: 'Pre diabético',
+    color: 'error',
+    description: '> 126 mg/dl',
+    alert: 'Realizar una prueba de HbA1c o glucosa plasmática no mayor a 15 días',
+  },
+];
+
+// Rangos de índice cintura/estatura (ICE)
+export const WAIST_HEIGHT_RATIO_RANGES: HealthRange[] = [
+  {
+    min: 0,
+    max: 0.4,
+    status: 'Normal',
+    color: 'success',
+    description: '≤ 0.4',
+  },
+  {
+    min: 0.4,
+    max: Infinity,
+    status: 'Riesgo de ECV Y Síndrome Metabólico',
+    color: 'error',
+    description: '> 0.4',
+  },
+];
+
 // Rangos de frecuencia cardíaca (lpm - latidos por minuto)
 export const HEART_RATE_RANGES: HealthRange[] = [
   {
@@ -209,7 +261,7 @@ export const OXYGEN_SATURATION_RANGES: HealthRange[] = [
     status: 'Emergencia médica',
     color: 'error',
     description: '<90%',
-    alert: 'Requiere atención Médica Urgente',
+    alert: 'Requiere atención médica urgente',
   },
   {
     min: 91,
@@ -249,7 +301,7 @@ export const TEMPERATURE_RANGES: HealthRange[] = [
     status: 'Fiebre Moderada',
     color: 'warning',
     description: '38.1 - 38.5 °C',
-    alert: 'Requiere atención Médica',
+    alert: 'Requiere atención médica',
   },
   {
     min: 38.6,
@@ -257,7 +309,7 @@ export const TEMPERATURE_RANGES: HealthRange[] = [
     status: 'Fiebre Alta',
     color: 'warning',
     description: '38.6 - 39.9 °C',
-    alert: 'Requiere atención Médica',
+    alert: 'Requiere atención médica',
   },
   {
     min: 40.0,
@@ -265,7 +317,7 @@ export const TEMPERATURE_RANGES: HealthRange[] = [
     status: 'Fiebre Muy Alta',
     color: 'error',
     description: '>40.0 °C',
-    alert: 'Requiere atención Médica Urgente',
+    alert: 'Requiere atención médica urgente',
   },
 ];
 
@@ -389,6 +441,157 @@ export function useHealthIndicators() {
   };
 
   /**
+   * Calcula el estado de la glucosa capilar
+   */
+  const getGlucoseStatus = (glucose: number, ateRecently: boolean | null) => {
+    if (glucose < 70) {
+      return {
+        status: 'Hipoglucemia',
+        color: 'warning',
+        alert: 'Requiere atención médica',
+      } as const;
+    }
+
+    if (glucose >= 71 && glucose <= 99) {
+      return {
+        status: 'Normal',
+        color: 'success',
+      } as const;
+    }
+
+    if (glucose >= 100 && glucose <= 125) {
+      if (ateRecently === null) {
+        return {
+          status: 'Pendiente',
+          color: 'info',
+        } as const;
+      }
+
+      if (ateRecently) {
+        return {
+          status: 'Normal',
+          color: 'success',
+        } as const;
+      }
+
+      return {
+        status: 'Alterada',
+        color: 'warning',
+        alert: 'Realizar una prueba de HbA1c o glucosa plasmática no mayor a 15 días',
+      } as const;
+    }
+
+    return {
+      status: 'Pre diabético',
+      color: 'error',
+      alert: 'Realizar una prueba de HbA1c o glucosa plasmática no mayor a 15 días',
+    } as const;
+  };
+
+  /**
+   * Categoría de presión arterial (orden de gravedad: mayor = más grave)
+   */
+  const BP_SEVERITY = {
+    HYPOTENSION: 0,
+    NORMAL: 1,
+    SUB_OPTIMA: 2,
+    LIMITROFE: 3,
+    H1: 4,
+    H2: 5,
+    H3: 6,
+  } as const;
+
+  const getSystolicCategory = (
+    s: number,
+  ): {
+    severity: number;
+    status: string;
+    color: 'success' | 'info' | 'warning' | 'error';
+    alert?: string;
+  } => {
+    if (s < 90)
+      return { severity: BP_SEVERITY.HYPOTENSION, status: 'Hipotensión', color: 'warning' };
+    if (s >= 180) return { severity: BP_SEVERITY.H3, status: 'Hipertensión 3', color: 'error' };
+    if (s >= 160)
+      return {
+        severity: BP_SEVERITY.H2,
+        status: 'Hipertensión 2',
+        color: 'error',
+        alert: 'Tratamiento urgente',
+      };
+    if (s >= 140)
+      return {
+        severity: BP_SEVERITY.H1,
+        status: 'Hipertensión 1',
+        color: 'error',
+        alert: 'Prevención',
+      };
+    if (s >= 130)
+      return {
+        severity: BP_SEVERITY.LIMITROFE,
+        status: 'Limítrofe',
+        color: 'warning',
+        alert: 'Primer nivel de atención médica',
+      };
+    if (s >= 120)
+      return { severity: BP_SEVERITY.SUB_OPTIMA, status: 'Sub Óptima', color: 'warning' };
+    return { severity: BP_SEVERITY.NORMAL, status: 'Normal', color: 'success' };
+  };
+
+  const getDiastolicCategory = (
+    d: number,
+  ): {
+    severity: number;
+    status: string;
+    color: 'success' | 'info' | 'warning' | 'error';
+    alert?: string;
+  } => {
+    if (d < 60)
+      return { severity: BP_SEVERITY.HYPOTENSION, status: 'Hipotensión', color: 'warning' };
+    if (d >= 110) return { severity: BP_SEVERITY.H3, status: 'Hipertensión 3', color: 'error' };
+    if (d >= 91)
+      return {
+        severity: BP_SEVERITY.H2,
+        status: 'Hipertensión 2',
+        color: 'error',
+        alert: 'Tratamiento urgente',
+      };
+    if (d >= 86)
+      return {
+        severity: BP_SEVERITY.H1,
+        status: 'Hipertensión 1',
+        color: 'error',
+        alert: 'Prevención',
+      };
+    if (d >= 85)
+      return {
+        severity: BP_SEVERITY.LIMITROFE,
+        status: 'Limítrofe',
+        color: 'warning',
+        alert: 'Primer nivel de atención médica',
+      };
+    if (d >= 84)
+      return { severity: BP_SEVERITY.SUB_OPTIMA, status: 'Sub Óptima', color: 'warning' };
+    if (d >= 80) return { severity: BP_SEVERITY.NORMAL, status: 'Normal', color: 'success' };
+    return { severity: BP_SEVERITY.NORMAL, status: 'Normal', color: 'success' };
+  };
+
+  /**
+   * Calcula el estado de la presión arterial (sistólica y diastólica).
+   * Devuelve la categoría más grave entre ambas y su comentario si aplica.
+   */
+  const getBloodPressureStatus = (systolic: number, diastolic: number) => {
+    const sCat = getSystolicCategory(systolic);
+    const dCat = getDiastolicCategory(diastolic);
+    const worse = sCat.severity >= dCat.severity ? sCat : dCat;
+    return {
+      status: worse.status,
+      color: worse.color,
+      alert: worse.alert,
+    } as const;
+  };
+
+  /**
    * Calcula el índice cintura-cadera y su estado
    */
   const getWaistHipRatio = (waist: number, hip: number, gender: 'MALE' | 'FEMALE') => {
@@ -400,6 +603,20 @@ export function useHealthIndicators() {
     return {
       ratio: ratio.toFixed(2),
       status: findRange(ratio, ranges),
+    };
+  };
+
+  /**
+   * Calcula el índice cintura-estatura y su estado
+   */
+  const getWaistHeightRatio = (waistInCm: number, heightInCm: number) => {
+    if (heightInCm === 0) return null;
+
+    const ratio = waistInCm / heightInCm;
+
+    return {
+      ratio: ratio.toFixed(2),
+      status: findRange(ratio, WAIST_HEIGHT_RATIO_RANGES),
     };
   };
 
@@ -428,6 +645,8 @@ export function useHealthIndicators() {
     HIP_RANGES_FEMALE,
     ICC_RANGES_MALE,
     ICC_RANGES_FEMALE,
+    GLUCOSE_RANGES,
+    WAIST_HEIGHT_RATIO_RANGES,
     HEART_RATE_RANGES,
     RESPIRATORY_RATE_RANGES,
     OXYGEN_SATURATION_RANGES,
@@ -439,10 +658,13 @@ export function useHealthIndicators() {
     getWaistStatus,
     getHipStatus,
     getWaistHipRatio,
+    getWaistHeightRatio,
     getHeartRateStatus,
     getRespiratoryRateStatus,
     getOxygenSaturationStatus,
     getTemperatureStatus,
+    getGlucoseStatus,
+    getBloodPressureStatus,
     findRange,
     getBadgeClass,
   };

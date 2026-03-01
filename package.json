@@ -1,6 +1,6 @@
 {
   "name": "mx-nutria-nutrition-services-web",
-  "version": "0.0.0",
+  "version": "1.0.3",
   "private": true,
   "type": "module",
   "engines": {
@@ -17,7 +17,9 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",
+    "class-variance-authority": "^0.7.1",
     "material-symbols": "^0.40.2",
+    "pdfmake": "^0.3.5",
     "pinia": "^3.0.4",
     "tailwindcss": "^4.1.18",
     "vue": "^3.5.26",
@@ -30,7 +32,6 @@
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/eslint-config-typescript": "^14.6.0",
     "@vue/tsconfig": "^0.8.1",
-    "daisyui": "^5.5.14",
     "eslint": "^9.39.2",
     "eslint-plugin-vue": "~10.6.2",
     "jiti": "^2.6.1",

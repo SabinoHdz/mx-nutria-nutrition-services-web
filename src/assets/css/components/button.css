@@ -1,0 +1,557 @@
+@layer components {
+  /* ========================================
+     1. BASE BUTTON - Estilos comunes
+     ======================================== */
+
+  /**
+   * Clase base para todos los botones
+   * Proporciona layout, espaciado, tipografía y transiciones comunes
+   */
+  .button {
+    /* Layout / Flexbox */
+    @apply inline-flex items-center justify-center gap-2;
+
+    /* Espaciado (padding default para size md) */
+    @apply px-4 py-2;
+
+    /* Tipografía */
+    @apply text-sm font-semibold leading-normal;
+
+    /* Apariencia */
+    @apply rounded-md border-0 no-underline whitespace-nowrap;
+
+    /* Interactividad */
+    @apply cursor-pointer select-none;
+
+    /* Transiciones suaves */
+    @apply transition-all duration-200 ease-in-out;
+
+    /* Habilita posicionamiento relativo para ripple */
+    @apply relative overflow-hidden;
+  }
+
+  /**
+   * Focus visible - anillo de foco para accesibilidad (keyboard)
+   */
+  .button:focus-visible {
+    @apply outline-2 outline-offset-2;
+    outline-color: var(--color-primary);
+  }
+
+  /**
+   * Contenedor para el contenido del botón
+   */
+  .button__content {
+    @apply inline-flex items-center;
+  }
+
+  /**
+   * Label/texto del botón (para loading state)
+   */
+  .button__label {
+    @apply flex-1;
+  }
+
+  /**
+   * Spinner para estado loading
+   */
+  .button__spinner {
+    @apply inline-flex items-center justify-center;
+  }
+
+  .button__spinner--spin {
+    animation: button-spin 1s linear infinite;
+  }
+
+  @keyframes button-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /**
+   * SOLID: Fondo sólido, texto blanco
+   * Variante principales y más visible
+   */
+  .button-solid {
+    @apply bg-current text-white border-0;
+  }
+
+  .button-solid:hover:not(:disabled):not(.button-loading) {
+    @apply brightness-90;
+  }
+
+  .button-solid:active:not(:disabled):not(.button-loading) {
+    @apply brightness-75 scale-[0.98];
+  }
+
+  /**
+   * OUTLINE: Solo borde, texto coloreado
+   * Variante secundaria, menos prominente
+   */
+  .button-outline {
+    @apply bg-transparent border-[1.5px] border-current text-current;
+  }
+
+  .button-outline:hover:not(:disabled):not(.button-loading) {
+    @apply bg-current/10;
+  }
+
+  .button-outline:active:not(:disabled):not(.button-loading) {
+    @apply bg-current/20;
+  }
+
+  /**
+   * GHOST: Sin borde, texto coloreado, muy sutil
+   * Variante terciaria, mínima
+   */
+  .button-ghost {
+    @apply bg-transparent border-0 text-current;
+  }
+
+  .button-ghost:hover:not(:disabled):not(.button-loading) {
+    @apply bg-current/10;
+  }
+
+  .button-ghost:active:not(:disabled):not(.button-loading) {
+    @apply bg-current/20;
+  }
+
+  /**
+   * SOFT: Fondo suave del color, texto coloreado
+   * Menos contraste que solid, más que ghost
+   */
+  .button-soft {
+    @apply bg-current/15 text-current border-0;
+  }
+
+  .button-soft:hover:not(:disabled):not(.button-loading) {
+    @apply bg-current/25;
+  }
+
+  .button-soft:active:not(:disabled):not(.button-loading) {
+    @apply bg-current/30;
+  }
+
+  /**
+   * DASHED: Borde punteado
+   */
+  .button-dashed {
+    @apply bg-transparent border-2 border-dashed border-current text-current;
+  }
+
+  .button-dashed:hover:not(:disabled):not(.button-loading) {
+    @apply bg-current/10;
+  }
+
+  /**
+   * LINK: Estilo de enlace (sin borde ni fondo)
+   */
+  .button-link {
+    @apply bg-transparent border-0 text-current underline;
+  }
+
+  .button-link:hover:not(:disabled):not(.button-loading) {
+    @apply opacity-70;
+  }
+
+  /* ========================================
+     3. COLORS - SOLID VARIANT
+     ======================================== */
+
+  .button-solid.button--color-primary {
+    @apply bg-primary text-white;
+  }
+
+  .button-solid.button--color-secondary {
+    @apply bg-secondary text-white;
+  }
+
+  .button-solid.button--color-success {
+    @apply bg-success text-white;
+  }
+
+  .button-solid.button--color-warning {
+    @apply bg-warning text-white;
+  }
+
+  .button-solid.button--color-error {
+    @apply bg-error text-white;
+  }
+
+  .button-solid.button--color-info {
+    @apply bg-info text-white;
+  }
+
+  /* ========================================
+     3B. COLORS - OUTLINE VARIANT
+     ======================================== */
+
+  .button-outline.button--color-primary {
+    @apply text-primary border-primary;
+  }
+
+  .button-outline.button--color-secondary {
+    @apply text-secondary border-secondary;
+  }
+
+  .button-outline.button--color-success {
+    @apply text-success border-success;
+  }
+
+  .button-outline.button--color-warning {
+    @apply text-warning border-warning;
+  }
+
+  .button-outline.button--color-error {
+    @apply text-error border-error;
+  }
+
+  .button-outline.button--color-info {
+    @apply text-info border-info;
+  }
+
+  /* ========================================
+     3C. COLORS - GHOST VARIANT
+     ======================================== */
+
+  .button-ghost.button--color-primary {
+    @apply text-primary;
+  }
+
+  .button-ghost.button--color-secondary {
+    @apply text-secondary;
+  }
+
+  .button-ghost.button--color-success {
+    @apply text-success;
+  }
+
+  .button-ghost.button--color-warning {
+    @apply text-warning;
+  }
+
+  .button-ghost.button--color-error {
+    @apply text-error;
+  }
+
+  .button-ghost.button--color-info {
+    @apply text-info;
+  }
+
+  /* ========================================
+     3D. COLORS - SOFT VARIANT
+     ======================================== */
+
+  .button-soft.button--color-primary {
+    @apply bg-primary/15 text-primary;
+  }
+
+  .button-soft.button--color-secondary {
+    @apply bg-secondary/15 text-secondary;
+  }
+
+  .button-soft.button--color-success {
+    @apply bg-success/15 text-success;
+  }
+
+  .button-soft.button--color-warning {
+    @apply bg-warning/15 text-warning;
+  }
+
+  .button-soft.button--color-error {
+    @apply bg-error/15 text-error;
+  }
+
+  .button-soft.button--color-info {
+    @apply bg-info/15 text-info;
+  }
+
+  /* ========================================
+     4. SIZES - Padding y tipografía por tamaño
+     ======================================== */
+
+  .button--size-xs {
+    @apply px-3 py-1 text-xs gap-1;
+  }
+
+  .button--size-sm {
+    @apply px-3.5 py-1.5 text-[0.8125rem] gap-1.5;
+  }
+
+  .button--size-md {
+    @apply px-4 py-2 text-sm gap-2;
+  }
+
+  .button--size-lg {
+    @apply px-5 py-2.5 text-base gap-2;
+  }
+
+  .button--size-xl {
+    @apply px-6 py-3 text-lg gap-2.5;
+  }
+
+  /**
+   * Ajustes de padding para botones icon-only
+   */
+  .button--icon-only.button--size-xs {
+    @apply px-1 py-1;
+  }
+
+  .button--icon-only.button--size-sm {
+    @apply px-1.5 py-1.5;
+  }
+
+  .button--icon-only.button--size-md {
+    @apply px-2 py-2;
+  }
+
+  .button--icon-only.button--size-lg {
+    @apply px-2.5 py-2.5;
+  }
+
+  .button--icon-only.button--size-xl {
+    @apply px-3 py-3;
+  }
+
+  /* ========================================
+     5. QUASAR INSPIRED FEATURES
+     ======================================== */
+
+  /**
+   * ROUNDED: Forma de píldora (rounded-full)
+   */
+  .button--rounded {
+    @apply rounded-full;
+  }
+
+  /**
+   * DENSE: Padding compacto
+   */
+  .button--dense {
+    @apply py-1;
+  }
+
+  .button--dense.button--size-xs {
+    @apply px-2 py-0.5;
+  }
+
+  .button--dense.button--size-sm {
+    @apply px-2.5 py-1;
+  }
+
+  .button--dense.button--size-md {
+    @apply px-3 py-1;
+  }
+
+  .button--dense.button--size-lg {
+    @apply px-4 py-1.5;
+  }
+
+  .button--dense.button--size-xl {
+    @apply px-5 py-2;
+  }
+
+  /**
+   * PUSH: Efecto 3D con sombra
+   */
+  .button--push {
+    @apply shadow-md -translate-y-0.5;
+  }
+
+  .button--push:hover:not(:disabled):not(.button--loading) {
+    @apply shadow-lg -translate-y-1;
+  }
+
+  .button--push:active:not(:disabled):not(.button--loading) {
+    @apply shadow-sm translate-y-0;
+  }
+
+  /**
+   * GLOSSY: Efecto brillante con gradiente
+   */
+  .button--glossy {
+    background-image: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.3) 0%,
+      transparent 50%,
+      rgba(0, 0, 0, 0.1) 100%
+    );
+  }
+
+  /**
+   * FAB: Floating Action Button
+   */
+  .button--fab {
+    @apply rounded-full p-4 w-14 h-14;
+  }
+
+  .button--fab:hover:not(:disabled):not(.button--loading) {
+    @apply scale-105;
+  }
+
+  .button--fab.button--size-sm {
+    @apply w-10 h-10 p-2;
+  }
+
+  .button--fab.button--size-lg {
+    @apply w-16 h-16 p-5;
+  }
+
+  /**
+   * NO CAPS: Mantiene el caso del texto original
+   */
+  .button--no-caps {
+    @apply normal-case;
+  }
+
+  /**
+   * UNELEVATED: Sin sombra (flat style)
+   */
+  .button--unelevated {
+    @apply shadow-none;
+  }
+
+  /**
+   * RIPPLE: Efecto Material Design
+   */
+  .button__ripple {
+    @apply absolute rounded-full pointer-events-none;
+    background-color: rgba(255, 255, 255, 0.5);
+    animation: ripple-animation 0.6s ease-out;
+  }
+
+  @keyframes ripple-animation {
+    to {
+      transform: scale(4);
+      opacity: 0;
+    }
+  }
+
+  /* ========================================
+     6. DAISYUI INSPIRED FEATURES
+     ======================================== */
+
+  /**
+   * GLASS: Efecto glassmorphism (backdrop blur)
+   */
+  .button--glass {
+    @apply backdrop-blur-md border;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .button--glass:hover:not(:disabled):not(.button--loading) {
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  /**
+   * SQUARE: Sin border-radius (esquinas rectas)
+   */
+  .button--square {
+    @apply rounded-none;
+  }
+
+  /**
+   * CIRCLE: Completamente circular
+   */
+  .button--circle {
+    @apply rounded-full aspect-square;
+  }
+
+  .button--circle.button--size-xs {
+    @apply w-7 h-7;
+  }
+
+  .button--circle.button--size-sm {
+    @apply w-9 h-9;
+  }
+
+  .button--circle.button--size-md {
+    @apply w-10 h-10;
+  }
+
+  .button--circle.button--size-lg {
+    @apply w-12 h-12;
+  }
+
+  .button--circle.button--size-xl {
+    @apply w-14 h-14;
+  }
+
+  /**
+   * WIDE: Padding horizontal extra
+   */
+  .button--wide {
+    @apply px-8;
+  }
+
+  /**
+   * FULL-WIDTH / BLOCK: Ancho completo
+   */
+  .button--full-width {
+    @apply w-full;
+  }
+
+  /**
+   * ACTIVE: Fuerza estado active/presionado
+   */
+  .button--active {
+    @apply scale-[0.98];
+  }
+
+  .button--variant-solid.button--active {
+    @apply brightness-90;
+  }
+
+  /**
+   * STRETCH: Sinónimo de full-width
+   */
+  .button--stretch {
+    @apply w-full;
+  }
+
+  /* ========================================
+     7. STATES - Disabled, Loading, Active
+     ======================================== */
+
+  /**
+   * DISABLED: Botón deshabilitado
+   */
+  .button:disabled,
+  .button--disabled {
+    @apply opacity-50 cursor-not-allowed pointer-events-none;
+  }
+
+  /**
+   * LOADING: Estado de carga
+   */
+  .button--loading {
+    @apply cursor-wait relative;
+  }
+
+  .button--loading:disabled {
+    @apply pointer-events-none;
+  }
+
+  /* Dark Mode Support */
+  @dark {
+    .button--variant-link {
+      @apply underline;
+    }
+
+    .button--glass {
+      background: rgba(0, 0, 0, 0.2);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .button--glass:hover:not(:disabled):not(.button--loading) {
+      border-color: rgba(255, 255, 255, 0.2);
+      background: rgba(0, 0, 0, 0.3);
+    }
+  }
+}

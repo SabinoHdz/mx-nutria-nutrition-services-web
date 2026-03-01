@@ -1,0 +1,276 @@
+@layer components {
+  /* Base select styles */
+  .select-wrapper {
+    @apply relative flex flex-col gap-2;
+  }
+
+  .select-label {
+    @apply block text-sm font-semibold text-text-primary;
+    line-height: 1.5rem;
+  }
+
+  .select-label .cursor-help {
+    @apply opacity-70 transition-opacity duration-200;
+  }
+
+  .select-label .cursor-help:hover {
+    @apply opacity-100;
+  }
+
+  .select-label-required {
+    @apply ml-1 text-error;
+    font-weight: 600;
+  }
+
+  .select-container {
+    @apply relative flex items-center gap-2 px-3 rounded-md border border-border bg-surface transition-all duration-200;
+    min-height: 2.5rem;
+  }
+
+  .select-control {
+    @apply flex flex-wrap items-center gap-2 flex-1 text-left cursor-pointer outline-none;
+  }
+
+  .select-placeholder {
+    @apply text-text-hint;
+  }
+
+  .select-value {
+    @apply text-text-primary;
+  }
+
+  .select-chips {
+    @apply flex flex-wrap gap-1;
+  }
+
+  .select-chip {
+    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-surface-variant text-xs text-text-primary;
+  }
+
+  .select-chip-remove {
+    @apply text-text-secondary hover:text-text-primary;
+  }
+
+  .select-arrow {
+    @apply text-text-secondary transition-transform duration-200;
+  }
+
+  .select-clear {
+    @apply text-text-secondary hover:text-text-primary;
+  }
+
+  .select-menu {
+    @apply absolute left-0 right-0 bg-surface border border-border rounded-md shadow-lg z-50;
+    top: calc(100% + 0.125rem);
+  }
+
+  .select-search {
+    @apply p-2 border-b border-border;
+  }
+
+  .select-search-input {
+    @apply w-full bg-transparent text-sm text-text-primary outline-none;
+  }
+
+  .select-options {
+    @apply max-h-60 overflow-auto;
+  }
+
+  .select-option {
+    @apply flex items-center justify-between gap-2 px-3 py-2 text-sm cursor-pointer;
+  }
+
+  .select-option:hover {
+    @apply bg-surface-variant;
+  }
+
+  .select-option--selected {
+    @apply bg-primary/10 text-primary;
+  }
+
+  .select-option--disabled {
+    @apply text-text-disabled cursor-not-allowed;
+  }
+
+  .select-option-content {
+    @apply flex flex-col;
+  }
+
+  .select-option-desc {
+    @apply text-xs text-text-secondary;
+  }
+
+  .select-empty {
+    @apply p-3 text-sm text-text-secondary;
+  }
+
+  .select-bottom {
+    @apply flex justify-between gap-2 items-start;
+  }
+
+  .select-error {
+    @apply text-error text-xs;
+  }
+
+  .select-hint {
+    @apply text-text-secondary text-xs;
+  }
+
+  .select-loading-spinner {
+    @apply w-4 h-4 border-2 border-border border-t-primary rounded-full animate-spin;
+  }
+
+  /* Variants - Solid */
+  .select-container.select--solid {
+    @apply bg-surface-variant border-transparent;
+  }
+
+  .select-container.select--solid.select--open {
+    @apply bg-surface border-border;
+  }
+
+  /* Variants - Outline */
+  .select-container.select--outline {
+    @apply bg-surface border-border;
+  }
+
+  .select-container.select--outline.select--open {
+    @apply border-primary ring-1 ring-primary;
+  }
+
+  /* Variants - Soft */
+  .select-container.select--soft {
+    @apply bg-primary/10 border-transparent;
+  }
+
+  .select-container.select--soft.select--open {
+    @apply bg-primary/5 border-primary ring-1 ring-primary;
+  }
+
+  /* Variants - Borderless */
+  .select-container.select--borderless {
+    @apply bg-transparent border-0 border-b-2 border-border rounded-none px-0;
+  }
+
+  .select-container.select--borderless.select--open {
+    @apply border-primary;
+  }
+
+  /* Variants - Filled */
+  .select-container.select--filled {
+    @apply bg-surface-variant border-transparent rounded-t-md rounded-b-none;
+  }
+
+  .select-container.select--filled.select--open {
+    @apply border-b-2 border-primary;
+  }
+
+  /* Colors (open state) */
+  .select-container.select--primary.select--open {
+    @apply border-primary ring-1 ring-primary/10;
+  }
+
+  .select-container.select--secondary.select--open {
+    @apply border-secondary ring-1 ring-secondary/10;
+  }
+
+  .select-container.select--accent.select--open {
+    @apply border-accent ring-1 ring-accent/10;
+  }
+
+  .select-container.select--success.select--open {
+    @apply border-success ring-1 ring-success/10;
+  }
+
+  .select-container.select--warning.select--open {
+    @apply border-warning ring-1 ring-warning/10;
+  }
+
+  .select-container.select--error.select--open {
+    @apply border-error ring-1 ring-error/10;
+  }
+
+  .select-container.select--info.select--open {
+    @apply border-info ring-1 ring-info/10;
+  }
+
+  /* Error state */
+  .select-container.select--error-state {
+    @apply border-error bg-error/5;
+  }
+
+  .select-container.select--error-state.select--open {
+    @apply border-error ring-1 ring-error/20;
+  }
+
+  /* Disabled state */
+  .select-container.select--disabled {
+    @apply bg-surface-variant opacity-60 cursor-not-allowed;
+  }
+
+  /* Sizes */
+  .select-container.select--size-xs {
+    @apply text-xs py-1;
+  }
+
+  .select-container.select--size-sm {
+    @apply text-sm py-1.5;
+  }
+
+  .select-container.select--size-md {
+    @apply text-base py-2;
+  }
+
+  .select-container.select--size-lg {
+    @apply text-lg py-2.5;
+  }
+
+  .select-container.select--size-xl {
+    @apply text-xl py-3;
+  }
+
+  /* Dense */
+  .select-container.select--dense {
+    @apply py-1.5;
+  }
+
+  /* Rounded */
+  .select-container.select--rounded-none {
+    @apply rounded-none;
+  }
+
+  .select-container.select--rounded-sm {
+    @apply rounded-sm;
+  }
+
+  .select-container.select--rounded-md {
+    @apply rounded-md;
+  }
+
+  .select-container.select--rounded-lg {
+    @apply rounded-lg;
+  }
+
+  .select-container.select--rounded-full {
+    @apply rounded-full;
+  }
+
+  /* Shadow */
+  .select-container.select--shadow {
+    @apply shadow-md;
+  }
+
+  .select-container.select--shadow.select--open {
+    @apply shadow-lg;
+  }
+
+  /* Open */
+  .select-container.select--open .select-arrow {
+    @apply rotate-180;
+  }
+
+  /* Loading */
+  .select-container.select--loading {
+    @apply cursor-wait;
+  }
+}

@@ -1,0 +1,259 @@
+/**
+ * FAB COMPONENT - Floating Action Button & Speed Dial
+ * Inspirado en Quasar y DaisyUI
+ */
+
+@layer components {
+  /* ============================================
+     FAB Container - Posición fija en pantalla
+     ============================================ */
+
+  .v-fab-container {
+    @apply fixed z-50 transition-all duration-300;
+  }
+
+  /* Sin teleport: posición absoluta dentro del contenedor padre */
+  .v-fab-container[data-teleport='false'] {
+    @apply absolute;
+  }
+
+  /* Posiciones */
+  .v-fab-container[data-position='top-left'] {
+    top: var(--fab-offset, 1rem);
+    left: var(--fab-offset, 1rem);
+  }
+
+  .v-fab-container[data-position='top-right'] {
+    top: var(--fab-offset, 1rem);
+    right: var(--fab-offset, 1rem);
+  }
+
+  .v-fab-container[data-position='bottom-left'] {
+    bottom: var(--fab-offset, 1rem);
+    left: var(--fab-offset, 1rem);
+  }
+
+  .v-fab-container[data-position='bottom-right'] {
+    bottom: var(--fab-offset, 1rem);
+    right: var(--fab-offset, 1rem);
+  }
+
+  /* ============================================
+     FAB Button - Botón principal
+     ============================================ */
+
+  .v-fab-button {
+    @apply relative rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center;
+  }
+
+  /* Tamaños */
+  .v-fab-button[data-size='sm'] {
+    @apply h-12 w-12;
+  }
+
+  .v-fab-button[data-size='md'] {
+    @apply h-14 w-14;
+  }
+
+  .v-fab-button[data-size='lg'] {
+    @apply h-16 w-16;
+  }
+
+  /* Colores */
+  .v-fab-button[data-color='primary'] {
+    @apply bg-blue-500 hover:bg-blue-600 text-white;
+  }
+
+  .v-fab-button[data-color='secondary'] {
+    @apply bg-purple-500 hover:bg-purple-600 text-white;
+  }
+
+  .v-fab-button[data-color='success'] {
+    @apply bg-green-500 hover:bg-green-600 text-white;
+  }
+
+  .v-fab-button[data-color='warning'] {
+    @apply bg-yellow-500 hover:bg-yellow-600 text-white;
+  }
+
+  .v-fab-button[data-color='error'] {
+    @apply bg-red-500 hover:bg-red-600 text-white;
+  }
+
+  .v-fab-button[data-color='info'] {
+    @apply bg-cyan-500 hover:bg-cyan-600 text-white;
+  }
+
+  .v-fab-button[data-color='neutral'] {
+    @apply bg-gray-600 hover:bg-gray-700 text-white;
+  }
+
+  /* Estado activo (cuando está abierto el Speed Dial) */
+  .v-fab-button--active {
+    @apply scale-110;
+  }
+
+  /* Icono dentro del FAB */
+  .v-fab-button .v-icon {
+    @apply transition-transform duration-300;
+  }
+
+  .v-fab-button--active .v-icon {
+    @apply rotate-45;
+  }
+
+  /* ============================================
+     FAB Actions Container - Speed Dial
+     ============================================ */
+
+  .v-fab-actions-container {
+    @apply absolute flex gap-2 transition-all duration-300;
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  .v-fab-actions-container--open {
+    pointer-events: all;
+    opacity: 1;
+  }
+
+  /* Direcciones */
+  .v-fab-actions-container[data-direction='up'] {
+    @apply flex-col-reverse bottom-full mb-2 left-1/2 -translate-x-1/2;
+  }
+
+  .v-fab-actions-container[data-direction='down'] {
+    @apply flex-col top-full mt-2 left-1/2 -translate-x-1/2;
+  }
+
+  .v-fab-actions-container[data-direction='left'] {
+    @apply flex-row-reverse right-full mr-2 top-1/2 -translate-y-1/2;
+  }
+
+  .v-fab-actions-container[data-direction='right'] {
+    @apply flex-row left-full ml-2 top-1/2 -translate-y-1/2;
+  }
+
+  /* ============================================
+     FAB Action Item - Cada botón del Speed Dial
+     ============================================ */
+
+  .v-fab-action {
+    @apply relative rounded-full shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center;
+    transform: scale(0);
+  }
+
+  .v-fab-actions-container--open .v-fab-action {
+    transform: scale(1);
+  }
+
+  /* Animación escalonada para cada acción */
+  .v-fab-action:nth-child(1) {
+    transition-delay: 0ms;
+  }
+
+  .v-fab-action:nth-child(2) {
+    transition-delay: 50ms;
+  }
+
+  .v-fab-action:nth-child(3) {
+    transition-delay: 100ms;
+  }
+
+  .v-fab-action:nth-child(4) {
+    transition-delay: 150ms;
+  }
+
+  .v-fab-action:nth-child(5) {
+    transition-delay: 200ms;
+  }
+
+  .v-fab-action:nth-child(6) {
+    transition-delay: 250ms;
+  }
+
+  /* Tamaños de las acciones */
+  .v-fab-action[data-size='sm'] {
+    @apply h-10 w-10;
+  }
+
+  .v-fab-action[data-size='md'] {
+    @apply h-12 w-12;
+  }
+
+  .v-fab-action[data-size='lg'] {
+    @apply h-14 w-14;
+  }
+
+  /* Colores de las acciones */
+  .v-fab-action[data-color='primary'] {
+    @apply bg-blue-500 hover:bg-blue-600 text-white;
+  }
+
+  .v-fab-action[data-color='secondary'] {
+    @apply bg-purple-500 hover:bg-purple-600 text-white;
+  }
+
+  .v-fab-action[data-color='success'] {
+    @apply bg-green-500 hover:bg-green-600 text-white;
+  }
+
+  .v-fab-action[data-color='warning'] {
+    @apply bg-yellow-500 hover:bg-yellow-600 text-white;
+  }
+
+  .v-fab-action[data-color='error'] {
+    @apply bg-red-500 hover:bg-red-600 text-white;
+  }
+
+  .v-fab-action[data-color='info'] {
+    @apply bg-cyan-500 hover:bg-cyan-600 text-white;
+  }
+
+  .v-fab-action[data-color='neutral'] {
+    @apply bg-gray-600 hover:bg-gray-700 text-white;
+  }
+
+  /* ============================================
+     FAB Action Label - Etiquetas de las acciones
+     ============================================ */
+
+  .v-fab-action-label {
+    @apply absolute whitespace-nowrap bg-gray-900 text-white text-sm px-3 py-1.5 rounded shadow-lg;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .v-fab-action:hover .v-fab-action-label {
+    opacity: 1;
+  }
+
+  /* Posición del label según dirección */
+  .v-fab-actions-container[data-direction='up'] .v-fab-action-label,
+  .v-fab-actions-container[data-direction='down'] .v-fab-action-label {
+    @apply right-full mr-2 top-1/2 -translate-y-1/2;
+  }
+
+  .v-fab-actions-container[data-direction='left'] .v-fab-action-label,
+  .v-fab-actions-container[data-direction='right'] .v-fab-action-label {
+    @apply bottom-full mb-2 left-1/2 -translate-x-1/2;
+  }
+
+  /* ============================================
+     FAB Backdrop (opcional)
+     ============================================ */
+
+  .v-fab-backdrop {
+    @apply fixed inset-0 bg-black/20 backdrop-blur-sm;
+    z-index: 49;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .v-fab-backdrop--active {
+    opacity: 1;
+    pointer-events: all;
+  }
+}

@@ -1,0 +1,265 @@
+/**
+ * CHECKBOX COMPONENT - CSS Styles
+ */
+
+@layer components {
+  /* ========================================
+     1. CLASE BASE
+     ======================================== */
+
+  .checkbox {
+    @apply inline-flex items-center gap-3;
+  }
+
+  .checkbox-container {
+    width: 100%;
+  }
+
+  .checkbox-input-wrapper {
+    @apply relative inline-flex items-center justify-center shrink-0;
+  }
+
+  .checkbox input[type='checkbox'] {
+    @apply absolute opacity-0 cursor-pointer w-full h-full;
+    margin: 0;
+  }
+
+  .checkbox-checkmark {
+    @apply absolute inset-0 rounded-md border-2 transition-all duration-200;
+    background-color: transparent;
+  }
+
+  .checkbox-icon {
+    @apply absolute opacity-0 transition-all duration-200;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -55%) scale(0.9);
+    font-size: 0.9rem;
+    line-height: 1;
+  }
+
+  .checkbox input[type='checkbox']:checked ~ .checkbox-icon {
+    @apply opacity-100;
+    transform: translate(-50%, -55%) scale(1);
+  }
+
+  .checkbox-label {
+    @apply font-medium cursor-pointer select-none text-text-primary;
+  }
+
+  .checkbox input[type='checkbox']:disabled ~ .checkbox-label {
+    @apply cursor-not-allowed;
+  }
+
+  /* ========================================
+     2. VARIANTS
+     ======================================== */
+
+  .checkbox--variant-solid {
+    /* Variante solida */
+  }
+
+  .checkbox--variant-solid .checkbox-checkmark {
+    @apply border-gray-300;
+  }
+
+  .checkbox--variant-outline .checkbox-checkmark {
+    @apply border-2 bg-transparent;
+  }
+
+  .checkbox--variant-soft .checkbox-checkmark {
+    @apply border-transparent;
+    background-color: rgba(107, 114, 128, 0.15);
+  }
+
+  .checkbox--variant-borderless .checkbox-checkmark {
+    @apply border-transparent;
+  }
+
+  /* ========================================
+     3. COLORS
+     ======================================== */
+
+  .checkbox--color-primary input[type='checkbox']:checked ~ .checkbox-checkmark {
+    @apply border-primary bg-primary;
+  }
+
+  .checkbox--color-primary input[type='checkbox']:checked ~ .checkbox-icon {
+    color: white;
+  }
+
+  .checkbox--color-secondary input[type='checkbox']:checked ~ .checkbox-checkmark {
+    @apply border-secondary bg-secondary;
+  }
+
+  .checkbox--color-secondary input[type='checkbox']:checked ~ .checkbox-icon {
+    color: white;
+  }
+
+  .checkbox--color-success input[type='checkbox']:checked ~ .checkbox-checkmark {
+    @apply border-success bg-success;
+  }
+
+  .checkbox--color-success input[type='checkbox']:checked ~ .checkbox-icon {
+    color: white;
+  }
+
+  .checkbox--color-warning input[type='checkbox']:checked ~ .checkbox-checkmark {
+    @apply border-warning bg-warning;
+  }
+
+  .checkbox--color-warning input[type='checkbox']:checked ~ .checkbox-icon {
+    color: #111827;
+  }
+
+  .checkbox--color-error input[type='checkbox']:checked ~ .checkbox-checkmark {
+    @apply border-error bg-error;
+  }
+
+  .checkbox--color-error input[type='checkbox']:checked ~ .checkbox-icon {
+    color: white;
+  }
+
+  .checkbox--color-info input[type='checkbox']:checked ~ .checkbox-checkmark {
+    @apply border-info bg-info;
+  }
+
+  .checkbox--color-info input[type='checkbox']:checked ~ .checkbox-icon {
+    color: white;
+  }
+
+  .checkbox--color-neutral input[type='checkbox']:checked ~ .checkbox-checkmark {
+    @apply border-gray-600 bg-gray-600;
+  }
+
+  .checkbox--color-neutral input[type='checkbox']:checked ~ .checkbox-icon {
+    color: white;
+  }
+
+  /* ========================================
+     4. SIZES
+     ======================================== */
+
+  .checkbox--size-xs .checkbox-input-wrapper {
+    @apply w-4 h-4;
+  }
+
+  .checkbox--size-xs .checkbox-label {
+    @apply text-xs;
+  }
+
+  .checkbox--size-xs .checkbox-icon {
+    font-size: 0.65rem;
+  }
+
+  .checkbox--size-sm .checkbox-input-wrapper {
+    @apply w-5 h-5;
+  }
+
+  .checkbox--size-sm .checkbox-label {
+    @apply text-sm;
+  }
+
+  .checkbox--size-sm .checkbox-icon {
+    font-size: 0.75rem;
+  }
+
+  .checkbox--size-md .checkbox-input-wrapper {
+    @apply w-6 h-6;
+  }
+
+  .checkbox--size-md .checkbox-label {
+    @apply text-sm;
+  }
+
+  .checkbox--size-md .checkbox-icon {
+    font-size: 0.9rem;
+  }
+
+  .checkbox--size-lg .checkbox-input-wrapper {
+    @apply w-7 h-7;
+  }
+
+  .checkbox--size-lg .checkbox-label {
+    @apply text-base;
+  }
+
+  .checkbox--size-lg .checkbox-icon {
+    font-size: 1rem;
+  }
+
+  .checkbox--size-xl .checkbox-input-wrapper {
+    @apply w-8 h-8;
+  }
+
+  .checkbox--size-xl .checkbox-label {
+    @apply text-base;
+  }
+
+  .checkbox--size-xl .checkbox-icon {
+    font-size: 1.1rem;
+  }
+
+  /* ========================================
+     5. STATES
+     ======================================== */
+
+  .checkbox--disabled {
+    @apply opacity-50;
+  }
+
+  .checkbox--error .checkbox-checkmark {
+    @apply border-error;
+  }
+
+  .checkbox--readonly .checkbox-label {
+    @apply cursor-default;
+  }
+
+  .checkbox--readonly input[type='checkbox'] {
+    @apply cursor-default;
+  }
+
+  .checkbox input[type='checkbox']:focus-visible ~ .checkbox-checkmark {
+    outline: 2px solid rgba(25, 118, 210, 0.5);
+    outline-offset: 2px;
+  }
+
+  /* ========================================
+     6. HINT Y ERROR MESSAGE
+     ======================================== */
+
+  .checkbox-hint {
+    @apply text-xs text-text-secondary mt-1;
+  }
+
+  .checkbox-error-message {
+    @apply text-xs text-error mt-1 font-medium;
+  }
+
+  /* ========================================
+     7. GROUP
+     ======================================== */
+
+  .checkbox-group__label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--color-text-primary);
+  }
+
+  .checkbox-group__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .checkbox-group__col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .checkbox-group__messages {
+    margin-top: 0.5rem;
+  }
+}

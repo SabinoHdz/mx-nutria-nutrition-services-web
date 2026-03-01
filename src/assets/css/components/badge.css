@@ -1,0 +1,391 @@
+@layer components {
+  /* ========================================
+   1. BASE STYLES
+   ======================================== */
+
+  /* Badge tipo pill, contenido centrado y transiciones suaves. */
+  /* Compact pill badge with centered content and smooth hover-ready transitions. */
+  .badge {
+    @apply inline-flex items-center justify-center gap-2;
+    @apply px-3 py-1 rounded-full;
+    @apply text-sm font-semibold whitespace-nowrap;
+    @apply transition-all duration-200 ease-in-out;
+    @apply leading-none;
+  }
+
+  /* ========================================
+   2. VARIANT BASE STYLES
+   ======================================== */
+  .badge-solid {
+    @apply border-transparent;
+  }
+
+  .badge-outline {
+    @apply bg-transparent border-2 border-current;
+  }
+
+  .badge-ghost {
+    @apply bg-transparent border-transparent;
+  }
+
+  .badge-soft {
+    @apply border-transparent;
+  }
+
+  .badge-dashed {
+    @apply bg-transparent border-2 border-dashed border-current;
+  }
+
+  /* ========================================
+   3. SOLID VARIANTS (Fondo sólido + texto)
+   ======================================== */
+
+  /* Solid + Primary */
+  .badge-solid--primary {
+    @apply bg-primary text-white;
+  }
+  .dark .badge-solid--primary {
+    @apply bg-primary text-text-primary;
+  }
+
+  /* Solid + Secondary */
+  .badge-solid--secondary {
+    @apply bg-secondary text-white;
+  }
+  .dark .badge-solid--secondary {
+    @apply bg-secondary text-text-primary;
+  }
+
+  /* Solid + Accent */
+  .badge-solid--accent {
+    @apply bg-accent text-white;
+  }
+  .dark .badge-solid--accent {
+    @apply bg-accent text-text-primary;
+  }
+
+  /* Solid + Success */
+  .badge-solid--success {
+    @apply bg-success text-white;
+  }
+  .dark .badge-solid--success {
+    @apply bg-success text-text-primary;
+  }
+
+  /* Solid + Warning */
+  .badge-solid--warning {
+    @apply bg-warning text-gray-900;
+  }
+  .dark .badge-solid--warning {
+    @apply bg-warning text-text-primary;
+  }
+
+  /* Solid + Error */
+  .badge-solid--error {
+    @apply bg-error text-white;
+  }
+  .dark .badge-solid--error {
+    @apply bg-error text-text-primary;
+  }
+
+  /* Solid + Info */
+  .badge-solid--info {
+    @apply bg-info text-gray-900;
+  }
+  .dark .badge-solid--info {
+    @apply bg-info text-text-primary;
+  }
+
+  /* ========================================
+   4. OUTLINE VARIANTS (Solo borde + texto)
+   ======================================== */
+
+  /* Outline + Primary */
+  .badge-outline--primary {
+    @apply border-primary text-primary;
+  }
+  .dark .badge-outline--primary {
+    @apply border-primary text-primary;
+  }
+
+  /* Outline + Secondary */
+  .badge-outline--secondary {
+    @apply border-secondary text-secondary;
+  }
+  .dark .badge-outline--secondary {
+    @apply border-secondary text-secondary;
+  }
+
+  /* Outline + Accent */
+  .badge-outline--accent {
+    @apply border-accent text-accent;
+  }
+  .dark .badge-outline--accent {
+    @apply border-accent text-accent;
+  }
+
+  /* Outline + Success */
+  .badge-outline--success {
+    @apply border-success text-success;
+  }
+  .dark .badge-outline--success {
+    @apply border-success text-success;
+  }
+
+  /* Outline + Warning */
+  .badge-outline--warning {
+    @apply border-warning text-warning;
+  }
+  .dark .badge-outline--warning {
+    @apply border-warning text-warning;
+  }
+
+  /* Outline + Error */
+  .badge-outline--error {
+    @apply border-error text-error;
+  }
+  .dark .badge-outline--error {
+    @apply border-error text-error;
+  }
+
+  /* Outline + Info */
+  .badge-outline--info {
+    @apply border-info text-info;
+  }
+  .dark .badge-outline--info {
+    @apply border-info text-info;
+  }
+
+  /* ========================================
+   5. SOFT VARIANTS (Fondo semi-transparente)
+   ======================================== */
+
+  /* Soft + Primary */
+  .badge-soft--primary {
+    @apply bg-primary/10 text-primary;
+  }
+  .dark .badge-soft--primary {
+    @apply bg-primary/20 text-primary;
+  }
+
+  /* Soft + Secondary */
+  .badge-soft--secondary {
+    @apply bg-secondary/10 text-secondary;
+  }
+  .dark .badge-soft--secondary {
+    @apply bg-secondary/20 text-secondary;
+  }
+
+  /* Soft + Accent */
+  .badge-soft--accent {
+    @apply bg-accent/10 text-accent;
+  }
+  .dark .badge-soft--accent {
+    @apply bg-accent/20 text-accent;
+  }
+
+  /* Soft + Success */
+  .badge-soft--success {
+    @apply bg-success/10 text-success;
+  }
+  .dark .badge-soft--success {
+    @apply bg-success/20 text-success;
+  }
+
+  /* Soft + Warning */
+  .badge-soft--warning {
+    @apply bg-warning/10 text-warning;
+  }
+  .dark .badge-soft--warning {
+    @apply bg-warning/20 text-warning;
+  }
+
+  /* Soft + Error */
+  .badge-soft--error {
+    @apply bg-error/10 text-error;
+  }
+  .dark .badge-soft--error {
+    @apply bg-error/20 text-error;
+  }
+
+  /* Soft + Info */
+  .badge-soft--info {
+    @apply bg-info/10 text-info;
+  }
+  .dark .badge-soft--info {
+    @apply bg-info/20 text-info;
+  }
+
+  /* ========================================
+   6. GHOST VARIANTS (Sin fondo, hover sutil)
+   ======================================== */
+
+  /* Ghost + Primary */
+  .badge-ghost--primary {
+    @apply text-primary hover:bg-primary/10;
+  }
+  .dark .badge-ghost--primary {
+    @apply text-primary hover:bg-primary/20;
+  }
+
+  /* Ghost + Secondary */
+  .badge-ghost--secondary {
+    @apply text-secondary hover:bg-secondary/10;
+  }
+  .dark .badge-ghost--secondary {
+    @apply text-secondary hover:bg-secondary/20;
+  }
+
+  /* Ghost + Accent */
+  .badge-ghost--accent {
+    @apply text-accent hover:bg-accent/10;
+  }
+  .dark .badge-ghost--accent {
+    @apply text-accent hover:bg-accent/20;
+  }
+
+  /* Ghost + Success */
+  .badge-ghost--success {
+    @apply text-success hover:bg-success/10;
+  }
+  .dark .badge-ghost--success {
+    @apply text-success hover:bg-success/20;
+  }
+
+  /* Ghost + Warning */
+  .badge-ghost--warning {
+    @apply text-warning hover:bg-warning/10;
+  }
+  .dark .badge-ghost--warning {
+    @apply text-warning hover:bg-warning/20;
+  }
+
+  /* Ghost + Error */
+  .badge-ghost--error {
+    @apply text-error hover:bg-error/10;
+  }
+  .dark .badge-ghost--error {
+    @apply text-error hover:bg-error/20;
+  }
+
+  /* Ghost + Info */
+  .badge-ghost--info {
+    @apply text-info hover:bg-info/10;
+  }
+  .dark .badge-ghost--info {
+    @apply text-info hover:bg-info/20;
+  }
+
+  /* ========================================
+   7. DASHED VARIANTS (Borde punteado)
+   ======================================== */
+
+  /* Dashed + Primary */
+  .badge-dashed--primary {
+    @apply border-primary text-primary;
+  }
+  .dark .badge-dashed--primary {
+    @apply border-primary text-primary;
+  }
+
+  /* Dashed + Secondary */
+  .badge-dashed--secondary {
+    @apply border-secondary text-secondary;
+  }
+  .dark .badge-dashed--secondary {
+    @apply border-secondary text-secondary;
+  }
+
+  /* Dashed + Accent */
+  .badge-dashed--accent {
+    @apply border-accent text-accent;
+  }
+  .dark .badge-dashed--accent {
+    @apply border-accent text-accent;
+  }
+
+  /* Dashed + Success */
+  .badge-dashed--success {
+    @apply border-success text-success;
+  }
+  .dark .badge-dashed--success {
+    @apply border-success text-success;
+  }
+
+  /* Dashed + Warning */
+  .badge-dashed--warning {
+    @apply border-warning text-warning;
+  }
+  .dark .badge-dashed--warning {
+    @apply border-warning text-warning;
+  }
+
+  /* Dashed + Error */
+  .badge-dashed--error {
+    @apply border-error text-error;
+  }
+  .dark .badge-dashed--error {
+    @apply border-error text-error;
+  }
+
+  /* Dashed + Info */
+  .badge-dashed--info {
+    @apply border-info text-info;
+  }
+  .dark .badge-dashed--info {
+    @apply border-info text-info;
+  }
+
+  /* ========================================
+   8. SIZE STYLES
+   ======================================== */
+
+  .badge--size-xs {
+    @apply text-[0.65rem] px-2 py-0.5;
+  }
+
+  .badge--size-sm {
+    @apply text-xs px-2.5 py-1;
+  }
+
+  .badge--size-md {
+    @apply text-sm px-3 py-1.5;
+  }
+
+  .badge--size-lg {
+    @apply text-base px-4 py-2;
+  }
+
+  .badge--size-xl {
+    @apply text-lg px-5 py-2.5;
+  }
+  /* ========================================
+   9. DOT MODE
+   Transforms badge into a small circular indicator
+   ======================================== */
+
+  .badge--dot {
+    @apply w-2 h-2 p-0 rounded-full gap-0;
+  }
+
+  /* Size adjustments for dot mode */
+  .badge--dot.badge--size-xs {
+    @apply w-1.5 h-1.5;
+  }
+
+  .badge--dot.badge--size-sm {
+    @apply w-2 h-2;
+  }
+
+  .badge--dot.badge--size-md {
+    @apply w-2.5 h-2.5;
+  }
+
+  .badge--dot.badge--size-lg {
+    @apply w-3 h-3;
+  }
+
+  .badge--dot.badge--size-xl {
+    @apply w-3.5 h-3.5;
+  }
+}

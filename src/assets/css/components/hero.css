@@ -1,0 +1,113 @@
+/**
+ * HERO COMPONENT STYLES
+ * Componente para secciones hero/landing con contenido centrado
+ */
+
+@layer components {
+  /* ========================================
+   * BASE HERO
+   * ======================================== */
+  .hero {
+    @apply relative w-full overflow-hidden;
+    @apply flex items-center justify-center;
+  }
+
+  /* ========================================
+   * VARIANTS
+   * ======================================== */
+
+  /* Default: Padding estándar, centrado */
+  .hero-default {
+    @apply px-4 py-16;
+  }
+
+  /* Centered: Centrado total (vertical y horizontal) */
+  .hero-centered {
+    @apply px-4;
+  }
+
+  /* Minimal: Sin padding extra */
+  .hero-minimal {
+    @apply p-0;
+  }
+
+  /* ========================================
+   * SIZES
+   * ======================================== */
+
+  .hero--size-sm {
+    min-height: 50vh;
+  }
+
+  .hero--size-md {
+    min-height: 75vh;
+  }
+
+  .hero--size-lg {
+    min-height: 100vh;
+  }
+
+  /* ========================================
+   * OVERLAY (para background images)
+   * ======================================== */
+
+  .hero--overlay::before {
+    content: '';
+    @apply absolute inset-0 bg-black/50 z-0;
+  }
+
+  .hero--overlay > * {
+    @apply relative z-10;
+  }
+
+  /* ========================================
+   * HERO CONTENT
+   * ======================================== */
+
+  .hero__content {
+    @apply w-full max-w-7xl mx-auto;
+    @apply flex flex-col items-center justify-center text-center;
+  }
+
+  /* ========================================
+   * SUBCOMPONENTES
+   * ======================================== */
+
+  /* Hero Title */
+  .hero__title {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold;
+    @apply text-gray-900 dark:text-white;
+    @apply mb-4;
+  }
+
+  /* Hero Subtitle */
+  .hero__subtitle {
+    @apply text-lg md:text-xl lg:text-2xl;
+    @apply text-gray-700 dark:text-gray-300;
+    @apply mb-6;
+  }
+
+  /* Hero Description */
+  .hero__description {
+    @apply text-base md:text-lg;
+    @apply text-gray-600 dark:text-gray-400;
+    @apply max-w-2xl mx-auto mb-8;
+  }
+
+  /* Hero Actions (botones) */
+  .hero__actions {
+    @apply flex flex-wrap items-center justify-center gap-4;
+  }
+
+  /* ========================================
+   * BACKGROUND UTILITIES
+   * ======================================== */
+
+  .hero--bg-image {
+    @apply bg-cover bg-center bg-no-repeat;
+  }
+
+  .hero--bg-gradient {
+    @apply bg-gradient-to-br;
+  }
+}
