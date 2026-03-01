@@ -501,23 +501,77 @@ export function useHealthIndicators() {
     H3: 6,
   } as const;
 
-  const getSystolicCategory = (s: number): { severity: number; status: string; color: 'success' | 'info' | 'warning' | 'error'; alert?: string } => {
-    if (s < 90) return { severity: BP_SEVERITY.HYPOTENSION, status: 'Hipotensión', color: 'warning' };
+  const getSystolicCategory = (
+    s: number,
+  ): {
+    severity: number;
+    status: string;
+    color: 'success' | 'info' | 'warning' | 'error';
+    alert?: string;
+  } => {
+    if (s < 90)
+      return { severity: BP_SEVERITY.HYPOTENSION, status: 'Hipotensión', color: 'warning' };
     if (s >= 180) return { severity: BP_SEVERITY.H3, status: 'Hipertensión 3', color: 'error' };
-    if (s >= 160) return { severity: BP_SEVERITY.H2, status: 'Hipertensión 2', color: 'error', alert: 'Tratamiento urgente' };
-    if (s >= 140) return { severity: BP_SEVERITY.H1, status: 'Hipertensión 1', color: 'error', alert: 'Prevención' };
-    if (s >= 130) return { severity: BP_SEVERITY.LIMITROFE, status: 'Limítrofe', color: 'warning', alert: 'Primer nivel de atención médica' };
-    if (s >= 120) return { severity: BP_SEVERITY.SUB_OPTIMA, status: 'Sub Óptima', color: 'warning' };
+    if (s >= 160)
+      return {
+        severity: BP_SEVERITY.H2,
+        status: 'Hipertensión 2',
+        color: 'error',
+        alert: 'Tratamiento urgente',
+      };
+    if (s >= 140)
+      return {
+        severity: BP_SEVERITY.H1,
+        status: 'Hipertensión 1',
+        color: 'error',
+        alert: 'Prevención',
+      };
+    if (s >= 130)
+      return {
+        severity: BP_SEVERITY.LIMITROFE,
+        status: 'Limítrofe',
+        color: 'warning',
+        alert: 'Primer nivel de atención médica',
+      };
+    if (s >= 120)
+      return { severity: BP_SEVERITY.SUB_OPTIMA, status: 'Sub Óptima', color: 'warning' };
     return { severity: BP_SEVERITY.NORMAL, status: 'Normal', color: 'success' };
   };
 
-  const getDiastolicCategory = (d: number): { severity: number; status: string; color: 'success' | 'info' | 'warning' | 'error'; alert?: string } => {
-    if (d < 60) return { severity: BP_SEVERITY.HYPOTENSION, status: 'Hipotensión', color: 'warning' };
+  const getDiastolicCategory = (
+    d: number,
+  ): {
+    severity: number;
+    status: string;
+    color: 'success' | 'info' | 'warning' | 'error';
+    alert?: string;
+  } => {
+    if (d < 60)
+      return { severity: BP_SEVERITY.HYPOTENSION, status: 'Hipotensión', color: 'warning' };
     if (d >= 110) return { severity: BP_SEVERITY.H3, status: 'Hipertensión 3', color: 'error' };
-    if (d >= 91) return { severity: BP_SEVERITY.H2, status: 'Hipertensión 2', color: 'error', alert: 'Tratamiento urgente' };
-    if (d >= 86) return { severity: BP_SEVERITY.H1, status: 'Hipertensión 1', color: 'error', alert: 'Prevención' };
-    if (d >= 85) return { severity: BP_SEVERITY.LIMITROFE, status: 'Limítrofe', color: 'warning', alert: 'Primer nivel de atención médica' };
-    if (d >= 84) return { severity: BP_SEVERITY.SUB_OPTIMA, status: 'Sub Óptima', color: 'warning' };
+    if (d >= 91)
+      return {
+        severity: BP_SEVERITY.H2,
+        status: 'Hipertensión 2',
+        color: 'error',
+        alert: 'Tratamiento urgente',
+      };
+    if (d >= 86)
+      return {
+        severity: BP_SEVERITY.H1,
+        status: 'Hipertensión 1',
+        color: 'error',
+        alert: 'Prevención',
+      };
+    if (d >= 85)
+      return {
+        severity: BP_SEVERITY.LIMITROFE,
+        status: 'Limítrofe',
+        color: 'warning',
+        alert: 'Primer nivel de atención médica',
+      };
+    if (d >= 84)
+      return { severity: BP_SEVERITY.SUB_OPTIMA, status: 'Sub Óptima', color: 'warning' };
     if (d >= 80) return { severity: BP_SEVERITY.NORMAL, status: 'Normal', color: 'success' };
     return { severity: BP_SEVERITY.NORMAL, status: 'Normal', color: 'success' };
   };

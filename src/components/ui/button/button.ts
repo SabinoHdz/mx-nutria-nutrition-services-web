@@ -31,7 +31,14 @@ export type ButtonVariant = (typeof BUTTON_VARIANTS)[number];
  * Cada color mapea a variables CSS en main.css
  */
 
-export const BUTTON_COLORS = ['primary', 'secondary', 'success', 'warning', 'error', 'info'] as const;
+export const BUTTON_COLORS = [
+  'primary',
+  'secondary',
+  'success',
+  'warning',
+  'error',
+  'info',
+] as const;
 export type ButtonColor = (typeof BUTTON_COLORS)[number];
 
 // ========================================

@@ -9,12 +9,7 @@ import { computed } from 'vue';
 import type { TabsVariant } from './tabs';
 import { tabsListVariants } from './tabs.variants';
 
-const props = withDefaults(
-  defineProps<{ variant?: TabsVariant }>(),
-  { variant: 'boxed' },
-);
+const props = withDefaults(defineProps<{ variant?: TabsVariant }>(), { variant: 'boxed' });
 
-const listClasses = computed(() =>
-  tabsListVariants({ variant: props.variant }),
-);
+const listClasses = computed(() => tabsListVariants({ variant: props.variant }));
 </script>

@@ -260,55 +260,55 @@
 
               <!-- IMC Collapse -->
               <VCollapse v-model:open="collapseState.imc">
-              <template #title>Índice de Masa Corporal (IMC)</template>
-              <div class="pt-4 space-y-3">
-                <p class="text-gray-700 dark:text-gray-300">
-                  El IMC es un indicador de la relación entre el peso y la altura. Se calcula
-                  dividiendo el peso (kg) entre la altura al cuadrado (m²).
-                </p>
-                <h4 class="font-semibold">Clasificación:</h4>
-                <VTable striped size="sm">
-                  <thead>
-                    <tr>
-                      <th>Rango</th>
-                      <th>Clasificación</th>
-                      <th>Estado</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>&lt; 18.5</td>
-                      <td>Desnutrición</td>
-                      <td><VBadge color="warning">Atención</VBadge></td>
-                    </tr>
-                    <tr>
-                      <td>18.5 - 24.9</td>
-                      <td>Peso Normal</td>
-                      <td><VBadge color="success">Normal</VBadge></td>
-                    </tr>
-                    <tr>
-                      <td>25.0 - 29.9</td>
-                      <td>Sobrepeso</td>
-                      <td><VBadge color="info">Observación</VBadge></td>
-                    </tr>
-                    <tr>
-                      <td>30.0 - 34.9</td>
-                      <td>Obesidad Grado I</td>
-                      <td><VBadge color="warning">Atención</VBadge></td>
-                    </tr>
-                    <tr>
-                      <td>35.0 - 39.9</td>
-                      <td>Obesidad Grado II</td>
-                      <td><VBadge color="warning">Atención</VBadge></td>
-                    </tr>
-                    <tr>
-                      <td>≥ 40.0</td>
-                      <td>Obesidad Mórbida</td>
-                      <td><VBadge color="error">Crítico</VBadge></td>
-                    </tr>
-                  </tbody>
-                </VTable>
-              </div>
+                <template #title>Índice de Masa Corporal (IMC)</template>
+                <div class="pt-4 space-y-3">
+                  <p class="text-gray-700 dark:text-gray-300">
+                    El IMC es un indicador de la relación entre el peso y la altura. Se calcula
+                    dividiendo el peso (kg) entre la altura al cuadrado (m²).
+                  </p>
+                  <h4 class="font-semibold">Clasificación:</h4>
+                  <VTable striped size="sm">
+                    <thead>
+                      <tr>
+                        <th>Rango</th>
+                        <th>Clasificación</th>
+                        <th>Estado</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>&lt; 18.5</td>
+                        <td>Desnutrición</td>
+                        <td><VBadge color="warning">Atención</VBadge></td>
+                      </tr>
+                      <tr>
+                        <td>18.5 - 24.9</td>
+                        <td>Peso Normal</td>
+                        <td><VBadge color="success">Normal</VBadge></td>
+                      </tr>
+                      <tr>
+                        <td>25.0 - 29.9</td>
+                        <td>Sobrepeso</td>
+                        <td><VBadge color="info">Observación</VBadge></td>
+                      </tr>
+                      <tr>
+                        <td>30.0 - 34.9</td>
+                        <td>Obesidad Grado I</td>
+                        <td><VBadge color="warning">Atención</VBadge></td>
+                      </tr>
+                      <tr>
+                        <td>35.0 - 39.9</td>
+                        <td>Obesidad Grado II</td>
+                        <td><VBadge color="warning">Atención</VBadge></td>
+                      </tr>
+                      <tr>
+                        <td>≥ 40.0</td>
+                        <td>Obesidad Mórbida</td>
+                        <td><VBadge color="error">Crítico</VBadge></td>
+                      </tr>
+                    </tbody>
+                  </VTable>
+                </div>
               </VCollapse>
 
               <!-- Circunferencia Cintura Collapse -->
@@ -324,7 +324,9 @@
                       <h4 class="font-semibold mb-2">Hombres:</h4>
                       <ul class="space-y-2 text-sm">
                         <li><VBadge color="success" size="sm">Normal</VBadge> &lt; 94 cm</li>
-                        <li><VBadge color="warning" size="sm">Riesgo Aumentado</VBadge> 94-102 cm</li>
+                        <li>
+                          <VBadge color="warning" size="sm">Riesgo Aumentado</VBadge> 94-102 cm
+                        </li>
                         <li><VBadge color="error" size="sm">Riesgo Alto</VBadge> &gt; 102 cm</li>
                       </ul>
                     </div>
@@ -332,7 +334,9 @@
                       <h4 class="font-semibold mb-2">Mujeres:</h4>
                       <ul class="space-y-2 text-sm">
                         <li><VBadge color="success" size="sm">Normal</VBadge> &lt; 80 cm</li>
-                        <li><VBadge color="warning" size="sm">Riesgo Aumentado</VBadge> 80-88 cm</li>
+                        <li>
+                          <VBadge color="warning" size="sm">Riesgo Aumentado</VBadge> 80-88 cm
+                        </li>
                         <li><VBadge color="error" size="sm">Riesgo Alto</VBadge> &gt; 88 cm</li>
                       </ul>
                     </div>
@@ -353,7 +357,9 @@
                       <h4 class="font-semibold mb-2">Hombres:</h4>
                       <ul class="space-y-2 text-sm">
                         <li><VBadge color="success" size="sm">Normal</VBadge> &lt; 99 cm</li>
-                        <li><VBadge color="warning" size="sm">Riesgo Aumentado</VBadge> 99-104 cm</li>
+                        <li>
+                          <VBadge color="warning" size="sm">Riesgo Aumentado</VBadge> 99-104 cm
+                        </li>
                         <li><VBadge color="error" size="sm">Riesgo Alto</VBadge> &gt; 104 cm</li>
                       </ul>
                     </div>
@@ -503,8 +509,8 @@
                 <template #title>Saturación de Oxígeno (SpO₂)</template>
                 <div class="pt-4 space-y-3">
                   <p class="text-gray-700 dark:text-gray-300">
-                    La saturación de oxígeno indica el porcentaje de hemoglobina saturada con oxígeno
-                    en la sangre. Es un indicador vital de la función respiratoria.
+                    La saturación de oxígeno indica el porcentaje de hemoglobina saturada con
+                    oxígeno en la sangre. Es un indicador vital de la función respiratoria.
                   </p>
                   <h4 class="font-semibold">Rangos de Referencia:</h4>
                   <VTable striped size="sm">

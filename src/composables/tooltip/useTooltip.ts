@@ -226,8 +226,8 @@ export function useTooltip(
 
   const onClick = () => {
     if (options.trigger === 'click') {
-      // Toggle: si está visible, ocultar; si está oculto, mostrar
-      isVisible.value ? hide() : show();
+      if (isVisible.value) hide();
+      else show();
     }
   };
 

@@ -94,7 +94,7 @@ const { isVisible, position, show, hide } = useTooltip(
     offset: props.offset,
     modelValue: props.modelValue,
   },
-  emit as any,
+  emit as (event: string, ...args: unknown[]) => void,
 );
 
 // ===== COMPUTED =====

@@ -28,13 +28,11 @@ const INDICADORES = [
   },
   {
     nombre: 'Frecuencia Cardíaca',
-    descripcion:
-      'Latidos por minuto en reposo. Normal 60-100; Bradicardia ≤59; Taquicardia ≥101.',
+    descripcion: 'Latidos por minuto en reposo. Normal 60-100; Bradicardia ≤59; Taquicardia ≥101.',
   },
   {
     nombre: 'Frecuencia Respiratoria',
-    descripcion:
-      'Respiraciones por minuto. Normal 12-20; Bradipnea ≤11; Taquipnea ≥21.',
+    descripcion: 'Respiraciones por minuto. Normal 12-20; Bradipnea ≤11; Taquipnea ≥21.',
   },
   {
     nombre: 'Temperatura Corporal',
@@ -68,10 +66,19 @@ export function buildManualIndicadoresDocDefinition(): DocumentDefinition {
       { text: INTRO, margin: [0, 0, 0, 16] },
       { text: 'Indicadores incluidos', style: 'heading', margin: [0, 8, 0, 6] },
       ...INDICADORES.flatMap((ind, i) => [
-        { text: `${i + 1}. ${ind.nombre}`, bold: true, margin: [0, 6, 0, 2] as [number, number, number, number] },
+        {
+          text: `${i + 1}. ${ind.nombre}`,
+          bold: true,
+          margin: [0, 6, 0, 2] as [number, number, number, number],
+        },
         { text: ind.descripcion, margin: [0, 0, 0, 8] as [number, number, number, number] },
       ]),
-      { text: 'Documento generado por la aplicación. Versión de ejemplo.', margin: [0, 20, 0, 0] as [number, number, number, number], italics: true, fontSize: 8 },
+      {
+        text: 'Documento generado por la aplicación. Versión de ejemplo.',
+        margin: [0, 20, 0, 0] as [number, number, number, number],
+        italics: true,
+        fontSize: 8,
+      },
     ],
   };
 }

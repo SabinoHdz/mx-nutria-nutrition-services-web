@@ -94,9 +94,3 @@ export interface SelectProps {
   ariaDescribedBy?: string;
 }
 
-// ========================================
-// 4. ERROR MESSAGE DEFAULTS
-// ========================================
-const getDefaultRequiredMessage = (label: string): string => {
-  return `El campo "${label}" es requerido`;
-};

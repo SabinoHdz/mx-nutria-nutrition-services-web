@@ -13,7 +13,9 @@ const FILENAME = 'resultados-diagnostico.pdf';
  * Genera y descarga el PDF de resultados de diagnóstico con datos del paciente
  * y tabla de indicadores (4 columnas, incl. comentarios y colores).
  */
-export async function downloadDiagnosticoResultadosPdf(payload: DiagnosticoResultadosPayload): Promise<void> {
+export async function downloadDiagnosticoResultadosPdf(
+  payload: DiagnosticoResultadosPayload,
+): Promise<void> {
   const docDefinition = buildDiagnosticoResultadosDocDefinition(payload);
   await createAndDownloadPdf(docDefinition, FILENAME);
 }

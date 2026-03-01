@@ -6,12 +6,7 @@
     </div>
 
     <!-- Overlay -->
-    <div
-      v-show="model"
-      class="drawer__overlay"
-      aria-hidden="true"
-      @click="close"
-    />
+    <div v-show="model" class="drawer__overlay" aria-hidden="true" @click="close" />
 
     <!-- Sidebar -->
     <aside

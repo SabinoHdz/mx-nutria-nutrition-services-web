@@ -1,9 +1,5 @@
 <template>
-  <div
-    role="separator"
-    :aria-orientation="orientation"
-    :class="dividerClasses"
-  >
+  <div role="separator" :aria-orientation="orientation" :class="dividerClasses">
     <template v-if="label">
       <span class="divider__line" aria-hidden="true" />
       <span class="divider__label">{{ label }}</span>

@@ -58,7 +58,7 @@ watch(
 
 function onInput(e: Event) {
   const value = (e.target as HTMLInputElement).value;
-  let numValue = value ? Number(value) : null;
+  const numValue = value ? Number(value) : null;
 
   // Validar rango
   if (numValue !== null) {

@@ -30,7 +30,9 @@ export async function getPdfMake(): Promise<PdfMakeInstance> {
   const pdfMake = (pdfMakeModule as { default: PdfMakeInstance }).default;
 
   const vfsModule = await import('pdfmake/build/vfs_fonts');
-  const vfs = (vfsModule as { default?: Record<string, string> }).default ?? (vfsModule as Record<string, string>);
+  const vfs =
+    (vfsModule as { default?: Record<string, string> }).default ??
+    (vfsModule as Record<string, string>);
 
   if (pdfMake.addVirtualFileSystem && vfs) {
     pdfMake.addVirtualFileSystem(vfs);
@@ -49,7 +51,7 @@ export async function getPdfMake(): Promise<PdfMakeInstance> {
  */
 export async function createAndDownloadPdf(
   docDefinition: DocumentDefinition,
-  filename: string
+  filename: string,
 ): Promise<void> {
   const pdfMake = await getPdfMake();
   const pdfDoc = pdfMake.createPdf(docDefinition);

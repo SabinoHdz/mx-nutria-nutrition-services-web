@@ -122,7 +122,7 @@ import { computed, ref, onMounted, onBeforeUnmount, nextTick } from 'vue';
 import { VIcon } from '../icon';
 import { VTooltip } from '../tooltip';
 import type { InputProps } from './input';
-import { getDefaultRequiredMessage, getTypeErrorMessages } from './input';
+import { getDefaultRequiredMessage } from './input';
 import { inputVariants } from './input.variants';
 import {
   filterInputByType,
@@ -174,14 +174,14 @@ const inputId = computed(() => `input-${Math.random().toString(36).slice(2, 9)}`
 
 const errorId = computed(() => `${inputId.value}-error`);
 
-const computedInputType = computed(() => {
+/*const computedInputType = computed(() => {
   if (props.type === 'password' && showPassword.value) return 'text';
   if (props.type === 'phone') return 'tel';
   if (props.type === 'email') return 'email';
   if (props.type === 'url') return 'url';
   if (props.type === 'search') return 'search';
   return 'text';
-});
+});*/
 
 const prependIconName = computed(() => {
   if (props.prependIcon) return props.prependIcon;

@@ -1,9 +1,5 @@
 <template>
-  <component
-    :is="asTag"
-    :class="heroClasses"
-    :style="backgroundStyles"
-  >
+  <component :is="asTag" :class="heroClasses" :style="backgroundStyles">
     <div class="hero__content">
       <!-- Title -->
       <h1 v-if="$slots.title" class="hero__title">

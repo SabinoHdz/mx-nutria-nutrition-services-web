@@ -15,14 +15,12 @@ import { computed } from 'vue';
 import type { TabSize } from './tabs';
 import { tabsTabVariants } from './tabs.variants';
 
-const props = withDefaults(
-  defineProps<{ active?: boolean; size?: TabSize }>(),
-  { active: false, size: 'lg' },
-);
+const props = withDefaults(defineProps<{ active?: boolean; size?: TabSize }>(), {
+  active: false,
+  size: 'lg',
+});
 
 defineEmits<{ (e: 'click'): void }>();
 
-const tabClasses = computed(() =>
-  tabsTabVariants({ active: props.active, size: props.size }),
-);
+const tabClasses = computed(() => tabsTabVariants({ active: props.active, size: props.size }));
 </script>

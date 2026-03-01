@@ -17,12 +17,7 @@ const drawerOpen = ref(false);
     <template #default>
       <VNavbar>
         <template #start>
-          <VButton
-            variant="ghost"
-            square
-            aria-label="Abrir menú"
-            @click="drawerOpen = true"
-          >
+          <VButton variant="ghost" square aria-label="Abrir menú" @click="drawerOpen = true">
             <VIcon name="menu" size="lg" />
           </VButton>
         </template>

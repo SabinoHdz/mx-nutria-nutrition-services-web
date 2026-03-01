@@ -28,7 +28,7 @@ function sexLabel(gender: string | null): string {
 }
 
 function diagnosisCell(text: string, color?: BadgeColor): ContentObject {
-  const hex = color ? COLOR_MAP[color] ?? COLOR_MAP.primary : COLOR_MAP.primary;
+  const hex = color ? (COLOR_MAP[color] ?? COLOR_MAP.primary) : COLOR_MAP.primary;
   return { text: text || 'Pendiente', fillColor: hex };
 }
 
@@ -42,7 +42,9 @@ export interface DiagnosticoResultadosPayload {
 /**
  * Construye la definición del documento para el PDF de resultados de diagnóstico.
  */
-export function buildDiagnosticoResultadosDocDefinition(payload: DiagnosticoResultadosPayload): DocumentDefinition {
+export function buildDiagnosticoResultadosDocDefinition(
+  payload: DiagnosticoResultadosPayload,
+): DocumentDefinition {
   const { patient, antropometric, signalVital, healthyWeight } = payload;
 
   const tableBody: (string | ContentObject)[][] = [
@@ -79,7 +81,10 @@ export function buildDiagnosticoResultadosDocDefinition(payload: DiagnosticoResu
     [
       'Frec. Respiratoria',
       fmt(signalVital.respiratoryRate, ' x Min'),
-      diagnosisCell(signalVital.respiratoryRateStatus ?? 'Pendiente', signalVital.respiratoryRateColor),
+      diagnosisCell(
+        signalVital.respiratoryRateStatus ?? 'Pendiente',
+        signalVital.respiratoryRateColor,
+      ),
       '-',
     ],
     [
@@ -91,12 +96,20 @@ export function buildDiagnosticoResultadosDocDefinition(payload: DiagnosticoResu
     [
       'Sat. Oxígeno',
       fmt(signalVital.oxygenSaturation, ' %'),
-      diagnosisCell(signalVital.oxygenSaturationStatus ?? 'Pendiente', signalVital.oxygenSaturationColor),
+      diagnosisCell(
+        signalVital.oxygenSaturationStatus ?? 'Pendiente',
+        signalVital.oxygenSaturationColor,
+      ),
       signalVital.oxygenSaturationAlert ?? '-',
     ],
     [
       'Presión arterial',
-      fmt(signalVital.systolic != null && signalVital.diastolic != null ? `${signalVital.systolic}/${signalVital.diastolic}` : null, ' mmHg'),
+      fmt(
+        signalVital.systolic != null && signalVital.diastolic != null
+          ? `${signalVital.systolic}/${signalVital.diastolic}`
+          : null,
+        ' mmHg',
+      ),
       diagnosisCell(signalVital.bloodPressureStatus ?? 'Pendiente', signalVital.bloodPressureColor),
       signalVital.bloodPressureComment ?? '-',
     ],
@@ -109,8 +122,16 @@ export function buildDiagnosticoResultadosDocDefinition(payload: DiagnosticoResu
   ];
 
   const content: ContentObject[] = [
-    { text: 'Resultados de diagnóstico', style: 'title', margin: [0, 0, 0, 12] as [number, number, number, number] },
-    { text: 'Datos del paciente', style: 'heading', margin: [0, 8, 0, 6] as [number, number, number, number] },
+    {
+      text: 'Resultados de diagnóstico',
+      style: 'title',
+      margin: [0, 0, 0, 12] as [number, number, number, number],
+    },
+    {
+      text: 'Datos del paciente',
+      style: 'heading',
+      margin: [0, 8, 0, 6] as [number, number, number, number],
+    },
     {
       table: {
         widths: [100, 80, 80, '*'],
@@ -122,12 +143,20 @@ export function buildDiagnosticoResultadosDocDefinition(payload: DiagnosticoResu
       layout: 'noBorders',
       margin: [0, 0, 0, 12] as [number, number, number, number],
     },
-    { text: 'Peso saludable', style: 'heading', margin: [0, 4, 0, 4] as [number, number, number, number] },
+    {
+      text: 'Peso saludable',
+      style: 'heading',
+      margin: [0, 4, 0, 4] as [number, number, number, number],
+    },
     {
       text: `Mín: ${healthyWeight.min ?? '-'} kg — Máx: ${healthyWeight.max ?? '-'} kg`,
       margin: [0, 0, 0, 12] as [number, number, number, number],
     },
-    { text: 'Tabla de resultados', style: 'heading', margin: [0, 8, 0, 6] as [number, number, number, number] },
+    {
+      text: 'Tabla de resultados',
+      style: 'heading',
+      margin: [0, 8, 0, 6] as [number, number, number, number],
+    },
     {
       table: {
         headerRows: 1,
