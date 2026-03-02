@@ -444,7 +444,7 @@
                       v-if="hydrationRequirement.min != null"
                       class="text-sm text-gray-500"
                     >
-                    Kg/ml
+                    L
                     </span>
                   </div>
                 </div>
@@ -1106,8 +1106,8 @@ const hydrationRequirement = computed<{ min: number | null; max: number | null }
     return { min: null, max: null };
   }
   return {
-    min: Math.round(weight * 30),
-    max: Math.round(weight * 35),
+    min: Math.round(weight * 30)/1000,
+    max: Math.round(weight * 35)/1000,
   };
 });
 

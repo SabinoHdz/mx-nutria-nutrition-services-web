@@ -198,7 +198,7 @@ export function buildDiagnosticoResultadosDocDefinition(
     {
       text:
         hydrationRequirement.min != null && hydrationRequirement.max != null
-          ? `${hydrationRequirement.min} a ${hydrationRequirement.max} ml`
+          ? `${hydrationRequirement.min} a ${hydrationRequirement.max} L`
           : '—',
       margin: [0, 0, 0, 12] as [number, number, number, number],
     },
