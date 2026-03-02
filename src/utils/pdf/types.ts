@@ -18,6 +18,10 @@ export interface ContentObject {
   bold?: boolean;
   italics?: boolean;
   fontSize?: number;
+  image?: string;
+  alignment?: 'left' | 'center' | 'right';
+  width?: number;
+  columns?: ContentObject[];
   [key: string]: unknown;
 }
 
@@ -27,6 +31,11 @@ export interface Table {
   body: (string | ContentObject)[][];
 }
 
+/** Contenido para header/footer (estático o función por página) */
+export type HeaderFooterContent =
+  | Content
+  | ((currentPage: number, pageCount: number, pageSize?: unknown) => Content);
+
 /** Definición del documento para pdfmake */
 export interface DocumentDefinition {
   content: Content[];
@@ -35,4 +44,7 @@ export interface DocumentDefinition {
     font?: string;
   };
   styles?: Record<string, { fontSize?: number; bold?: boolean }>;
+  header?: HeaderFooterContent;
+  footer?: HeaderFooterContent;
+  pageMargins?: [number, number, number, number];
 }

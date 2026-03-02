@@ -53,11 +53,20 @@ export interface DiagnosticoResultadosPayload {
   hydrationRequirement: HydrationRequirementPayload;
 }
 
+/** Data URLs (base64) de las imágenes para header y footer del PDF */
+export interface DiagnosticoResultadosImages {
+  title: string;
+  qr: string;
+  insta: string;
+}
+
 /**
  * Construye la definición del documento para el PDF de resultados de diagnóstico.
+ * Si se pasa `images`, se añaden header (título alineado a la derecha) y footer (QR e Instagram).
  */
 export function buildDiagnosticoResultadosDocDefinition(
   payload: DiagnosticoResultadosPayload,
+  images?: DiagnosticoResultadosImages,
 ): DocumentDefinition {
   const {
     patient,
@@ -216,7 +225,7 @@ export function buildDiagnosticoResultadosDocDefinition(
     },
   ];
 
-  return {
+  const doc: DocumentDefinition = {
     defaultStyle: { fontSize: 10 },
     styles: {
       title: { fontSize: 18, bold: true },
@@ -225,4 +234,21 @@ export function buildDiagnosticoResultadosDocDefinition(
     },
     content,
   };
+
+  if (images) {
+    // Margen inferior mayor para que el footer tenga espacio y el QR 240×240 no se corte
+    doc.pageMargins = [40, 100, 40, 260];
+    doc.header = {
+      image: images.title,
+      width: 170,
+      alignment: 'right',
+    };
+    doc.footer = {
+      columns: [
+        { width: 250, stack: [{ image: images.qr, fit: [240, 240] }], alignment: 'left' },
+      ],
+    };
+  }
+
+  return doc;
 }
