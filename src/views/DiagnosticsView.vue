@@ -92,285 +92,288 @@
                   {{ isDownloadingResultadosPdf ? 'Generando…' : 'Descargar' }}
                 </VButton>
               </div>
-              <div class="max-h-[23rem] min-h-0 overflow-y-auto overflow-x-auto border border-base-300 rounded-lg">
+              <div
+                class="max-h-[23rem] min-h-0 overflow-y-auto overflow-x-auto border border-base-300 rounded-lg"
+              >
                 <VTable size="sm" scrollable>
-                <thead>
-                  <tr>
-                    <th>Indicador</th>
-                    <th>Valor</th>
-                    <th>Diagnóstico</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <!-- Antropometría -->
-                  <tr>
-                    <td>IMC</td>
-                    <td>
-                      {{ antropomentric.imc || '-' }}
-                      <span
-                        v-if="antropomentric.imc"
-                        class="text-xs text-gray-500 dark:text-gray-400"
-                        >kg/m²</span
-                      >
-                    </td>
-                    <td>
-                      <VBadge
-                        size="sm"
-                        :variant="
-                          antropomentric.imcStatus === 'Pendiente' || !antropomentric.imcStatus
-                            ? 'ghost'
-                            : 'solid'
-                        "
-                        :color="antropomentric.imcColor || 'primary'"
-                      >
-                        {{ antropomentric.imcStatus || 'Pendiente' }}
-                      </VBadge>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Cintura</td>
-                    <td>
-                      {{ antropomentric.waistCircumference || '-' }}
-                      <span
-                        v-if="antropomentric.waistCircumference"
-                        class="text-xs text-gray-500 dark:text-gray-400"
-                        >cm</span
-                      >
-                    </td>
-                    <td>
-                      <VBadge
-                        size="sm"
-                        :variant="
-                          antropomentric.waistStatus === 'Pendiente' || !antropomentric.waistStatus
-                            ? 'ghost'
-                            : 'solid'
-                        "
-                        :color="antropomentric.waistColor || 'primary'"
-                      >
-                        {{ antropomentric.waistStatus || 'Pendiente' }}
-                      </VBadge>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Cadera</td>
-                    <td>
-                      {{ antropomentric.hipCircumference || '-' }}
-                      <span
-                        v-if="antropomentric.hipCircumference"
-                        class="text-xs text-gray-500 dark:text-gray-400"
-                        >cm</span
-                      >
-                    </td>
-                    <td>
-                      <VBadge
-                        size="sm"
-                        :variant="
-                          antropomentric.hipStatus === 'Pendiente' || !antropomentric.hipStatus
-                            ? 'ghost'
-                            : 'solid'
-                        "
-                        :color="antropomentric.hipColor || 'primary'"
-                      >
-                        {{ antropomentric.hipStatus || 'Pendiente' }}
-                      </VBadge>
-                    </td>
-                  </tr>
-                  <!-- Signos Vitales -->
-                  <tr>
-                    <td>Frec. Cardíaca</td>
-                    <td>
-                      {{ signalVital.heartRate || '-' }}
-                      <span
-                        v-if="signalVital.heartRate"
-                        class="text-xs text-gray-500 dark:text-gray-400"
-                        >lpm</span
-                      >
-                    </td>
-                    <td>
-                      <VBadge
-                        size="sm"
-                        :variant="
-                          signalVital.heartRateStatus === 'Pendiente' ||
-                          !signalVital.heartRateStatus
-                            ? 'ghost'
-                            : 'solid'
-                        "
-                        :color="signalVital.heartRateColor || 'primary'"
-                      >
-                        {{ signalVital.heartRateStatus || 'Pendiente' }}
-                      </VBadge>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Frec. Respiratoria</td>
-                    <td>
-                      {{ signalVital.respiratoryRate || '-' }}
-                      <span
-                        v-if="signalVital.respiratoryRate"
-                        class="text-xs text-gray-500 dark:text-gray-400"
-                        >x Min</span
-                      >
-                    </td>
-                    <td>
-                      <VBadge
-                        size="sm"
-                        :variant="
-                          signalVital.respiratoryRateStatus === 'Pendiente' ||
-                          !signalVital.respiratoryRateStatus
-                            ? 'ghost'
-                            : 'solid'
-                        "
-                        :color="signalVital.respiratoryRateColor || 'primary'"
-                      >
-                        {{ signalVital.respiratoryRateStatus || 'Pendiente' }}
-                      </VBadge>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Temperatura</td>
-                    <td>
-                      {{ signalVital.temperature || '-' }}
-                      <span
-                        v-if="signalVital.temperature"
-                        class="text-xs text-gray-500 dark:text-gray-400"
-                        >°C</span
-                      >
-                    </td>
-                    <td>
-                      <VBadge
-                        size="sm"
-                        :variant="
-                          signalVital.temperatureStatus === 'Pendiente' ||
-                          !signalVital.temperatureStatus
-                            ? 'ghost'
-                            : 'solid'
-                        "
-                        :color="signalVital.temperatureColor || 'primary'"
-                      >
-                        {{ signalVital.temperatureStatus || 'Pendiente' }}
-                      </VBadge>
-                    </td>
-                  </tr>
-                  <tr v-if="signalVital.temperatureAlert">
-                    <td colspan="3">
-                      <VAlert
-                        :color="signalVital.temperatureAlertColor || 'warning'"
-                        variant="soft"
-                        size="sm"
-                      >
-                        {{ signalVital.temperatureAlert }}
-                      </VAlert>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Sat. Oxígeno</td>
-                    <td>
-                      {{ signalVital.oxygenSaturation || '-' }}
-                      <span
-                        v-if="signalVital.oxygenSaturation"
-                        class="text-xs text-gray-500 dark:text-gray-400"
-                        >%</span
-                      >
-                    </td>
-                    <td>
-                      <VBadge
-                        size="sm"
-                        :variant="
-                          signalVital.oxygenSaturationStatus === 'Pendiente' ||
-                          !signalVital.oxygenSaturationStatus
-                            ? 'ghost'
-                            : 'solid'
-                        "
-                        :color="signalVital.oxygenSaturationColor || 'primary'"
-                      >
-                        {{ signalVital.oxygenSaturationStatus || 'Pendiente' }}
-                      </VBadge>
-                    </td>
-                  </tr>
-                  <tr v-if="signalVital.oxygenSaturationAlert">
-                    <td colspan="3">
-                      <VAlert
-                        :color="signalVital.oxygenSaturationAlertColor || 'error'"
-                        variant="soft"
-                        size="sm"
-                      >
-                        {{ signalVital.oxygenSaturationAlert }}
-                      </VAlert>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Presión arterial</td>
-                    <td>
-                      {{ signalVital.systolic ?? '-' }}/{{ signalVital.diastolic ?? '-' }}
-                      <span
-                        v-if="signalVital.systolic != null && signalVital.diastolic != null"
-                        class="text-xs text-gray-500 dark:text-gray-400"
-                        >mmHg</span
-                      >
-                    </td>
-                    <td>
-                      <VBadge
-                        size="sm"
-                        :variant="
-                          signalVital.bloodPressureStatus === 'Pendiente' ||
-                          !signalVital.bloodPressureStatus
-                            ? 'ghost'
-                            : 'solid'
-                        "
-                        :color="signalVital.bloodPressureColor || 'primary'"
-                      >
-                        {{ signalVital.bloodPressureStatus || 'Pendiente' }}
-                      </VBadge>
-                    </td>
-                  </tr>
-                  <tr v-if="signalVital.bloodPressureComment">
-                    <td colspan="3">
-                      <VAlert
-                        :color="signalVital.bloodPressureCommentColor || 'warning'"
-                        variant="soft"
-                        size="sm"
-                      >
-                        {{ signalVital.bloodPressureComment }}
-                      </VAlert>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Glucosa</td>
-                    <td>
-                      {{ signalVital.glucose || '-' }}
-                      <span
-                        v-if="signalVital.glucose"
-                        class="text-xs text-gray-500 dark:text-gray-400"
-                        >mg/dl</span
-                      >
-                    </td>
-                    <td>
-                      <VBadge
-                        size="sm"
-                        :variant="
-                          signalVital.glucoseStatus === 'Pendiente' || !signalVital.glucoseStatus
-                            ? 'ghost'
-                            : 'solid'
-                        "
-                        :color="signalVital.glucoseColor || 'primary'"
-                      >
-                        {{ signalVital.glucoseStatus || 'Pendiente' }}
-                      </VBadge>
-                    </td>
-                  </tr>
-                  <tr v-if="signalVital.glucoseAlert">
-                    <td colspan="3">
-                      <VAlert
-                        :color="signalVital.glucoseAlertColor || 'warning'"
-                        variant="soft"
-                        size="sm"
-                      >
-                        {{ signalVital.glucoseAlert }}
-                      </VAlert>
-                    </td>
-                  </tr>
-                </tbody>
-              </VTable>
+                  <thead>
+                    <tr>
+                      <th>Indicador</th>
+                      <th>Valor</th>
+                      <th>Diagnóstico</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- Antropometría -->
+                    <tr>
+                      <td>IMC</td>
+                      <td>
+                        {{ antropomentric.imc || '-' }}
+                        <span
+                          v-if="antropomentric.imc"
+                          class="text-xs text-gray-500 dark:text-gray-400"
+                          >kg/m²</span
+                        >
+                      </td>
+                      <td>
+                        <VBadge
+                          size="sm"
+                          :variant="
+                            antropomentric.imcStatus === 'Pendiente' || !antropomentric.imcStatus
+                              ? 'ghost'
+                              : 'solid'
+                          "
+                          :color="antropomentric.imcColor || 'primary'"
+                        >
+                          {{ antropomentric.imcStatus || 'Pendiente' }}
+                        </VBadge>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Cintura</td>
+                      <td>
+                        {{ antropomentric.waistCircumference || '-' }}
+                        <span
+                          v-if="antropomentric.waistCircumference"
+                          class="text-xs text-gray-500 dark:text-gray-400"
+                          >cm</span
+                        >
+                      </td>
+                      <td>
+                        <VBadge
+                          size="sm"
+                          :variant="
+                            antropomentric.waistStatus === 'Pendiente' ||
+                            !antropomentric.waistStatus
+                              ? 'ghost'
+                              : 'solid'
+                          "
+                          :color="antropomentric.waistColor || 'primary'"
+                        >
+                          {{ antropomentric.waistStatus || 'Pendiente' }}
+                        </VBadge>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Cadera</td>
+                      <td>
+                        {{ antropomentric.hipCircumference || '-' }}
+                        <span
+                          v-if="antropomentric.hipCircumference"
+                          class="text-xs text-gray-500 dark:text-gray-400"
+                          >cm</span
+                        >
+                      </td>
+                      <td>
+                        <VBadge
+                          size="sm"
+                          :variant="
+                            antropomentric.hipStatus === 'Pendiente' || !antropomentric.hipStatus
+                              ? 'ghost'
+                              : 'solid'
+                          "
+                          :color="antropomentric.hipColor || 'primary'"
+                        >
+                          {{ antropomentric.hipStatus || 'Pendiente' }}
+                        </VBadge>
+                      </td>
+                    </tr>
+                    <!-- Signos Vitales -->
+                    <tr>
+                      <td>Frec. Cardíaca</td>
+                      <td>
+                        {{ signalVital.heartRate || '-' }}
+                        <span
+                          v-if="signalVital.heartRate"
+                          class="text-xs text-gray-500 dark:text-gray-400"
+                          >lpm</span
+                        >
+                      </td>
+                      <td>
+                        <VBadge
+                          size="sm"
+                          :variant="
+                            signalVital.heartRateStatus === 'Pendiente' ||
+                            !signalVital.heartRateStatus
+                              ? 'ghost'
+                              : 'solid'
+                          "
+                          :color="signalVital.heartRateColor || 'primary'"
+                        >
+                          {{ signalVital.heartRateStatus || 'Pendiente' }}
+                        </VBadge>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Frec. Respiratoria</td>
+                      <td>
+                        {{ signalVital.respiratoryRate || '-' }}
+                        <span
+                          v-if="signalVital.respiratoryRate"
+                          class="text-xs text-gray-500 dark:text-gray-400"
+                          >x Min</span
+                        >
+                      </td>
+                      <td>
+                        <VBadge
+                          size="sm"
+                          :variant="
+                            signalVital.respiratoryRateStatus === 'Pendiente' ||
+                            !signalVital.respiratoryRateStatus
+                              ? 'ghost'
+                              : 'solid'
+                          "
+                          :color="signalVital.respiratoryRateColor || 'primary'"
+                        >
+                          {{ signalVital.respiratoryRateStatus || 'Pendiente' }}
+                        </VBadge>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Temperatura</td>
+                      <td>
+                        {{ signalVital.temperature || '-' }}
+                        <span
+                          v-if="signalVital.temperature"
+                          class="text-xs text-gray-500 dark:text-gray-400"
+                          >°C</span
+                        >
+                      </td>
+                      <td>
+                        <VBadge
+                          size="sm"
+                          :variant="
+                            signalVital.temperatureStatus === 'Pendiente' ||
+                            !signalVital.temperatureStatus
+                              ? 'ghost'
+                              : 'solid'
+                          "
+                          :color="signalVital.temperatureColor || 'primary'"
+                        >
+                          {{ signalVital.temperatureStatus || 'Pendiente' }}
+                        </VBadge>
+                      </td>
+                    </tr>
+                    <tr v-if="signalVital.temperatureAlert">
+                      <td colspan="3">
+                        <VAlert
+                          :color="signalVital.temperatureAlertColor || 'warning'"
+                          variant="soft"
+                          size="sm"
+                        >
+                          {{ signalVital.temperatureAlert }}
+                        </VAlert>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Sat. Oxígeno</td>
+                      <td>
+                        {{ signalVital.oxygenSaturation || '-' }}
+                        <span
+                          v-if="signalVital.oxygenSaturation"
+                          class="text-xs text-gray-500 dark:text-gray-400"
+                          >%</span
+                        >
+                      </td>
+                      <td>
+                        <VBadge
+                          size="sm"
+                          :variant="
+                            signalVital.oxygenSaturationStatus === 'Pendiente' ||
+                            !signalVital.oxygenSaturationStatus
+                              ? 'ghost'
+                              : 'solid'
+                          "
+                          :color="signalVital.oxygenSaturationColor || 'primary'"
+                        >
+                          {{ signalVital.oxygenSaturationStatus || 'Pendiente' }}
+                        </VBadge>
+                      </td>
+                    </tr>
+                    <tr v-if="signalVital.oxygenSaturationAlert">
+                      <td colspan="3">
+                        <VAlert
+                          :color="signalVital.oxygenSaturationAlertColor || 'error'"
+                          variant="soft"
+                          size="sm"
+                        >
+                          {{ signalVital.oxygenSaturationAlert }}
+                        </VAlert>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Presión arterial</td>
+                      <td>
+                        {{ signalVital.systolic ?? '-' }}/{{ signalVital.diastolic ?? '-' }}
+                        <span
+                          v-if="signalVital.systolic != null && signalVital.diastolic != null"
+                          class="text-xs text-gray-500 dark:text-gray-400"
+                          >mmHg</span
+                        >
+                      </td>
+                      <td>
+                        <VBadge
+                          size="sm"
+                          :variant="
+                            signalVital.bloodPressureStatus === 'Pendiente' ||
+                            !signalVital.bloodPressureStatus
+                              ? 'ghost'
+                              : 'solid'
+                          "
+                          :color="signalVital.bloodPressureColor || 'primary'"
+                        >
+                          {{ signalVital.bloodPressureStatus || 'Pendiente' }}
+                        </VBadge>
+                      </td>
+                    </tr>
+                    <tr v-if="signalVital.bloodPressureComment">
+                      <td colspan="3">
+                        <VAlert
+                          :color="signalVital.bloodPressureCommentColor || 'warning'"
+                          variant="soft"
+                          size="sm"
+                        >
+                          {{ signalVital.bloodPressureComment }}
+                        </VAlert>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Glucosa</td>
+                      <td>
+                        {{ signalVital.glucose || '-' }}
+                        <span
+                          v-if="signalVital.glucose"
+                          class="text-xs text-gray-500 dark:text-gray-400"
+                          >mg/dl</span
+                        >
+                      </td>
+                      <td>
+                        <VBadge
+                          size="sm"
+                          :variant="
+                            signalVital.glucoseStatus === 'Pendiente' || !signalVital.glucoseStatus
+                              ? 'ghost'
+                              : 'solid'
+                          "
+                          :color="signalVital.glucoseColor || 'primary'"
+                        >
+                          {{ signalVital.glucoseStatus || 'Pendiente' }}
+                        </VBadge>
+                      </td>
+                    </tr>
+                    <tr v-if="signalVital.glucoseAlert">
+                      <td colspan="3">
+                        <VAlert
+                          :color="signalVital.glucoseAlertColor || 'warning'"
+                          variant="soft"
+                          size="sm"
+                        >
+                          {{ signalVital.glucoseAlert }}
+                        </VAlert>
+                      </td>
+                    </tr>
+                  </tbody>
+                </VTable>
               </div>
             </VCardBody>
           </VCard>
@@ -409,9 +412,7 @@
                 </div>
 
                 <!-- Gasto Energético Basal -->
-                <h3
-                  class="text-primary font-semibold text-base border-b border-base-300 pb-1 pt-1"
-                >
+                <h3 class="text-primary font-semibold text-base border-b border-base-300 pb-1 pt-1">
                   Gasto Energético Basal
                 </h3>
                 <div class="space-y-2">
@@ -421,7 +422,9 @@
                     </span>
                     <div class="flex items-center gap-2">
                       <span class="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                        {{ basalEnergyExpenditure.value != null ? basalEnergyExpenditure.value : '—' }}
+                        {{
+                          basalEnergyExpenditure.value != null ? basalEnergyExpenditure.value : '—'
+                        }}
                       </span>
                       <span class="text-sm text-gray-500">Kcal/Día</span>
                     </div>
@@ -442,19 +445,14 @@
                           : '—'
                       }}
                     </span>
-                    <span
-                      v-if="hydrationRequirement.min != null"
-                      class="text-sm text-gray-500"
-                    >
-                    L
+                    <span v-if="hydrationRequirement.min != null" class="text-sm text-gray-500">
+                      L
                     </span>
                   </div>
                 </div>
 
                 <!-- Gasto energético total -->
-                <h3
-                  class="text-primary font-semibold text-base border-b border-base-300 pb-1 pt-1"
-                >
+                <h3 class="text-primary font-semibold text-base border-b border-base-300 pb-1 pt-1">
                   Gasto energético total
                 </h3>
                 <div class="space-y-2">
@@ -470,7 +468,7 @@
                     >
                     <div class="flex items-center gap-2">
                       <span class="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                        {{ etaValue != null ? etaValue : '-'}}
+                        {{ etaValue != null ? etaValue : '-' }}
                       </span>
                       <span class="text-sm text-gray-500">Kcal/Día</span>
                     </div>
@@ -1170,8 +1168,8 @@ const hydrationRequirement = computed<{ min: number | null; max: number | null }
     return { min: null, max: null };
   }
   return {
-    min: Math.round(weight * 30)/1000,
-    max: Math.round(weight * 35)/1000,
+    min: Math.round(weight * 30) / 1000,
+    max: Math.round(weight * 35) / 1000,
   };
 });
 
@@ -1510,5 +1508,4 @@ function clearForm() {
 onMounted(() => {
   isDark.value = document.documentElement.classList.contains('dark');
 });
-
 </script>

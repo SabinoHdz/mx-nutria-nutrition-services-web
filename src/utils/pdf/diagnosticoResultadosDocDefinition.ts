@@ -290,9 +290,7 @@ export function buildDiagnosticoResultadosDocDefinition(
       alignment: 'right',
     };
     doc.footer = {
-      columns: [
-        { width: 250, stack: [{ image: images.qr, fit: [240, 240] }], alignment: 'left' },
-      ],
+      columns: [{ width: 250, stack: [{ image: images.qr, fit: [240, 240] }], alignment: 'left' }],
     };
   }
 

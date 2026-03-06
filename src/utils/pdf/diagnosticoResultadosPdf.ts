@@ -41,7 +41,9 @@ export async function downloadDiagnosticoResultadosPdf(
     loadImageAsDataUrl(titleJpeg),
     loadImageAsDataUrl(codigoQrJpeg),
     loadImageAsDataUrl(instaJpeg),
-  ]).then(([title, qr, insta]) => ({ title, qr, insta })).catch(() => null);
+  ])
+    .then(([title, qr, insta]) => ({ title, qr, insta }))
+    .catch(() => null);
 
   const docDefinition = buildDiagnosticoResultadosDocDefinition(payload, images ?? undefined);
   await createAndDownloadPdf(docDefinition, FILENAME);

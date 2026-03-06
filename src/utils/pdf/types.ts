@@ -20,7 +20,8 @@ export interface ContentObject {
   fontSize?: number;
   image?: string;
   alignment?: 'left' | 'center' | 'right';
-  width?: number;
+  /** Ancho en puntos o '*' para columna flexible (pdfmake) */
+  width?: number | string;
   columns?: ContentObject[];
   [key: string]: unknown;
 }

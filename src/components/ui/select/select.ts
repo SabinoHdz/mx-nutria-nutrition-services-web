@@ -98,4 +98,3 @@ export interface SelectProps {
    */
   openUpWhenNoSpace?: boolean;
 }
-

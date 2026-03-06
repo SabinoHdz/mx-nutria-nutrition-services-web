@@ -406,7 +406,9 @@
                     </div>
                     <div>
                       <p class="font-medium mb-1">Mifflin-St. Jeor</p>
-                      <p class="mb-2">Se usa cuando el IMC es Sobrepeso, Obesidad I, II o Mórbida.</p>
+                      <p class="mb-2">
+                        Se usa cuando el IMC es Sobrepeso, Obesidad I, II o Mórbida.
+                      </p>
                       <ul class="list-disc pl-5 space-y-1">
                         <li>Hombre: (10 × peso) + (6.25 × talla cm) − (5 × edad) + 5</li>
                         <li>Mujer: (10 × peso) + (6.25 × talla cm) − (5 × edad) − 161</li>
@@ -421,25 +423,29 @@
                   <h4 class="font-semibold">Requerimiento hídrico</h4>
                   <ul class="list-disc pl-5 space-y-1 text-sm text-gray-700 dark:text-gray-300">
                     <li>Fórmula: <strong>Peso (kg) × 30 a 35 ml</strong></li>
-                    <li>Se muestra el rango resultante en litros (L). Ejemplo: 0.9 a 1.05 L para 30 kg.</li>
+                    <li>
+                      Se muestra el rango resultante en litros (L). Ejemplo: 0.9 a 1.05 L para 30
+                      kg.
+                    </li>
                     <li>Siempre visible cuando hay peso</li>
                   </ul>
 
                   <h4 class="font-semibold">Gasto energético total</h4>
                   <p class="text-sm text-gray-700 dark:text-gray-300">
-                    El GET (Gasto Energético Total) suma el basal (Harris Benedict o Mifflin-St. Jeor),
-                    el ETA (10% del basal) y el aporte por actividad física según el nivel seleccionado.
-                    Se expresa en Kcal/Día.
+                    El GET (Gasto Energético Total) suma el basal (Harris Benedict o Mifflin-St.
+                    Jeor), el ETA (10% del basal) y el aporte por actividad física según el nivel
+                    seleccionado. Se expresa en Kcal/Día.
                   </p>
                   <p class="text-sm text-gray-700 dark:text-gray-300 mt-2">
-                    <strong>ETA (10%):</strong> Se refiere a la energía que el cuerpo gasta al procesar
-                    y digerir los alimentos, lo que contribuye al gasto calórico total y puede influir
-                    en la pérdida de peso. En esta herramienta se usa un 10% del gasto basal (Kcal/Día).
+                    <strong>ETA (10%):</strong> Se refiere a la energía que el cuerpo gasta al
+                    procesar y digerir los alimentos, lo que contribuye al gasto calórico total y
+                    puede influir en la pérdida de peso. En esta herramienta se usa un 10% del gasto
+                    basal (Kcal/Día).
                   </p>
                   <h5 class="font-medium mt-3 mb-1">Actividad Física</h5>
                   <p class="text-sm text-gray-700 dark:text-gray-300 mb-2">
-                    Cada nivel tiene un porcentaje que se aplica sobre el basal para estimar el gasto
-                    por actividad:
+                    Cada nivel tiene un porcentaje que se aplica sobre el basal para estimar el
+                    gasto por actividad:
                   </p>
                   <VTable striped size="sm">
                     <thead>
@@ -754,9 +760,7 @@
                       </li>
                       <li class="flex gap-2">
                         <span class="text-primary shrink-0">•</span>
-                        <span
-                          >Descarga de PDF con resultados del diagnóstico nutricional.</span
-                        >
+                        <span>Descarga de PDF con resultados del diagnóstico nutricional.</span>
                       </li>
                       <li class="flex gap-2">
                         <span class="text-primary shrink-0">•</span>
@@ -777,8 +781,8 @@
                       <li class="flex gap-2">
                         <span class="text-primary shrink-0">•</span>
                         <span
-                          >Indicadores y signos vitales muestran colores según el rango del resultado
-                          (normal, advertencia, riesgo).</span
+                          >Indicadores y signos vitales muestran colores según el rango del
+                          resultado (normal, advertencia, riesgo).</span
                         >
                       </li>
                       <li class="flex gap-2">
