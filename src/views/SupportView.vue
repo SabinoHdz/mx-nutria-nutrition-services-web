@@ -421,9 +421,57 @@
                   <h4 class="font-semibold">Requerimiento hídrico</h4>
                   <ul class="list-disc pl-5 space-y-1 text-sm text-gray-700 dark:text-gray-300">
                     <li>Fórmula: <strong>Peso (kg) × 30 a 35 ml</strong></li>
-                    <li>Se muestra el rango resultante en Kg/ml (ejemplo: 900 a 1050 Kg/ml para 30 kg)</li>
+                    <li>Se muestra el rango resultante en litros (L). Ejemplo: 0.9 a 1.05 L para 30 kg.</li>
                     <li>Siempre visible cuando hay peso</li>
                   </ul>
+
+                  <h4 class="font-semibold">Gasto energético total</h4>
+                  <p class="text-sm text-gray-700 dark:text-gray-300">
+                    El GET (Gasto Energético Total) suma el basal (Harris Benedict o Mifflin-St. Jeor),
+                    el ETA (10% del basal) y el aporte por actividad física según el nivel seleccionado.
+                    Se expresa en Kcal/Día.
+                  </p>
+                  <p class="text-sm text-gray-700 dark:text-gray-300 mt-2">
+                    <strong>ETA (10%):</strong> Se refiere a la energía que el cuerpo gasta al procesar
+                    y digerir los alimentos, lo que contribuye al gasto calórico total y puede influir
+                    en la pérdida de peso. En esta herramienta se usa un 10% del gasto basal (Kcal/Día).
+                  </p>
+                  <h5 class="font-medium mt-3 mb-1">Actividad Física</h5>
+                  <p class="text-sm text-gray-700 dark:text-gray-300 mb-2">
+                    Cada nivel tiene un porcentaje que se aplica sobre el basal para estimar el gasto
+                    por actividad:
+                  </p>
+                  <VTable striped size="sm">
+                    <thead>
+                      <tr>
+                        <th>Nivel</th>
+                        <th>%</th>
+                        <th>Información</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Sedentario</td>
+                        <td>10%</td>
+                        <td>Poco o nada de ejercicio físico</td>
+                      </tr>
+                      <tr>
+                        <td>Actividad ligera</td>
+                        <td>20%</td>
+                        <td>Actividad ligera de 1-3 días de ejercicio físico</td>
+                      </tr>
+                      <tr>
+                        <td>Actividad moderada</td>
+                        <td>30%</td>
+                        <td>Actividad física de 3-5 días de ejercicio físico</td>
+                      </tr>
+                      <tr>
+                        <td>Actividad Intensa</td>
+                        <td>40%</td>
+                        <td>Actividad intensa de 6-7 días de ejercicio físico</td>
+                      </tr>
+                    </tbody>
+                  </VTable>
                 </div>
               </VCollapse>
 

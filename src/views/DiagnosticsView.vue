@@ -92,7 +92,8 @@
                   {{ isDownloadingResultadosPdf ? 'Generando…' : 'Descargar' }}
                 </VButton>
               </div>
-              <VTable size="sm">
+              <div class="max-h-[23rem] min-h-0 overflow-y-auto overflow-x-auto border border-base-300 rounded-lg">
+                <VTable size="sm" scrollable>
                 <thead>
                   <tr>
                     <th>Indicador</th>
@@ -370,6 +371,7 @@
                   </tr>
                 </tbody>
               </VTable>
+              </div>
             </VCardBody>
           </VCard>
         </div>
@@ -446,6 +448,51 @@
                     >
                     L
                     </span>
+                  </div>
+                </div>
+
+                <!-- Gasto energético total -->
+                <h3
+                  class="text-primary font-semibold text-base border-b border-base-300 pb-1 pt-1"
+                >
+                  Gasto energético total
+                </h3>
+                <div class="space-y-2">
+                  <div class="flex items-center gap-3">
+                    <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Método</span>
+                    <span class="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                      {{ basalEnergyExpenditure.method }}
+                    </span>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <span class="text-sm font-medium text-gray-700 dark:text-gray-300"
+                      >ETA (10%)</span
+                    >
+                    <div class="flex items-center gap-2">
+                      <span class="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                        {{ etaValue != null ? etaValue : '-'}}
+                      </span>
+                      <span class="text-sm text-gray-500">Kcal/Día</span>
+                    </div>
+                  </div>
+                  <div class="space-y-1">
+                    <VSelect
+                      v-model="physicalActivityLevel"
+                      label="Actividad Física"
+                      :options="physicalActivityOptions"
+                      placeholder="Seleccione..."
+                      clearable
+                      :disabled="!activitySelectEnabled"
+                    />
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <span class="text-sm font-medium text-gray-700 dark:text-gray-300">GET</span>
+                    <div class="flex items-center gap-2">
+                      <span class="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                        {{ getValue != null ? getValue : '—' }}
+                      </span>
+                      <span class="text-sm text-gray-500">Kcal/Día</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1003,6 +1050,14 @@ const genderOptions: ValueLabel[] = [
   },
 ];
 
+const physicalActivityOptions: ValueLabel[] = [
+  { label: 'Sedentario', value: 10 },
+  { label: 'Actividad ligera', value: 20 },
+  { label: 'Actividad moderada', value: 30 },
+  { label: 'Actividad Intensa', value: 40 },
+];
+const physicalActivityLevel = ref<number | null>(null);
+
 const isDark = ref(false);
 const isDownloadingResultadosPdf = ref(false);
 const glucoseAteRecently = ref<boolean | null>(null);
@@ -1010,6 +1065,8 @@ const glucoseAteRecently = ref<boolean | null>(null);
 async function handleDownloadResultadosPdf() {
   isDownloadingResultadosPdf.value = true;
   try {
+    const activityLabel =
+      physicalActivityOptions.find((o) => o.value === physicalActivityLevel.value)?.label ?? null;
     await downloadDiagnosticoResultadosPdf({
       patient: formData.value,
       antropometric: antropomentric.value,
@@ -1017,6 +1074,13 @@ async function handleDownloadResultadosPdf() {
       healthyWeight: healthyWeight.value,
       basalEnergyExpenditure: basalEnergyExpenditure.value,
       hydrationRequirement: hydrationRequirement.value,
+      totalEnergyExpenditure: {
+        method: basalEnergyExpenditure.value.method,
+        eta: etaValue.value,
+        activityLabel,
+        activityPercent: physicalActivityLevel.value,
+        get: getValue.value,
+      },
     });
   } finally {
     isDownloadingResultadosPdf.value = false;
@@ -1110,6 +1174,21 @@ const hydrationRequirement = computed<{ min: number | null; max: number | null }
     max: Math.round(weight * 35)/1000,
   };
 });
+
+const etaValue = computed<number | null>(() => {
+  const basal = basalEnergyExpenditure.value?.value;
+  return basal != null ? Math.round(basal * 0.1) : null;
+});
+
+const getValue = computed<number | null>(() => {
+  const basal = basalEnergyExpenditure.value?.value;
+  const act = physicalActivityLevel.value;
+  if (basal == null || act == null) return null;
+  return Math.round(basal * (1 + 0.1 + act / 100));
+});
+
+/** Habilita el select de Actividad Física cuando hay valor basal (Harris o Mifflin) */
+const activitySelectEnabled = computed(() => basalEnergyExpenditure.value?.value != null);
 
 function handleSubmit() {
   const weight = formData.value.weight ?? 0;
@@ -1425,6 +1504,7 @@ function clearForm() {
   results.value = {};
   antropomentric.value = {};
   signalVital.value = {};
+  physicalActivityLevel.value = null;
 }
 
 onMounted(() => {

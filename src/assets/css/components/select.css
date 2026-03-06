@@ -64,6 +64,12 @@
     top: calc(100% + 0.125rem);
   }
 
+  /* Abrir hacia arriba: anclar el menú al borde superior del control (2.5rem = min-height del .select-container) */
+  .select-menu.select-menu--open-up {
+    top: auto;
+    bottom: calc(2.5rem + 0.2rem);
+  }
+
   .select-search {
     @apply p-2 border-b border-border;
   }

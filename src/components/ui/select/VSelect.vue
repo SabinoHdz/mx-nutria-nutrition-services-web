@@ -84,7 +84,12 @@
     </div>
 
     <!-- Dropdown menu -->
-    <div v-if="isOpen" :id="menuId" class="select-menu">
+    <div
+      v-if="isOpen"
+      :id="menuId"
+      class="select-menu"
+      :class="{ 'select-menu--open-up': opensUp }"
+    >
       <div v-if="searchable" class="select-search">
         <input
           ref="searchInputRef"
@@ -172,6 +177,7 @@ const props = withDefaults(defineProps<SelectProps>(), {
   optionValue: 'value',
   optionDisable: 'disable',
   labelTooltipPlacement: 'top',
+  openUpWhenNoSpace: true,
 });
 
 const emit = defineEmits<{
@@ -186,6 +192,7 @@ const emit = defineEmits<{
 const wrapperRef = ref<HTMLElement | null>(null);
 const searchInputRef = ref<HTMLInputElement | null>(null);
 const isOpen = ref(false);
+const opensUp = ref(false);
 const touched = ref(false);
 const dirty = ref(false);
 const errorMessage = ref('');
@@ -324,6 +331,24 @@ const isSelected = (option: SelectOption): boolean => {
   return selectedValues.value.includes(value);
 };
 
+/** Umbral mínimo de espacio (px) debajo del trigger para abrir hacia abajo */
+const MENU_SPACE_THRESHOLD = 220;
+
+const updateOpensUp = () => {
+  if (!props.openUpWhenNoSpace) {
+    opensUp.value = false;
+    return;
+  }
+  const trigger = wrapperRef.value?.querySelector('.select-container');
+  if (!trigger) {
+    opensUp.value = false;
+    return;
+  }
+  const rect = (trigger as HTMLElement).getBoundingClientRect();
+  const spaceBelow = window.innerHeight - rect.bottom;
+  opensUp.value = spaceBelow < MENU_SPACE_THRESHOLD;
+};
+
 const toggleOpen = () => {
   if (props.disabled || props.readonly) return;
   isOpen.value = !isOpen.value;
@@ -447,10 +472,13 @@ const handleClickOutside = (event: MouseEvent) => {
 
 // ===== WATCHERS =====
 watch(isOpen, (open) => {
-  if (open && props.searchable) {
-    nextTick(() => searchInputRef.value?.focus());
-  }
-  if (!open) {
+  if (open) {
+    nextTick(updateOpensUp);
+    if (props.searchable) {
+      nextTick(() => searchInputRef.value?.focus());
+    }
+  } else {
+    opensUp.value = false;
     searchQuery.value = '';
   }
 });

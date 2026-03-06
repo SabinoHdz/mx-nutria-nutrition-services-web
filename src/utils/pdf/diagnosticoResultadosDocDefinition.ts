@@ -44,6 +44,14 @@ export interface HydrationRequirementPayload {
   max: number | null;
 }
 
+export interface TotalEnergyExpenditurePayload {
+  method: string;
+  eta: number | null;
+  activityLabel: string | null;
+  activityPercent: number | null;
+  get: number | null;
+}
+
 export interface DiagnosticoResultadosPayload {
   patient: Patient;
   antropometric: AntropometricData;
@@ -51,6 +59,7 @@ export interface DiagnosticoResultadosPayload {
   healthyWeight: { min: string | null; max: string | null };
   basalEnergyExpenditure: BasalEnergyExpenditurePayload;
   hydrationRequirement: HydrationRequirementPayload;
+  totalEnergyExpenditure?: TotalEnergyExpenditurePayload;
 }
 
 /** Data URLs (base64) de las imágenes para header y footer del PDF */
@@ -75,6 +84,7 @@ export function buildDiagnosticoResultadosDocDefinition(
     healthyWeight,
     basalEnergyExpenditure,
     hydrationRequirement,
+    totalEnergyExpenditure,
   } = payload;
 
   const tableBody: (string | ContentObject)[][] = [
@@ -183,32 +193,68 @@ export function buildDiagnosticoResultadosDocDefinition(
       margin: [0, 0, 0, 8] as [number, number, number, number],
     },
     {
-      text: 'Gasto Energético Basal',
-      style: 'heading',
-      margin: [0, 8, 0, 4] as [number, number, number, number],
-    },
-    {
-      text: `${basalEnergyExpenditure.method}: ${
-        basalEnergyExpenditure.value != null
-          ? `${basalEnergyExpenditure.value} Kcal/Día`
-          : '—'
-      }`,
-      margin: [0, 0, 0, 8] as [number, number, number, number],
-    },
-    {
-      text: 'Requerimiento hídrico',
-      style: 'heading',
-      margin: [0, 0, 0, 4] as [number, number, number, number],
-    },
-    /*{
-      text: 'Peso (kg) × 30 a 35 ml',
-      margin: [0, 0, 0, 2] as [number, number, number, number],
-    },*/
-    {
-      text:
-        hydrationRequirement.min != null && hydrationRequirement.max != null
-          ? `${hydrationRequirement.min} a ${hydrationRequirement.max} L`
-          : '—',
+      columns: [
+        {
+          width: '*',
+          stack: [
+            {
+              text: 'Gasto Energético Basal',
+              style: 'heading',
+              margin: [0, 8, 0, 4] as [number, number, number, number],
+            },
+            {
+              text: `${basalEnergyExpenditure.method}: ${
+                basalEnergyExpenditure.value != null
+                  ? `${basalEnergyExpenditure.value} Kcal/Día`
+                  : '—'
+              }`,
+              margin: [0, 0, 0, 8] as [number, number, number, number],
+            },
+            {
+              text: 'Requerimiento hídrico',
+              style: 'heading',
+              margin: [0, 0, 0, 4] as [number, number, number, number],
+            },
+            {
+              text:
+                hydrationRequirement.min != null && hydrationRequirement.max != null
+                  ? `${hydrationRequirement.min} a ${hydrationRequirement.max} L`
+                  : '—',
+              margin: [0, 0, 0, 0] as [number, number, number, number],
+            },
+          ],
+        },
+        {
+          width: '*',
+          stack: [
+            {
+              text: 'Gasto energético total',
+              style: 'heading',
+              margin: [0, 8, 0, 4] as [number, number, number, number],
+            },
+            ...(totalEnergyExpenditure
+              ? [
+                  {
+                    text: `Método: ${totalEnergyExpenditure.method}`,
+                    margin: [0, 0, 0, 2] as [number, number, number, number],
+                  },
+                  {
+                    text: `ETA (10%): ${totalEnergyExpenditure.eta != null ? totalEnergyExpenditure.eta + ' Kcal/Día' : '-'}`,
+                    margin: [0, 0, 0, 2] as [number, number, number, number],
+                  },
+                  {
+                    text: `Actividad Física: ${totalEnergyExpenditure.activityLabel ?? '-'}${totalEnergyExpenditure.activityPercent != null ? ' (' + totalEnergyExpenditure.activityPercent + '%)' : ''}`,
+                    margin: [0, 0, 0, 2] as [number, number, number, number],
+                  },
+                  {
+                    text: `GET: ${totalEnergyExpenditure.get != null ? totalEnergyExpenditure.get + ' Kcal/Día' : '-'}`,
+                    margin: [0, 0, 0, 0] as [number, number, number, number],
+                  },
+                ]
+              : [{ text: '-', margin: [0, 0, 0, 0] as [number, number, number, number] }]),
+          ],
+        },
+      ],
       margin: [0, 0, 0, 12] as [number, number, number, number],
     },
     {

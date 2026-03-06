@@ -91,5 +91,11 @@ export interface SelectProps {
   // Accesibilidad
   ariaLabel?: string;
   ariaDescribedBy?: string;
+
+  /**
+   * Si true, al abrir el menú se comprueba si hay espacio suficiente en el viewport debajo;
+   * si no, el menú abre hacia arriba. Default true.
+   */
+  openUpWhenNoSpace?: boolean;
 }
 

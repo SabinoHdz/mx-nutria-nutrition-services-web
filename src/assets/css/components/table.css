@@ -36,3 +36,43 @@
 .table tbody tr:hover {
   @apply bg-surface-variant/70;
 }
+
+/* ========================================
+   Tabla scrollable (scroll vertical)
+   Solo aplica cuando el wrapper tiene .table-wrapper--scrollable
+   ======================================== */
+.table-wrapper--scrollable {
+  max-height: var(--v-table-scrollable-max-height, 25rem);
+  min-height: 0;
+  overflow-x: auto;
+  overflow-y: auto;
+  display: block;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
+
+.table-wrapper--scrollable::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.table-wrapper--scrollable::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.table-wrapper--scrollable::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+
+.table-wrapper--scrollable::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-hint);
+}
+
+.table-wrapper--scrollable thead th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--v-table-header-bg, var(--color-background));
+  box-shadow: 0 1px 0 0 var(--color-border);
+}
