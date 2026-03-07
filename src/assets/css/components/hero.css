@@ -73,6 +73,11 @@
    * SUBCOMPONENTES
    * ======================================== */
 
+  /* Hero Badge (pill above title) */
+  .hero__badge {
+    @apply mb-4;
+  }
+
   /* Hero Title */
   .hero__title {
     @apply text-4xl md:text-5xl lg:text-6xl font-bold;

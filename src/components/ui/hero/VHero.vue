@@ -1,6 +1,11 @@
 <template>
   <component :is="asTag" :class="heroClasses" :style="backgroundStyles">
     <div class="hero__content">
+      <!-- Badge (optional, above title) -->
+      <div v-if="$slots.badge" class="hero__badge">
+        <slot name="badge" />
+      </div>
+
       <!-- Title -->
       <h1 v-if="$slots.title" class="hero__title">
         <slot name="title" />

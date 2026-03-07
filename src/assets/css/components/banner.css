@@ -1,0 +1,66 @@
+/**
+ * BANNER COMPONENT STYLES
+ * Banner de información ancho completo con variantes de color y dark mode
+ */
+
+@layer components {
+  /* ========================================
+   * BASE
+   * ======================================== */
+  .banner {
+    @apply w-full py-8 px-4 transition-colors duration-200;
+  }
+
+  /* ========================================
+   * VARIANTS (fondo + texto, con dark mode)
+   * ======================================== */
+
+  .banner--primary {
+    @apply bg-primary text-white;
+  }
+  .dark .banner--primary {
+    @apply bg-primary text-text-primary;
+  }
+
+  .banner--secondary {
+    @apply bg-secondary text-white;
+  }
+  .dark .banner--secondary {
+    @apply bg-secondary text-text-primary;
+  }
+
+  .banner--accent {
+    @apply bg-accent text-white;
+  }
+  .dark .banner--accent {
+    @apply bg-accent text-text-primary;
+  }
+
+  .banner--info {
+    @apply bg-info text-gray-900;
+  }
+  .dark .banner--info {
+    @apply bg-info text-text-primary;
+  }
+
+  .banner--success {
+    @apply bg-success text-white;
+  }
+  .dark .banner--success {
+    @apply bg-success text-text-primary;
+  }
+
+  .banner--warning {
+    @apply bg-warning text-gray-900;
+  }
+  .dark .banner--warning {
+    @apply bg-warning text-text-primary;
+  }
+
+  .banner--error {
+    @apply bg-error text-white;
+  }
+  .dark .banner--error {
+    @apply bg-error text-text-primary;
+  }
+}

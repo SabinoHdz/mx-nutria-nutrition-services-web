@@ -8,46 +8,83 @@
       variant="centered"
       background-gradient="from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800"
     >
+      <template #badge>
+        <span
+          class="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-1.5 text-sm font-medium uppercase tracking-wide text-white"
+        >
+          <VIcon name="diamond" size="sm" class="text-white" />
+          Herramienta profesional gratuita
+        </span>
+      </template>
+
       <template #title>
         <span class="text-primary">LPN Diagnósticos Virtual</span>
       </template>
 
       <template #subtitle>
-        Herramienta profesional para evaluación de indicadores de salud
+        Evaluación nutricional y clínica en segundos
       </template>
 
       <template #description>
-        Calcula y analiza indicadores antropométricos y signos vitales de forma precisa y rápida.
-        Obtén resultados inmediatos basados en estándares médicos reconocidos.
+        Calcula y clasifica indicadores antropométricos y signos vitales con diagnósticos automáticos
+        basados en OMS, NOM, ADA y ACC/AHA. Diseñado para nutriólogos, médicos y estudiantes de
+        ciencias de la salud.
       </template>
 
       <template #actions>
-        <VButton
-          color="primary"
-          size="lg"
-          @click="goToDiagnostics"
-          class="shadow-lg hover:shadow-xl transition-all"
-        >
-          <template #icon>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="w-6 h-6"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25V13.5zm0 2.25h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25V18zm2.498-6.75h.007v.008h-.007v-.008zm0 2.25h.007v.008h-.007V13.5zm0 2.25h.007v.008h-.007v-.008zm0 2.25h.007v.008h-.007V18zm2.504-6.75h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V13.5zm0 2.25h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V18zm2.498-6.75h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V13.5zM8.25 6h7.5v2.25h-7.5V6zM12 2.25c-1.892 0-3.758.11-5.593.322C5.307 2.7 4.5 3.65 4.5 4.757V19.5a2.25 2.25 0 002.25 2.25h10.5a2.25 2.25 0 002.25-2.25V4.757c0-1.108-.806-2.057-1.907-2.185A48.507 48.507 0 0012 2.25z"
-              />
-            </svg>
-          </template>
-          Comenzar Evaluación
-        </VButton>
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          <VButton
+            color="primary"
+            variant="solid"
+            size="lg"
+            @click="goToDiagnostics"
+            class="shadow-lg hover:shadow-xl transition-all"
+          >
+            <template #icon>
+              <VIcon name="assignment" size="md" />
+            </template>
+            <span class="inline-flex items-center gap-2">
+              Comenzar Evaluación
+              <VIcon name="arrow_forward" size="sm" />
+            </span>
+          </VButton>
+          <VButton
+            color="primary"
+            variant="outline"
+            size="lg"
+            @click="goToSupport"
+            class="shadow-md hover:shadow-lg transition-all"
+          >
+            <template #icon>
+              <VIcon name="folder" size="md" />
+            </template>
+            Soporte
+          </VButton>
+        </div>
       </template>
     </VHero>
+
+    <!-- Info Banner -->
+    <VBanner>
+      <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+        <div>
+          <div class="text-3xl font-bold">12+</div>
+          <div class="text-sm opacity-90">Indicadores clínicos</div>
+        </div>
+        <div>
+          <div class="text-3xl font-bold">4</div>
+          <div class="text-sm opacity-90">Estándares médicos</div>
+        </div>
+        <div>
+          <div class="text-3xl font-bold">100%</div>
+          <div class="text-sm opacity-90">Gratuito para profesionales</div>
+        </div>
+        <div>
+          <div class="text-3xl font-bold">NOM</div>
+          <div class="text-sm opacity-90">Basado en normas oficiales mexicanas</div>
+        </div>
+      </div>
+    </VBanner>
 
     <!-- Features Section -->
     <div class="py-20 px-4 bg-surface dark:bg-gray-900">
@@ -192,12 +229,18 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 import { VHero } from '@/components/ui/hero';
+import { VBanner } from '@/components/ui/banner';
 import { VButton } from '@/components/ui/button';
+import { VIcon } from '@/components/ui/icon';
 import { VCard, VCardBody, VCardTitle } from '@/components/ui/card';
 
 const router = useRouter();
 
 const goToDiagnostics = () => {
   router.push('/diagnostics');
+};
+
+const goToSupport = () => {
+  router.push('/support');
 };
 </script>

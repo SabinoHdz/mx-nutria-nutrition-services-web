@@ -1,4 +1,5 @@
 export * from './badge/badge';
+export * from './banner';
 export * from './card';
 export * from './collapse';
 export * from './divider';
