@@ -86,8 +86,178 @@
       </div>
     </VBanner>
 
+    <!-- How it works -->
+    <section class="w-full py-8 px-4 bg-surface dark:bg-gray-900">
+      <div class="w-full max-w-6xl mx-auto">
+        <h2 class="text-4xl font-bold text-center text-primary">¿Cómo funciona?</h2>
+        <p class="text-center text-gray-600 dark:text-gray-300 mt-2 mb-12">
+          4 pasos sencillos para obtener un diagnóstico clínico completo
+        </p>
+        <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- Step 01 -->
+          <VCard variant="elevated" class="relative transition-shadow">
+            <VCardBody>
+              <div class="relative">
+                <span
+                  class="absolute top-0 right-0 text-5xl font-bold text-gray-200 dark:text-gray-600 select-none"
+                  aria-hidden="true"
+                >01</span>
+                <div
+                  class="w-12 h-12 rounded-lg flex items-center justify-center mb-4 bg-primary/15 text-primary"
+                >
+                  <VIcon name="description" size="lg" />
+                </div>
+                <h3 class="text-lg font-bold text-text-primary mb-2">Ingresa los datos del paciente</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300">
+                  Captura sexo, edad, peso y talla del paciente para inicializar la evaluación.
+                </p>
+              </div>
+            </VCardBody>
+          </VCard>
+          <!-- Step 02 -->
+          <VCard variant="elevated" class="relative transition-shadow">
+            <VCardBody>
+              <div class="relative">
+                <span
+                  class="absolute top-0 right-0 text-5xl font-bold text-gray-200 dark:text-gray-600 select-none"
+                  aria-hidden="true"
+                >02</span>
+                <div
+                  class="w-12 h-12 rounded-lg flex items-center justify-center mb-4 bg-warning/20 text-warning"
+                >
+                  <VIcon name="monitor_weight" size="lg" />
+                </div>
+                <h3 class="text-lg font-bold text-text-primary mb-2">Registra medidas antropométricas</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300">
+                  Añade cintura, cadera y estatura para calcular IMC, ICE y riesgo cardiovascular.
+                </p>
+              </div>
+            </VCardBody>
+          </VCard>
+          <!-- Step 03 -->
+          <VCard variant="elevated" class="relative transition-shadow">
+            <VCardBody>
+              <div class="relative">
+                <span
+                  class="absolute top-0 right-0 text-5xl font-bold text-gray-200 dark:text-gray-600 select-none"
+                  aria-hidden="true"
+                >03</span>
+                <div
+                  class="w-12 h-12 rounded-lg flex items-center justify-center mb-4 bg-error/15 text-error"
+                >
+                  <VIcon name="favorite" size="lg" />
+                </div>
+                <h3 class="text-lg font-bold text-text-primary mb-2">Captura signos vitales</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300">
+                  Ingresa FC, FR, temperatura, SpO2, presión arterial y glucosa capilar.
+                </p>
+              </div>
+            </VCardBody>
+          </VCard>
+          <!-- Step 04 -->
+          <VCard variant="elevated" class="relative transition-shadow">
+            <VCardBody>
+              <div class="relative">
+                <span
+                  class="absolute top-0 right-0 text-5xl font-bold text-gray-200 dark:text-gray-600 select-none"
+                  aria-hidden="true"
+                >04</span>
+                <div
+                  class="w-12 h-12 rounded-lg flex items-center justify-center mb-4 bg-success/15 text-success"
+                >
+                  <VIcon name="bolt" size="lg" />
+                </div>
+                <h3 class="text-lg font-bold text-text-primary mb-2">Obtén el diagnóstico al instante</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300">
+                  Resultados con código de color, nivel de riesgo y referencia bibliográfica inmediata.
+                </p>
+              </div>
+            </VCardBody>
+          </VCard>
+        </div>
+        <div class="flex justify-center mt-10">
+          <VButton
+            color="primary"
+            variant="solid"
+            size="lg"
+            @click="goToDiagnostics"
+            class="rounded-full shadow-lg px-8"
+          >
+            <span class="inline-flex items-center gap-2">
+              Ir a Diagnósticos
+              <VIcon name="arrow_forward" size="sm" />
+            </span>
+          </VButton>
+        </div>
+      </div>
+    </section>
+
+    <!-- Basado en Estándares Médicos -->
+    <section class="w-full py-16 px-4 bg-surface dark:bg-gray-900">
+      <div class="w-full max-w-6xl mx-auto">
+        <h2 class="text-4xl font-bold text-center text-primary">Basado en Estándares Médicos</h2>
+        <p class="text-center text-gray-600 dark:text-gray-300 mt-2 mb-12">
+          Diagnósticos respaldados por las principales guías clínicas internacionales y nacionales
+        </p>
+        <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <VCard variant="elevated" class="transition-shadow">
+            <VCardBody>
+              <div
+                class="w-12 h-12 rounded-lg flex items-center justify-center mb-4 bg-primary text-white text-sm font-bold shrink-0"
+              >
+                OMS
+              </div>
+              <h3 class="text-lg font-bold text-text-primary mb-2">Organización Mundial de la Salud</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-300">
+                IMC, antropometría y signos vitales
+              </p>
+            </VCardBody>
+          </VCard>
+          <VCard variant="elevated" class="transition-shadow">
+            <VCardBody>
+              <div
+                class="w-12 h-12 rounded-lg flex items-center justify-center mb-4 bg-accent text-white text-sm font-bold shrink-0"
+              >
+                NOM
+              </div>
+              <h3 class="text-lg font-bold text-text-primary mb-2">Normas Oficiales Mexicanas</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-300">
+                NOM-008, NOM-030, NOM-043
+              </p>
+            </VCardBody>
+          </VCard>
+          <VCard variant="elevated" class="transition-shadow">
+            <VCardBody>
+              <div
+                class="w-12 h-12 rounded-lg flex items-center justify-center mb-4 bg-error text-white text-sm font-bold shrink-0"
+              >
+                ADA
+              </div>
+              <h3 class="text-lg font-bold text-text-primary mb-2">American Diabetes Association</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-300">
+                Glucosa y diagnóstico de diabetes
+              </p>
+            </VCardBody>
+          </VCard>
+          <VCard variant="elevated" class="transition-shadow">
+            <VCardBody>
+              <div
+                class="w-12 h-12 rounded-lg flex items-center justify-center mb-4 bg-warning text-white text-sm font-bold shrink-0"
+              >
+                CC/AH
+              </div>
+              <h3 class="text-lg font-bold text-text-primary mb-2">Sociedad Americana de Cardiología</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-300">
+                Clasificación de hipertensión arterial
+              </p>
+            </VCardBody>
+          </VCard>
+        </div>
+      </div>
+    </section>
+
     <!-- Features Section -->
-    <div class="py-20 px-4 bg-surface dark:bg-gray-900">
+    <div class="py-4 px-4 bg-surface dark:bg-gray-900">
       <div class="max-w-6xl mx-auto">
         <h2 class="text-4xl font-bold text-center mb-12 text-primary">Indicadores Disponibles</h2>
 
@@ -208,7 +378,7 @@
         </div>
 
         <!-- CTA Section -->
-        <div class="text-center mt-16">
+        <div class="text-center my-8">
           <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">
             Comienza a evaluar indicadores de salud de forma profesional
           </p>
