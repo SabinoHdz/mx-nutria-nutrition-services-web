@@ -22,6 +22,7 @@
 @import './css/components/collapse.css';
 @import './css/components/drawer.css';
 @import './css/components/navbar.css';
+@import './css/components/whatsapp-contact.css';
 
 @custom-variant dark (&:where(.dark, .dark *));
 

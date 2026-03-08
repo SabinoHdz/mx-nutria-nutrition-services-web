@@ -422,49 +422,28 @@ import {
   YoutubeIcon,
 } from '@/components/icons';
 import { computed } from 'vue';
+import { useWhatsAppLink } from '@/composables/useWhatsAppLink';
 
 const router = useRouter();
-const goToWhatsApp = computed(() => {
-const whatsappNumber = import.meta.env.VITE_WHATSAPP_NUMBER ??''
-const whatsappMessage = import.meta.env.VITE_WHATSAPP_MESSAGE ??''
-const encodedMessage = encodeURIComponent(whatsappMessage)
-
-return `https://wa.me/${whatsappNumber}?text=${encodedMessage}`
-
-
-});
+const { whatsappUrl } = useWhatsAppLink();
 
 /** Enlaces de redes sociales (configura según tu perfil). Colores alineados con cada marca. */
-const fabSocialActions = [
+const fabSocialActions = computed(() => [
   {
     iconSvg: InstagramIcon,
     label: 'Instagram',
     href: 'https://instagram.com/lapequenanutriaofficial',
     target: '_blank',
-    color: 'instagram' as const, // Morado / púrpura (tono Instagram)
+    color: 'instagram' as const,
   },
-  /*{
-    iconSvg: FacebookIcon,
-    label: 'Facebook',
-    href: 'https://facebook.com',
-    target: '_blank',
-    color: 'facebook' as const, // Azul (Facebook blue)
-  },*/
   {
     iconSvg: WhatsappIcon,
     label: 'WhatsApp',
-    href: goToWhatsApp.value,
+    href: whatsappUrl.value,
     target: '_blank',
-    color: 'whatsapp' as const, // Verde (WhatsApp green)
+    color: 'whatsapp' as const,
   },
-  /*{
-    iconSvg: YoutubeIcon,
-    label: 'YouTube',
-    href: 'https://youtube.com',
-    target: '_blank',
-    color: 'youtube' as const, // Rojo (YouTube red)
-  },*/
-];
+]);
 
 const goToDiagnostics = () => {
   router.push('/diagnostics');

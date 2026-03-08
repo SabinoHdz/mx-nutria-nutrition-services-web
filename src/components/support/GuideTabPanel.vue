@@ -1,6 +1,12 @@
 <template>
   <div class="tab-panel tab-panel--guide space-y-6">
     <div class="space-y-6">
+      <VWhatsAppContact
+        variant="banner"
+        title="¿Necesitas ayuda con el diagnóstico?"
+        description="Escríbenos por WhatsApp y te apoyamos con dudas sobre el uso de la calculadora o la interpretación de resultados."
+        button-text="Chatear por WhatsApp"
+      />
       <VCard variant="elevated" shadow>
         <VCardBody>
           <VCardTitle class="text-2xl text-primary mb-4">
@@ -149,6 +155,8 @@
           <li>Los resultados se actualizan automáticamente conforme ingresa los datos</li>
         </ul>
       </VAlert>
+
+     
     </div>
   </div>
 </template>
@@ -158,4 +166,5 @@ import { VCard, VCardBody, VCardTitle } from '@/components/ui/card';
 import { VBadge } from '@/components/ui/badge';
 import { VAlert } from '@/components/ui/alert';
 import { VDivider } from '@/components/ui/divider';
+import { VWhatsAppContact } from '@/components/ui/whatsapp-contact';
 </script>

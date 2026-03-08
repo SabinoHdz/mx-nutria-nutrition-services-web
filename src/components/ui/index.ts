@@ -12,3 +12,4 @@ export * from './table';
 export * from './tabs';
 export * from './toggle';
 export * from './fab';
+export * from './whatsapp-contact';

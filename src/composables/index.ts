@@ -1,4 +1,5 @@
 export * from './tooltip/useTooltip';
+export { useWhatsAppLink } from './useWhatsAppLink';
 export { useDiagnosticsForm, createDefaultFormData } from './useDiagnosticsForm';
 export {
   useDiagnosticsCalculations,

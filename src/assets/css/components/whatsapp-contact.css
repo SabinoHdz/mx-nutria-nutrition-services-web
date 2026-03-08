@@ -1,0 +1,82 @@
+/**
+ * WhatsApp Contact CTA
+ * Variantes: banner (fondo claro + botón pill) y card (bloque verde sólido).
+ * Usa --color-whatsapp de main.css.
+ */
+
+@layer components {
+  .wa-contact {
+    @apply w-full transition-colors duration-200;
+  }
+
+  /* ---- Banner: fondo verde claro, texto + botón ---- */
+  .wa-contact--banner {
+    background-color: color-mix(in srgb, var(--color-whatsapp) 12%, transparent);
+    @apply rounded-xl p-6;
+  }
+
+  .wa-contact__content--banner {
+    @apply flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between;
+  }
+
+  .wa-contact__title {
+    color: color-mix(in srgb, var(--color-whatsapp) 75%, black);
+    @apply text-lg font-bold;
+  }
+
+  .wa-contact__description {
+    @apply mt-1 text-sm text-gray-600 dark:text-gray-300;
+  }
+
+  .wa-contact__btn {
+    @apply inline-flex items-center justify-center gap-2 font-semibold no-underline shadow-md transition-all duration-200 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+  }
+
+  .wa-contact__btn--pill {
+    background-color: var(--color-whatsapp);
+    @apply rounded-full px-6 py-3 text-white shrink-0;
+  }
+
+  .wa-contact__btn--pill:hover {
+    filter: brightness(0.95);
+  }
+
+  .wa-contact__btn--pill:focus-visible {
+    @apply ring-white ring-offset-2;
+  }
+
+  .wa-contact__btn-label {
+    @apply whitespace-nowrap;
+  }
+
+  /* ---- Card: bloque verde, icono + textos ---- */
+  .wa-contact--card {
+    @apply rounded-xl;
+  }
+
+  .wa-contact__content--card {
+    background-color: var(--color-whatsapp);
+    @apply flex items-center gap-4 rounded-xl p-4 no-underline shadow-md transition-all duration-200 hover:shadow-lg;
+  }
+
+  .wa-contact__content--card:hover {
+    filter: brightness(0.98);
+  }
+
+  .wa-contact__link {
+    @apply block text-white;
+  }
+
+  .wa-contact__icon-wrap {
+    background-color: rgba(255, 255, 255, 0.2);
+    @apply flex h-12 w-12 shrink-0 items-center justify-center rounded-full;
+  }
+
+  .wa-contact__card-title {
+    @apply block text-base font-bold;
+  }
+
+  .wa-contact__schedule {
+    @apply block text-sm opacity-90;
+  }
+}
