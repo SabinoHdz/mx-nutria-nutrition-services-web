@@ -1,0 +1,32 @@
+@layer components {
+  .loading-overlay {
+    @apply fixed inset-0 z-[200] flex items-center justify-center;
+  }
+
+  .loading-overlay__backdrop {
+    @apply absolute inset-0 bg-black/40;
+  }
+
+  .loading-overlay__content {
+    @apply relative z-10 flex flex-col items-center gap-4 rounded-xl bg-surface px-8 py-6 shadow-xl border border-border;
+  }
+
+  .loading-overlay__spinner {
+    @apply h-10 w-10 border-2 border-primary border-t-transparent rounded-full;
+    animation: loading-spin 0.7s linear infinite;
+  }
+
+  .loading-overlay__message {
+    @apply text-sm font-medium text-text-primary;
+  }
+
+  @keyframes loading-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .dark .loading-overlay__content {
+    @apply bg-surface border-border;
+  }
+}

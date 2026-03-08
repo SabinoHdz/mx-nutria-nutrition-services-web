@@ -7,6 +7,7 @@ import { VButton } from '@/components/ui/button';
 import { VDrawer } from '@/components/ui/drawer';
 import { VNavbar } from '@/components/ui/navbar';
 import { VDivider } from '@/components/ui/divider';
+import { VLoadingOverlay } from '@/components/ui/loading';
 
 const { isDarkMode, toggleDarkMode } = useTheme();
 const drawerOpen = ref(false);
@@ -90,6 +91,8 @@ const drawerOpen = ref(false);
       <div class="flex-1 bg-background dark:bg-gray-900">
         <RouterView />
       </div>
+
+      <VLoadingOverlay />
     </template>
 
     <template #sidebar>

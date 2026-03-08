@@ -1,0 +1,49 @@
+@layer components {
+  .modal-overlay {
+    @apply fixed inset-0 z-[100] flex items-center justify-center p-4;
+  }
+
+  .modal-backdrop {
+    @apply absolute inset-0 bg-black/50 transition-opacity;
+  }
+
+  .modal-panel {
+    @apply relative z-10 w-full max-w-md rounded-xl bg-surface shadow-xl border border-border p-6 flex flex-col items-center text-center;
+  }
+
+  .modal-panel__icon {
+    @apply flex items-center justify-center w-12 h-12 rounded-full mb-4;
+  }
+
+  .modal-panel__icon--info {
+    @apply bg-info/20 text-info;
+  }
+
+  .modal-panel__icon--success {
+    @apply bg-success/20 text-success;
+  }
+
+  .modal-panel__icon--warning {
+    @apply bg-warning/20 text-warning;
+  }
+
+  .modal-panel__icon--error {
+    @apply bg-error/20 text-error;
+  }
+
+  .modal-panel__title {
+    @apply text-lg font-semibold text-text-primary mb-2;
+  }
+
+  .modal-panel__message {
+    @apply text-text-secondary text-sm mb-6;
+  }
+
+  .modal-panel__actions {
+    @apply flex justify-center;
+  }
+
+  .dark .modal-panel {
+    @apply bg-surface border-border;
+  }
+}

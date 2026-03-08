@@ -76,7 +76,8 @@ export const validateByType = (
       return /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]*$/.test(strValue);
 
     case 'alphanumeric-special':
-      return true; // Permitir todo
+      // Mismo conjunto seguro que input.masks: letras, números, espacio, . : - _ + / * # $ & ( ) =
+      return /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s.:_+/*#$&()=-]*$/.test(strValue.normalize('NFC'));
 
     case 'password':
       return true; // Permitir cualquier contraseña

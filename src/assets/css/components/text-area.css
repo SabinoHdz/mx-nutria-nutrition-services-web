@@ -1,0 +1,200 @@
+@layer components {
+  .textarea-wrapper {
+    @apply flex flex-col gap-2;
+  }
+
+  .textarea-label {
+    @apply block text-sm font-semibold text-text-primary;
+    line-height: 1.5rem;
+  }
+
+  .textarea-label-required {
+    @apply ml-1 text-error;
+    font-weight: 600;
+  }
+
+  .textarea-container {
+    @apply relative flex rounded-md border border-border bg-surface transition-all duration-200;
+  }
+
+  .textarea-container:focus-within {
+    @apply border-primary shadow-sm;
+  }
+
+  .textarea-container.textarea--solid {
+    @apply bg-surface-variant border-transparent;
+  }
+
+  .textarea-container.textarea--solid:focus-within {
+    @apply bg-surface border-border;
+  }
+
+  .textarea-container.textarea--outline {
+    @apply bg-surface border-border;
+  }
+
+  .textarea-container.textarea--outline:focus-within {
+    @apply border-primary ring-1 ring-primary;
+  }
+
+  .textarea-container.textarea--soft {
+    @apply bg-primary/10 border-transparent;
+  }
+
+  .textarea-container.textarea--soft:focus-within {
+    @apply bg-primary/5 border-primary ring-1 ring-primary;
+  }
+
+  .textarea-container.textarea--primary:focus-within {
+    @apply border-primary ring-1 ring-primary/10;
+  }
+
+  .textarea-container.textarea--secondary:focus-within {
+    @apply border-secondary ring-1 ring-secondary/10;
+  }
+
+  .textarea-container.textarea--accent:focus-within {
+    @apply border-accent ring-1 ring-accent/10;
+  }
+
+  .textarea-container.textarea--success:focus-within {
+    @apply border-success ring-1 ring-success/10;
+  }
+
+  .textarea-container.textarea--warning:focus-within {
+    @apply border-warning ring-1 ring-warning/10;
+  }
+
+  .textarea-container.textarea--error:focus-within {
+    @apply border-error ring-1 ring-error/10;
+  }
+
+  .textarea-container.textarea--info:focus-within {
+    @apply border-info ring-1 ring-info/10;
+  }
+
+  .textarea-container.textarea--error-state {
+    @apply border-error bg-error/5;
+  }
+
+  .textarea-container.textarea--error-state:focus-within {
+    @apply border-error ring-1 ring-error/20;
+  }
+
+  .textarea-container.textarea--disabled {
+    @apply bg-surface-variant opacity-60 cursor-not-allowed;
+  }
+
+  .textarea-container.textarea--size-xs {
+    @apply text-xs p-2;
+  }
+
+  .textarea-container.textarea--size-sm {
+    @apply text-sm p-2.5;
+  }
+
+  .textarea-container.textarea--size-md {
+    @apply text-base p-3;
+  }
+
+  .textarea-container.textarea--size-lg {
+    @apply text-lg p-3.5;
+  }
+
+  .textarea-container.textarea--size-xl {
+    @apply text-xl p-4;
+  }
+
+  .textarea-container.textarea--dense {
+    @apply py-2 text-sm;
+  }
+
+  .textarea-container.textarea--rounded-none {
+    @apply rounded-none;
+  }
+
+  .textarea-container.textarea--rounded-sm {
+    @apply rounded-sm;
+  }
+
+  .textarea-container.textarea--rounded-md {
+    @apply rounded-md;
+  }
+
+  .textarea-container.textarea--rounded-lg {
+    @apply rounded-lg;
+  }
+
+  .textarea-container.textarea--rounded-full {
+    @apply rounded-full;
+  }
+
+  .textarea-container.textarea--shadow {
+    @apply shadow-md;
+  }
+
+  .textarea-container.textarea--shadow:focus-within {
+    @apply shadow-lg;
+  }
+
+  .textarea-container.textarea--resize-none .textarea-field {
+    resize: none;
+  }
+
+  .textarea-container.textarea--resize-vertical .textarea-field {
+    resize: vertical;
+  }
+
+  .textarea-container.textarea--resize-horizontal .textarea-field {
+    resize: horizontal;
+  }
+
+  .textarea-container.textarea--resize-both .textarea-field {
+    resize: both;
+  }
+
+  .textarea-field {
+    @apply flex-1 min-w-0 w-full border-0 bg-transparent text-text-primary outline-none py-2 px-3;
+    min-height: 6rem;
+  }
+
+  .textarea-field::placeholder {
+    @apply text-text-disabled;
+  }
+
+  .textarea-field:disabled {
+    @apply cursor-not-allowed opacity-60;
+  }
+
+  .textarea-error {
+    @apply block text-xs text-error font-medium mt-1;
+  }
+
+  .textarea-hint {
+    @apply block text-xs text-text-secondary mt-1;
+  }
+
+  .textarea-counter {
+    @apply block text-xs text-text-secondary mt-1 text-right font-mono;
+  }
+
+  .dark .textarea-container {
+    @apply border-border bg-surface;
+  }
+
+  .dark .textarea-container.textarea--error-state {
+    @apply border-error bg-error/10;
+  }
+
+  .dark .textarea-container.textarea--disabled {
+    @apply bg-surface-variant opacity-50;
+  }
+
+  .dark .textarea-field {
+    @apply text-text-primary;
+  }
+
+  .dark .textarea-field::placeholder {
+    @apply text-text-disabled;
+  }
+}

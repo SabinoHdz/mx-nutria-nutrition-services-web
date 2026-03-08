@@ -38,8 +38,8 @@ export const filterInputByType = (value: string, type: InputType): string => {
       return value.replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]/g, '');
 
     case 'alphanumeric-special':
-      // Permitir todo
-      return value;
+      // Conjunto seguro: letras (con acentos), números, espacio, puntuación . : - _ + / * # $ & ( ) =
+      return value.normalize('NFC').replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s.:_+/*#$&()=-]/g, '');
 
     case 'email':
       // No filtrar en tiempo real, validar en blur

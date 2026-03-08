@@ -17,6 +17,10 @@
               <VIcon name="menu_book" size="md" />
               Guía de Uso
             </VTabsTab>
+            <VTabsTab :active="activeTab === 'contact'" size="lg" @click="activeTab = 'contact'">
+              <VIcon name="mail" size="md" />
+              Contacto
+            </VTabsTab>
             <VTabsTab
               :active="activeTab === 'indicators'"
               size="lg"
@@ -37,6 +41,7 @@
         </VTabs>
         <div class="tab-panels mt-4">
           <GuideTabPanel v-if="activeTab === 'guide'" />
+          <ContactTabPanel v-if="activeTab === 'contact'" />
           <!-- Explicación de Indicadores Content -->
           <div v-if="activeTab === 'indicators'" class="tab-panel tab-panel--indicators">
             <div class="indicators-panel-content space-y-4">
@@ -541,6 +546,7 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
 import GuideTabPanel from '@/components/support/GuideTabPanel.vue';
+import ContactTabPanel from '@/components/support/ContactTabPanel.vue';
 import ChangelogTabPanel from '@/components/support/ChangelogTabPanel.vue';
 import { VAlert } from '@/components/ui/alert';
 import { VButton } from '@/components/ui/button';
@@ -553,7 +559,7 @@ import { VTable } from '@/components/ui/table';
 import { VIcon } from '@/components/ui/icon';
 import { downloadManualIndicadoresPdf } from '@/utils/pdf';
 
-const activeTab = ref<'guide' | 'indicators' | 'changelog'>('guide');
+const activeTab = ref<'guide' | 'contact' | 'indicators' | 'changelog'>('guide');
 
 const appVersion = typeof __APP_VERSION__ !== 'undefined' ? __APP_VERSION__ : '0.0.0';
 
