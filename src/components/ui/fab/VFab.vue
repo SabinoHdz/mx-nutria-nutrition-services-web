@@ -48,7 +48,20 @@
           type="button"
           @click="handleActionClick(action, $event)"
         >
-          <VIcon :name="action.icon" :data-size="actionIconSize" />
+          <VIcon
+            v-if="action.iconSvg"
+            :name="action.label ?? 'icon'"
+            is-svg
+            :size="actionIconSize"
+            :aria-label="action.label"
+          >
+            <component :is="action.iconSvg" />
+          </VIcon>
+          <VIcon
+            v-else
+            :name="action.icon ?? 'add'"
+            :data-size="actionIconSize"
+          />
 
           <!-- Label / Tooltip -->
           <span v-if="action.label && showLabels" class="v-fab-action-label">

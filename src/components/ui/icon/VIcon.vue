@@ -1,6 +1,11 @@
 <template>
   <span :class="iconClass" :style="iconStyle" :aria-label="computedAriaLabel">
-    {{ name }}
+    <template v-if="isSvg">
+      <span class="icon__svg-slot">
+        <slot />
+      </span>
+    </template>
+    <template v-else>{{ name }}</template>
   </span>
 </template>
 
@@ -29,22 +34,35 @@ const props = withDefaults(defineProps<IconProps>(), {
   grade: 0,
   interactive: false,
   disabled: false,
+  isSvg: false,
 });
 
 /**
  * Clases CSS del icono
- * Generadas por CVA basándose en las props
+ * Cuando isSvg: icon--svg + size + color (sin familia de fuente Material)
+ * Cuando no: CVA completo (Material Symbols)
  */
-const iconClass = computed(() =>
-  iconVariants({
+const iconClass = computed(() => {
+  if (props.isSvg) {
+    const parts = [
+      'icon',
+      'icon--svg',
+      `icon--${props.size}`,
+      `icon--${props.color}`,
+      props.interactive ? 'icon--interactive' : '',
+      props.disabled ? 'icon--disabled' : '',
+    ];
+    return parts.filter(Boolean).join(' ');
+  }
+  return iconVariants({
     family: props.family,
     size: props.size,
     color: props.color,
     filled: props.filled,
     interactive: props.interactive,
     disabled: props.disabled,
-  }),
-);
+  });
+});
 
 /**
  * Estilos inline del icono
@@ -57,6 +75,8 @@ const iconClass = computed(() =>
  * - opsz: tamaño óptico (20-48, automático basado en font-size)
  */
 const iconStyle = computed(() => {
+  // No aplicar font-variation-settings cuando es SVG
+  if (props.isSvg) return undefined;
   // Solo aplicar si weight o grade son diferentes del default
   if (props.weight !== 400 || props.grade !== 0) {
     return {

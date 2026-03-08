@@ -122,6 +122,13 @@ export interface IconProps {
    * Si no se provee, usa el nombre del icono formateado
    */
   ariaLabel?: string;
+
+  /**
+   * Si true, el contenido del icono se toma del slot por defecto (SVG)
+   * y se ignora el nombre de Material Symbols para el render.
+   * @default false
+   */
+  isSvg?: boolean;
 }
 
 // ========================================

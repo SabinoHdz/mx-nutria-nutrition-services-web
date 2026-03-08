@@ -214,6 +214,95 @@
     @apply bg-gray-600 hover:bg-gray-700 text-white;
   }
 
+  /* Redes sociales: usan variables de main.css (light/dark) */
+  .v-fab-action[data-color='instagram'] {
+    background-color: var(--color-instagram);
+    @apply text-white;
+  }
+  .v-fab-action[data-color='instagram']:hover {
+    filter: brightness(0.9);
+  }
+
+  .v-fab-action[data-color='facebook'] {
+    background-color: var(--color-facebook);
+    @apply text-white;
+  }
+  .v-fab-action[data-color='facebook']:hover {
+    filter: brightness(0.9);
+  }
+
+  .v-fab-action[data-color='whatsapp'] {
+    background-color: var(--color-whatsapp);
+    @apply text-white;
+  }
+  .v-fab-action[data-color='whatsapp']:hover {
+    filter: brightness(0.9);
+  }
+
+  .v-fab-action[data-color='youtube'] {
+    background-color: var(--color-youtube);
+    @apply text-white;
+  }
+  .v-fab-action[data-color='youtube']:hover {
+    filter: brightness(0.9);
+  }
+
+  .v-fab-action[data-color='telegram'] {
+    background-color: var(--color-telegram);
+    @apply text-white;
+  }
+  .v-fab-action[data-color='telegram']:hover {
+    filter: brightness(0.9);
+  }
+
+  .v-fab-action[data-color='tiktok'] {
+    background-color: var(--color-tiktok);
+    @apply text-white;
+  }
+  .v-fab-action[data-color='tiktok']:hover {
+    filter: brightness(0.9);
+  }
+
+  .v-fab-action[data-color='twitter'] {
+    background-color: var(--color-twitter);
+    @apply text-white;
+  }
+  .v-fab-action[data-color='twitter']:hover {
+    filter: brightness(0.9);
+  }
+
+  .v-fab-action[data-color='linkedin'] {
+    background-color: var(--color-linkedin);
+    @apply text-white;
+  }
+  .v-fab-action[data-color='linkedin']:hover {
+    filter: brightness(0.9);
+  }
+
+  .v-fab-action[data-color='spotify'] {
+    background-color: var(--color-spotify);
+    @apply text-white;
+  }
+  .v-fab-action[data-color='spotify']:hover {
+    filter: brightness(0.9);
+  }
+
+  .v-fab-action[data-color='discord'] {
+    background-color: var(--color-discord);
+    @apply text-white;
+  }
+  .v-fab-action[data-color='discord']:hover {
+    filter: brightness(0.9);
+  }
+
+  .v-fab-action[data-color='twitch'] {
+    background-color: var(--color-twitch);
+    @apply text-white;
+  }
+  .v-fab-action[data-color='twitch']:hover {
+    filter: brightness(0.9);
+  }
+
   /* ============================================
      FAB Action Label - Etiquetas de las acciones
      ============================================ */

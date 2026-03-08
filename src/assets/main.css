@@ -65,6 +65,26 @@
   --color-base-200: #fafafa; /* Matches background */
   --color-base-300: #f5f5f5;
   --color-base-content: #1f2937;
+
+  /* --- Social Media Colors --- */
+  --color-facebook: #1877f2;
+  --color-instagram: #e4405f;
+  --color-instagram-primary: #c32aa3;
+  --color-sintagram-secondary: #833ab4;
+  --color-sintagram-tertiary: #f77737;
+  --color-twitter: #1da1f2;
+  --color-youtube: #ff0000;
+  --color-linkedin: #0077b5;
+  --color-github: #181717;
+  --color-stackoverflow: #f48024;
+  --color-reddit: #ff4500;
+  --color-pinterest: #bd081c;
+  --color-tiktok: #000000;
+  --color-twitch: #9146ff;
+  --color-discord: #5865f2;
+  --color-telegram: #0088cc;
+  --color-whatsapp: #25d366;
+  --color-spotify: #1ed760;
 }
 
 .dark {
@@ -95,6 +115,26 @@
   --color-base-200: #0f172a; /* Matches background */
   --color-base-300: #020617; /* Deeper dark */
   --color-base-content: #f9fafb;
+
+  /* --- Social Media Colors Dark --- */
+  --color-facebook: #1877f2;
+  --color-instagram: #e4405f;
+  --color-instagram-primary: #c32aa3;
+  --color-sintagram-secondary: #833ab4;
+  --color-sintagram-tertiary: #f77737;
+  --color-twitter: #1da1f2;
+  --color-youtube: #ff0000;
+  --color-linkedin: #0077b5;
+  --color-github: #181717;
+  --color-stackoverflow: #f48024;
+  --color-reddit: #ff4500;
+  --color-pinterest: #bd081c;
+  --color-tiktok: #000000;
+  --color-twitch: #9146ff;
+  --color-discord: #5865f2;
+  --color-telegram: #0088cc;
+  --color-whatsapp: #25d366;
+  --color-spotify: #1ed760;
 }
 
 @theme {
@@ -125,4 +165,24 @@
   --color-base-200: var(--color-base-200);
   --color-base-300: var(--color-base-300);
   --color-base-content: var(--color-base-content);
+
+  /* Social Media colors */
+  --color-facebook: var(--color-facebook);
+  --color-instagram: var(--color-instagram);
+  --color-instagram-primary: var(--color-instagram-primary);
+  --color-sintagram-secondary: var(--color-sintagram-secondary);
+  --color-sintagram-tertiary: var(--color-sintagram-tertiary);
+  --color-twitter: var(--color-twitter);
+  --color-youtube: var(--color-youtube);
+  --color-linkedin: var(--color-linkedin);
+  --color-github: var(--color-github);
+  --color-stackoverflow: var(--color-stackoverflow);
+  --color-reddit: var(--color-reddit);
+  --color-pinterest: var(--color-pinterest);
+  --color-tiktok: var(--color-tiktok);
+  --color-twitch: var(--color-twitch);
+  --color-discord: var(--color-discord);
+  --color-telegram: var(--color-telegram);
+  --color-whatsapp: var(--color-whatsapp);
+  --color-spotify: var(--color-spotify);
 }

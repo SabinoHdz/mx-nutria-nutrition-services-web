@@ -58,6 +58,33 @@
     font-family: 'Material Symbols Sharp';
   }
 
+  /**
+   * Modo SVG: contenido del slot (no fuente Material)
+   * Anula font y mantiene caja para que el SVG escale
+   */
+  .icon--svg {
+    font-family: inherit;
+    -webkit-font-smoothing: unset;
+    -moz-osx-font-smoothing: unset;
+    text-rendering: unset;
+    font-variation-settings: unset;
+  }
+
+  /**
+   * Contenedor del slot SVG: llena el icono para heredar tamaño
+   */
+  .icon__svg-slot {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .icon__svg-slot svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
   /* ========================================
    3. SIZES
    ======================================== */

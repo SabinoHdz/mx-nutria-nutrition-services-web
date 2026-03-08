@@ -3,6 +3,8 @@
  * Floating Action Button with Speed Dial functionality
  */
 
+import type { Component } from 'vue';
+
 // ========================================
 // 1. POSITIONS (Posiciones en pantalla)
 // ========================================
@@ -28,8 +30,9 @@ export const FAB_DIRECTIONS = ['up', 'down', 'left', 'right'] as const;
 export type FabDirection = (typeof FAB_DIRECTIONS)[number];
 
 // ========================================
-// 3. COLORES SEMÁNTICOS
+// 3. COLORES SEMÁNTICOS Y REDES SOCIALES
 // ========================================
+/** Colores semánticos (Tailwind) + redes sociales (variables en main.css) */
 export const FAB_COLORS = [
   'primary',
   'secondary',
@@ -38,6 +41,18 @@ export const FAB_COLORS = [
   'error',
   'info',
   'neutral',
+  // Redes sociales (usan --color-* en main.css)
+  'instagram',
+  'facebook',
+  'whatsapp',
+  'youtube',
+  'telegram',
+  'tiktok',
+  'twitter',
+  'linkedin',
+  'spotify',
+  'discord',
+  'twitch',
 ] as const;
 export type FabColor = (typeof FAB_COLORS)[number];
 
@@ -63,8 +78,10 @@ export type FabTrigger = (typeof FAB_TRIGGERS)[number];
  * Cada acción en el Speed Dial
  */
 export interface FabAction {
-  /** Icono (Material Symbols) */
-  icon: string;
+  /** Icono (Material Symbols). Ignorado si se define iconSvg. */
+  icon?: string;
+  /** Icono SVG como componente Vue. Si está definido, se usa en lugar de icon. */
+  iconSvg?: Component;
   /** Etiqueta/tooltip */
   label?: string;
   /** Color del botón */

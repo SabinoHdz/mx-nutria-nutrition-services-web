@@ -393,6 +393,17 @@
         </div>
       </div>
     </div>
+
+    <!-- FAB Redes sociales -->
+    <VFab
+      position="bottom-right"
+      direction="up"
+      color="primary"
+      icon="share"
+      :actions="fabSocialActions"
+      trigger="click"
+      show-labels
+    />
   </div>
 </template>
 
@@ -403,8 +414,57 @@ import { VBanner } from '@/components/ui/banner';
 import { VButton } from '@/components/ui/button';
 import { VIcon } from '@/components/ui/icon';
 import { VCard, VCardBody, VCardTitle } from '@/components/ui/card';
+import { VFab } from '@/components/ui/fab';
+import {
+  InstagramIcon,
+  FacebookIcon,
+  WhatsappIcon,
+  YoutubeIcon,
+} from '@/components/icons';
+import { computed } from 'vue';
 
 const router = useRouter();
+const goToWhatsApp = computed(() => {
+const whatsappNumber = import.meta.env.VITE_WHATSAPP_NUMBER ??''
+const whatsappMessage = import.meta.env.VITE_WHATSAPP_MESSAGE ??''
+const encodedMessage = encodeURIComponent(whatsappMessage)
+
+return `https://wa.me/${whatsappNumber}?text=${encodedMessage}`
+
+
+});
+
+/** Enlaces de redes sociales (configura según tu perfil). Colores alineados con cada marca. */
+const fabSocialActions = [
+  {
+    iconSvg: InstagramIcon,
+    label: 'Instagram',
+    href: 'https://instagram.com/lapequenanutriaofficial',
+    target: '_blank',
+    color: 'instagram' as const, // Morado / púrpura (tono Instagram)
+  },
+  /*{
+    iconSvg: FacebookIcon,
+    label: 'Facebook',
+    href: 'https://facebook.com',
+    target: '_blank',
+    color: 'facebook' as const, // Azul (Facebook blue)
+  },*/
+  {
+    iconSvg: WhatsappIcon,
+    label: 'WhatsApp',
+    href: goToWhatsApp.value,
+    target: '_blank',
+    color: 'whatsapp' as const, // Verde (WhatsApp green)
+  },
+  /*{
+    iconSvg: YoutubeIcon,
+    label: 'YouTube',
+    href: 'https://youtube.com',
+    target: '_blank',
+    color: 'youtube' as const, // Rojo (YouTube red)
+  },*/
+];
 
 const goToDiagnostics = () => {
   router.push('/diagnostics');
@@ -413,4 +473,5 @@ const goToDiagnostics = () => {
 const goToSupport = () => {
   router.push('/support');
 };
+
 </script>
