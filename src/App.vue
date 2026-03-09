@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useTheme } from '@/composables/useTheme';
 import { RouterLink, RouterView } from 'vue-router';
 import { VIcon } from '@/components/ui/icon';
@@ -8,9 +8,16 @@ import { VDrawer } from '@/components/ui/drawer';
 import { VNavbar } from '@/components/ui/navbar';
 import { VDivider } from '@/components/ui/divider';
 import { VLoadingOverlay } from '@/components/ui/loading';
+import { useConfigStore } from '@/stores/configStore';
+import { useVisitsStore } from '@/stores/visitsStore';
 
 const { isDarkMode, toggleDarkMode } = useTheme();
 const drawerOpen = ref(false);
+
+onMounted(() => {
+  useVisitsStore().recordVisit();
+  useConfigStore().fetchConfig();
+});
 </script>
 
 <template>

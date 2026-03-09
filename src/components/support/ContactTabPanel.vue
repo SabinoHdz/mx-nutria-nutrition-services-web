@@ -138,7 +138,7 @@ import { VIcon } from '@/components/ui/icon';
 import { VWhatsAppContact } from '@/components/ui/whatsapp-contact';
 import { VModal } from '@/components/ui/modal';
 import { useLoading } from '@/composables/useLoading';
-import { submitContactForm } from '@/services/contactService';
+import { useContactStore } from '@/stores/contactStore';
 
 const contactEmail = computed(
   () => import.meta.env.VITE_CONTACT_EMAIL ?? 'soporte@lpndiagnosticos.mx',
@@ -158,12 +158,13 @@ const modalMessage = ref('');
 const modalType = ref<'success' | 'error'>('success');
 
 const { show: loadingShow, hide: loadingHide } = useLoading();
+const contactStore = useContactStore();
 
 async function onSubmit() {
   try {
     loadingShow();
-    
-    await submitContactForm({
+
+    await contactStore.submitContact({
       name: form.value.name,
       email: form.value.email,
       subject: form.value.subject,
