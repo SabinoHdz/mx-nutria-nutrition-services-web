@@ -533,7 +533,7 @@ export function useHealthIndicators() {
         color: 'warning',
         alert: 'Primer nivel de atención médica',
       };
-    if (s >= 120)
+    if (s === 129)
       return { severity: BP_SEVERITY.SUB_OPTIMA, status: 'Sub Óptima', color: 'warning' };
     return { severity: BP_SEVERITY.NORMAL, status: 'Normal', color: 'success' };
   };
@@ -570,7 +570,7 @@ export function useHealthIndicators() {
         color: 'warning',
         alert: 'Primer nivel de atención médica',
       };
-    if (d >= 84)
+    if (d === 84)
       return { severity: BP_SEVERITY.SUB_OPTIMA, status: 'Sub Óptima', color: 'warning' };
     if (d >= 80) return { severity: BP_SEVERITY.NORMAL, status: 'Normal', color: 'success' };
     return { severity: BP_SEVERITY.NORMAL, status: 'Normal', color: 'success' };

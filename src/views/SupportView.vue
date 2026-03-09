@@ -450,13 +450,13 @@
                         <td>—</td>
                       </tr>
                       <tr>
-                        <td>90 - 119</td>
+                        <td>91 - 128</td>
                         <td>80 - 83</td>
                         <td><VBadge color="success">Normal</VBadge></td>
                         <td>—</td>
                       </tr>
                       <tr>
-                        <td>120 - 129</td>
+                        <td>129 </td>
                         <td>84</td>
                         <td><VBadge color="warning">Sub Óptima</VBadge></td>
                         <td>—</td>
