@@ -45,7 +45,7 @@
             Redes sociales
           </VCardTitle>
           <p class="text-sm text-text-secondary">
-            Síguenos en Instagram / Facebook
+            Síguenos en Instagram
           </p>
         </VCardBody>
       </VCard>
@@ -141,7 +141,7 @@ import { useLoading } from '@/composables/useLoading';
 import { useContactStore } from '@/stores/contactStore';
 
 const contactEmail = computed(
-  () => import.meta.env.VITE_CONTACT_EMAIL ?? 'soporte@lpndiagnosticos.mx',
+  () => import.meta.env.VITE_CONTACT_EMAIL ?? 'lapequenanutria.nutricion@gmail.com',
 );
 
 const formRef = ref<InstanceType<typeof VForm> | null>(null);
