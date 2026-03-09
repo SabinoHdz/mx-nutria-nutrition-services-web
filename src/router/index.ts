@@ -28,6 +28,11 @@ const router = createRouter({
       name: 'support',
       component: () => import('../views/SupportView.vue'),
     },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'notFound',
+      redirect: { name: 'home' },
+    },
   ],
 });
 
