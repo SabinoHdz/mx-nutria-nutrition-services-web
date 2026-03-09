@@ -1,6 +1,7 @@
 import { ref, readonly } from 'vue';
 import { defineStore } from 'pinia';
 import { api } from '@/api';
+import { useFingerprint } from '@/composables/useFingerprint';
 
 export const useVisitsStore = defineStore('visits', () => {
   const count = ref<number | null>(null);
@@ -9,7 +10,10 @@ export const useVisitsStore = defineStore('visits', () => {
   async function recordVisit() {
     if (recorded.value) return;
     try {
-      await api.get<void>('/api/visits/record');
+      const fingerprint = await useFingerprint();
+      const headers: Record<string, string> = {};
+      if (fingerprint) headers['x-visit-fingerprint'] = fingerprint;
+      await api.get<void>('/api/visits/record', { headers });
       recorded.value = true;
     } catch {
       // Silently ignore; don't block app
