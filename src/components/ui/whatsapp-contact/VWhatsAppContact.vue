@@ -1,9 +1,5 @@
 <template>
-  <section
-    :class="rootClasses"
-    role="region"
-    aria-label="Contacto por WhatsApp"
-  >
+  <section :class="rootClasses" role="region" aria-label="Contacto por WhatsApp">
     <!-- Banner: texto a la izquierda, botón a la derecha -->
     <template v-if="variant === 'banner'">
       <div class="wa-contact__content wa-contact__content--banner">

@@ -86,9 +86,7 @@
                   <li>
                     <strong>Temperatura:</strong> Grados Celsius (permite un decimal, ej: 36.5)
                   </li>
-                  <li>
-                    <strong>Saturación de Oxígeno:</strong> Porcentaje (número entero, 0-100)
-                  </li>
+                  <li><strong>Saturación de Oxígeno:</strong> Porcentaje (número entero, 0-100)</li>
                 </ul>
               </div>
             </div>
@@ -100,17 +98,21 @@
               <div class="flex-1">
                 <h3 class="font-bold text-lg mb-2">Calcular e Interpretar Resultados</h3>
                 <p class="text-gray-700 dark:text-gray-300 mb-2">
-                  Presione el botón <VBadge color="primary">Calcular</VBadge> para obtener todos
-                  los resultados. Los indicadores se mostrarán en la tabla de resultados con:
+                  Presione el botón <VBadge color="primary">Calcular</VBadge> para obtener todos los
+                  resultados. Los indicadores se mostrarán en la tabla de resultados con:
                 </p>
                 <ul class="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300 ml-4">
                   <li><VBadge color="success" size="sm">Verde</VBadge> - Valores normales</li>
-                  <li><VBadge color="info" size="sm">Azul</VBadge> - Valores límite o informativos</li>
+                  <li>
+                    <VBadge color="info" size="sm">Azul</VBadge> - Valores límite o informativos
+                  </li>
                   <li>
                     <VBadge color="warning" size="sm">Amarillo</VBadge> - Valores que requieren
                     atención
                   </li>
-                  <li><VBadge color="error" size="sm">Rojo</VBadge> - Valores críticos o preocupantes</li>
+                  <li>
+                    <VBadge color="error" size="sm">Rojo</VBadge> - Valores críticos o preocupantes
+                  </li>
                 </ul>
               </div>
             </div>
@@ -155,8 +157,6 @@
           <li>Los resultados se actualizan automáticamente conforme ingresa los datos</li>
         </ul>
       </VAlert>
-
-     
     </div>
   </div>
 </template>

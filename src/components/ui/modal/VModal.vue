@@ -22,11 +22,7 @@
           <slot>{{ message }}</slot>
         </p>
         <div class="modal-panel__actions">
-          <VButton
-            variant="solid"
-            :color="buttonColor"
-            @click="close"
-          >
+          <VButton variant="solid" :color="buttonColor" @click="close">
             {{ closeLabel }}
           </VButton>
         </div>

@@ -5,8 +5,14 @@ import type { Patient, AntropometricData } from '@/types';
 type BadgeColor = NonNullable<AntropometricData['waistColor']>;
 
 export interface WaistHipIndicators {
-  getWaistStatus: (waistValue: number, gender: 'MALE' | 'FEMALE') => { status?: string; color?: string } | null;
-  getHipStatus: (hipValue: number, gender: 'MALE' | 'FEMALE') => { status?: string; color?: string } | null;
+  getWaistStatus: (
+    waistValue: number,
+    gender: 'MALE' | 'FEMALE',
+  ) => { status?: string; color?: string } | null;
+  getHipStatus: (
+    hipValue: number,
+    gender: 'MALE' | 'FEMALE',
+  ) => { status?: string; color?: string } | null;
   getWaistHeightRatio: (
     waistValue: number,
     heightInCm: number,
@@ -37,7 +43,9 @@ export function useDiagnosticsWatchers(
         if (gender) {
           const waistStatus = getWaistStatus(waistValue, gender);
           antropometric.value.waistStatus = waistStatus?.status || 'Pendiente';
-          antropometric.value.waistColor = (waistStatus?.color ?? undefined) as BadgeColor | undefined;
+          antropometric.value.waistColor = (waistStatus?.color ?? undefined) as
+            | BadgeColor
+            | undefined;
         }
       }
     },
@@ -82,7 +90,9 @@ export function useDiagnosticsWatchers(
           if (iceResult) {
             antropometric.value.waistHeightRatio = iceResult.ratio;
             antropometric.value.waistHeightStatus = iceResult.status?.status || 'Pendiente';
-            antropometric.value.waistHeightColor = (iceResult.status?.color ?? undefined) as BadgeColor | undefined;
+            antropometric.value.waistHeightColor = (iceResult.status?.color ?? undefined) as
+              | BadgeColor
+              | undefined;
           }
         } else {
           antropometric.value.waistHeightStatus = 'Pendiente';
@@ -115,7 +125,9 @@ export function useDiagnosticsWatchers(
         const waistValue = Number(antropometric.value.waistCircumference);
         const waistStatus = getWaistStatus(waistValue, newGender as 'MALE' | 'FEMALE');
         antropometric.value.waistStatus = waistStatus?.status || 'Pendiente';
-        antropometric.value.waistColor = (waistStatus?.color ?? undefined) as BadgeColor | undefined;
+        antropometric.value.waistColor = (waistStatus?.color ?? undefined) as
+          | BadgeColor
+          | undefined;
       }
 
       if (

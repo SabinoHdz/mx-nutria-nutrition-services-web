@@ -98,9 +98,7 @@
               <td>Frec. Cardíaca</td>
               <td>
                 {{ signalVital.heartRate || '-' }}
-                <span
-                  v-if="signalVital.heartRate"
-                  class="text-xs text-gray-500 dark:text-gray-400"
+                <span v-if="signalVital.heartRate" class="text-xs text-gray-500 dark:text-gray-400"
                   >lpm</span
                 >
               </td>
@@ -108,8 +106,7 @@
                 <VBadge
                   size="sm"
                   :variant="
-                    signalVital.heartRateStatus === 'Pendiente' ||
-                    !signalVital.heartRateStatus
+                    signalVital.heartRateStatus === 'Pendiente' || !signalVital.heartRateStatus
                       ? 'ghost'
                       : 'solid'
                   "
@@ -158,8 +155,7 @@
                 <VBadge
                   size="sm"
                   :variant="
-                    signalVital.temperatureStatus === 'Pendiente' ||
-                    !signalVital.temperatureStatus
+                    signalVital.temperatureStatus === 'Pendiente' || !signalVital.temperatureStatus
                       ? 'ghost'
                       : 'solid'
                   "
@@ -256,9 +252,7 @@
               <td>Glucosa</td>
               <td>
                 {{ signalVital.glucose || '-' }}
-                <span
-                  v-if="signalVital.glucose"
-                  class="text-xs text-gray-500 dark:text-gray-400"
+                <span v-if="signalVital.glucose" class="text-xs text-gray-500 dark:text-gray-400"
                   >mg/dl</span
                 >
               </td>

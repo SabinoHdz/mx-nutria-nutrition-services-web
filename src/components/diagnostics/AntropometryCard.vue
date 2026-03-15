@@ -130,8 +130,7 @@
             <VBadge
               size="sm"
               :variant="
-                antropometric.waistHeightStatus === 'Pendiente' ||
-                !antropometric.waistHeightStatus
+                antropometric.waistHeightStatus === 'Pendiente' || !antropometric.waistHeightStatus
                   ? 'ghost'
                   : 'solid'
               "

@@ -60,9 +60,7 @@
         >
           Calcular
         </VButton>
-        <VButton variant="outline" full-width @click="$emit('clear')">
-          Limpiar
-        </VButton>
+        <VButton variant="outline" full-width @click="$emit('clear')"> Limpiar </VButton>
       </div>
     </VCardBody>
   </VCard>

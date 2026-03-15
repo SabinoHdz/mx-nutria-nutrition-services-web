@@ -21,14 +21,12 @@
         <span class="text-primary">LPN Diagnósticos Virtual</span>
       </template>
 
-      <template #subtitle>
-        Evaluación nutricional y clínica en segundos
-      </template>
+      <template #subtitle> Evaluación nutricional y clínica en segundos </template>
 
       <template #description>
-        Calcula y clasifica indicadores antropométricos y signos vitales con diagnósticos automáticos
-        basados en OMS, NOM, ADA y ACC/AHA. Diseñado para nutriólogos, médicos y estudiantes de
-        ciencias de la salud.
+        Calcula y clasifica indicadores antropométricos y signos vitales con diagnósticos
+        automáticos basados en OMS, NOM, ADA y ACC/AHA. Diseñado para nutriólogos, médicos y
+        estudiantes de ciencias de la salud.
       </template>
 
       <template #actions>
@@ -66,7 +64,9 @@
 
     <!-- Info Banner -->
     <VBanner>
-      <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+      <div
+        class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center"
+      >
         <div>
           <div class="text-3xl font-bold">12+</div>
           <div class="text-sm opacity-90">Indicadores clínicos</div>
@@ -101,13 +101,16 @@
                 <span
                   class="absolute top-0 right-0 text-5xl font-bold text-gray-200 dark:text-gray-600 select-none"
                   aria-hidden="true"
-                >01</span>
+                  >01</span
+                >
                 <div
                   class="w-12 h-12 rounded-lg flex items-center justify-center mb-4 bg-primary/15 text-primary"
                 >
                   <VIcon name="description" size="lg" />
                 </div>
-                <h3 class="text-lg font-bold text-text-primary mb-2">Ingresa los datos del paciente</h3>
+                <h3 class="text-lg font-bold text-text-primary mb-2">
+                  Ingresa los datos del paciente
+                </h3>
                 <p class="text-sm text-gray-600 dark:text-gray-300">
                   Captura sexo, edad, peso y talla del paciente para inicializar la evaluación.
                 </p>
@@ -121,13 +124,16 @@
                 <span
                   class="absolute top-0 right-0 text-5xl font-bold text-gray-200 dark:text-gray-600 select-none"
                   aria-hidden="true"
-                >02</span>
+                  >02</span
+                >
                 <div
                   class="w-12 h-12 rounded-lg flex items-center justify-center mb-4 bg-warning/20 text-warning"
                 >
                   <VIcon name="monitor_weight" size="lg" />
                 </div>
-                <h3 class="text-lg font-bold text-text-primary mb-2">Registra medidas antropométricas</h3>
+                <h3 class="text-lg font-bold text-text-primary mb-2">
+                  Registra medidas antropométricas
+                </h3>
                 <p class="text-sm text-gray-600 dark:text-gray-300">
                   Añade cintura, cadera y estatura para calcular IMC, ICE y riesgo cardiovascular.
                 </p>
@@ -141,7 +147,8 @@
                 <span
                   class="absolute top-0 right-0 text-5xl font-bold text-gray-200 dark:text-gray-600 select-none"
                   aria-hidden="true"
-                >03</span>
+                  >03</span
+                >
                 <div
                   class="w-12 h-12 rounded-lg flex items-center justify-center mb-4 bg-error/15 text-error"
                 >
@@ -161,15 +168,19 @@
                 <span
                   class="absolute top-0 right-0 text-5xl font-bold text-gray-200 dark:text-gray-600 select-none"
                   aria-hidden="true"
-                >04</span>
+                  >04</span
+                >
                 <div
                   class="w-12 h-12 rounded-lg flex items-center justify-center mb-4 bg-success/15 text-success"
                 >
                   <VIcon name="bolt" size="lg" />
                 </div>
-                <h3 class="text-lg font-bold text-text-primary mb-2">Obtén el diagnóstico al instante</h3>
+                <h3 class="text-lg font-bold text-text-primary mb-2">
+                  Obtén el diagnóstico al instante
+                </h3>
                 <p class="text-sm text-gray-600 dark:text-gray-300">
-                  Resultados con código de color, nivel de riesgo y referencia bibliográfica inmediata.
+                  Resultados con código de color, nivel de riesgo y referencia bibliográfica
+                  inmediata.
                 </p>
               </div>
             </VCardBody>
@@ -207,7 +218,9 @@
               >
                 OMS
               </div>
-              <h3 class="text-lg font-bold text-text-primary mb-2">Organización Mundial de la Salud</h3>
+              <h3 class="text-lg font-bold text-text-primary mb-2">
+                Organización Mundial de la Salud
+              </h3>
               <p class="text-sm text-gray-600 dark:text-gray-300">
                 IMC, antropometría y signos vitales
               </p>
@@ -221,9 +234,7 @@
                 NOM
               </div>
               <h3 class="text-lg font-bold text-text-primary mb-2">Normas Oficiales Mexicanas</h3>
-              <p class="text-sm text-gray-600 dark:text-gray-300">
-                NOM-008, NOM-030, NOM-043
-              </p>
+              <p class="text-sm text-gray-600 dark:text-gray-300">NOM-008, NOM-030, NOM-043</p>
             </VCardBody>
           </VCard>
           <VCard variant="elevated" class="transition-shadow">
@@ -233,7 +244,9 @@
               >
                 ADA
               </div>
-              <h3 class="text-lg font-bold text-text-primary mb-2">American Diabetes Association</h3>
+              <h3 class="text-lg font-bold text-text-primary mb-2">
+                American Diabetes Association
+              </h3>
               <p class="text-sm text-gray-600 dark:text-gray-300">
                 Glucosa y diagnóstico de diabetes
               </p>
@@ -246,7 +259,9 @@
               >
                 CC/AH
               </div>
-              <h3 class="text-lg font-bold text-text-primary mb-2">Sociedad Americana de Cardiología</h3>
+              <h3 class="text-lg font-bold text-text-primary mb-2">
+                Sociedad Americana de Cardiología
+              </h3>
               <p class="text-sm text-gray-600 dark:text-gray-300">
                 Clasificación de hipertensión arterial
               </p>
@@ -415,12 +430,7 @@ import { VButton } from '@/components/ui/button';
 import { VIcon } from '@/components/ui/icon';
 import { VCard, VCardBody, VCardTitle } from '@/components/ui/card';
 import { VFab } from '@/components/ui/fab';
-import {
-  InstagramIcon,
-  FacebookIcon,
-  WhatsappIcon,
-  YoutubeIcon,
-} from '@/components/icons';
+import { InstagramIcon, FacebookIcon, WhatsappIcon, YoutubeIcon } from '@/components/icons';
 import { computed } from 'vue';
 import { useWhatsAppLink } from '@/composables/useWhatsAppLink';
 
@@ -452,5 +462,4 @@ const goToDiagnostics = () => {
 const goToSupport = () => {
   router.push('/support');
 };
-
 </script>

@@ -1,0 +1,4 @@
+# SEO: indica a los buscadores qué pueden rastrear y dónde está el sitemap (Google/Bing).
+User-agent: *
+Allow: /
+Sitemap: https://lapequenanutria.com/sitemap.xml

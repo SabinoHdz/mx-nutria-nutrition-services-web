@@ -57,11 +57,7 @@
           >
             <component :is="action.iconSvg" />
           </VIcon>
-          <VIcon
-            v-else
-            :name="action.icon ?? 'add'"
-            :data-size="actionIconSize"
-          />
+          <VIcon v-else :name="action.icon ?? 'add'" :data-size="actionIconSize" />
 
           <!-- Label / Tooltip -->
           <span v-if="action.label && showLabels" class="v-fab-action-label">

@@ -28,9 +28,7 @@
           <VCardTitle class="text-base font-semibold text-text-primary mb-1">
             Horario de atención
           </VCardTitle>
-          <p class="text-sm text-text-secondary">
-            Lun-Vie 9:00-18:00
-          </p>
+          <p class="text-sm text-text-secondary">Lun-Vie 9:00-18:00</p>
         </VCardBody>
       </VCard>
 
@@ -44,9 +42,7 @@
           <VCardTitle class="text-base font-semibold text-text-primary mb-1">
             Redes sociales
           </VCardTitle>
-          <p class="text-sm text-text-secondary">
-            Síguenos en Instagram
-          </p>
+          <p class="text-sm text-text-secondary">Síguenos en Instagram</p>
         </VCardBody>
       </VCard>
     </div>
@@ -171,13 +167,15 @@ async function onSubmit() {
       message: form.value.message,
     });
     modalTitle.value = 'Mensaje enviado';
-    modalMessage.value = 'Tu mensaje ha sido enviado correctamente. Te responderemos a la brevedad.';
+    modalMessage.value =
+      'Tu mensaje ha sido enviado correctamente. Te responderemos a la brevedad.';
     modalType.value = 'success';
     modalOpen.value = true;
     formRef.value?.reset();
     form.value = { name: '', email: '', subject: '', message: '' };
   } catch (err) {
-    const message = err instanceof Error ? err.message : 'No se pudo enviar el mensaje. Intenta de nuevo.';
+    const message =
+      err instanceof Error ? err.message : 'No se pudo enviar el mensaje. Intenta de nuevo.';
     modalTitle.value = 'Error al enviar';
     modalMessage.value = message;
     modalType.value = 'error';

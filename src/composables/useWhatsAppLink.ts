@@ -12,11 +12,11 @@ export function useWhatsAppLink() {
     const number =
       configStore.loaded && configStore.whatsapp.number
         ? configStore.whatsapp.number
-        : (import.meta.env.VITE_WHATSAPP_NUMBER as string) ?? '';
+        : ((import.meta.env.VITE_WHATSAPP_NUMBER as string) ?? '');
     const message =
       configStore.loaded && configStore.whatsapp.defaultMessage !== undefined
         ? configStore.whatsapp.defaultMessage
-        : (import.meta.env.VITE_WHATSAPP_MESSAGE as string) ?? '';
+        : ((import.meta.env.VITE_WHATSAPP_MESSAGE as string) ?? '');
     const encoded = encodeURIComponent(message);
     return number ? `https://wa.me/${number}?text=${encoded}` : '';
   });

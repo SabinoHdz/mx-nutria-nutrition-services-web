@@ -13,7 +13,8 @@ export const useContactStore = defineStore('contact', () => {
     try {
       await api.post('/api/contact', payload);
     } catch (e) {
-      error.value = e instanceof Error ? e.message : 'No se pudo enviar el mensaje. Intenta de nuevo.';
+      error.value =
+        e instanceof Error ? e.message : 'No se pudo enviar el mensaje. Intenta de nuevo.';
       throw e;
     } finally {
       loading.value = false;

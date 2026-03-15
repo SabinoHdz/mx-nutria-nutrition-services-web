@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
+import { useRoute, RouterLink, RouterView } from 'vue-router';
+import { useSeoMeta } from '@unhead/vue';
 import { useTheme } from '@/composables/useTheme';
-import { RouterLink, RouterView } from 'vue-router';
 import { VIcon } from '@/components/ui/icon';
 import { VButton } from '@/components/ui/button';
 import { VDrawer } from '@/components/ui/drawer';
@@ -10,6 +11,26 @@ import { VDivider } from '@/components/ui/divider';
 import { VLoadingOverlay } from '@/components/ui/loading';
 import { useConfigStore } from '@/stores/configStore';
 import { useVisitsStore } from '@/stores/visitsStore';
+
+const route = useRoute();
+// SEO: actualiza <head> con la meta de la ruta actual (título, descripción, Open Graph) usando Unhead.
+useSeoMeta({
+  title: computed(() => (route.meta.title as string) ?? 'La Pequeña Nutria'),
+  description: computed(
+    () =>
+      (route.meta.description as string) ??
+      'Diagnóstico nutricional y asesoría de profesionales en nutrición. Herramientas y soporte para tu bienestar.',
+  ),
+  ogTitle: computed(() => (route.meta.title as string) ?? 'La Pequeña Nutria'),
+  ogDescription: computed(
+    () =>
+      (route.meta.description as string) ??
+      'Diagnóstico nutricional y asesoría de profesionales en nutrición. Herramientas y soporte para tu bienestar.',
+  ),
+  ogUrl: computed(
+    () => (typeof window !== 'undefined' ? window.location.origin : '') + route.fullPath,
+  ),
+});
 
 const { isDarkMode, toggleDarkMode } = useTheme();
 const drawerOpen = ref(false);

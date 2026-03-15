@@ -40,8 +40,7 @@
             <VBadge
               size="sm"
               :variant="
-                signalVital.bloodPressureStatus === 'Pendiente' ||
-                !signalVital.bloodPressureStatus
+                signalVital.bloodPressureStatus === 'Pendiente' || !signalVital.bloodPressureStatus
                   ? 'ghost'
                   : 'solid'
               "
@@ -142,8 +141,7 @@
             <VBadge
               size="sm"
               :variant="
-                signalVital.temperatureStatus === 'Pendiente' ||
-                !signalVital.temperatureStatus
+                signalVital.temperatureStatus === 'Pendiente' || !signalVital.temperatureStatus
                   ? 'ghost'
                   : 'solid'
               "

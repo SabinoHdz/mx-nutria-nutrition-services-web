@@ -34,9 +34,7 @@
             </span>
             <div class="flex items-center gap-2">
               <span class="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                {{
-                  basalEnergyExpenditure.value != null ? basalEnergyExpenditure.value : '—'
-                }}
+                {{ basalEnergyExpenditure.value != null ? basalEnergyExpenditure.value : '—' }}
               </span>
               <span class="text-sm text-gray-500">Kcal/Día</span>
             </div>
@@ -82,10 +80,7 @@
             <VSelect
               :model-value="physicalActivityLevel"
               @update:model-value="
-                $emit(
-                  'update:physicalActivityLevel',
-                  $event == null ? null : Number($event),
-                )
+                $emit('update:physicalActivityLevel', $event == null ? null : Number($event))
               "
               label="Actividad Física"
               :options="PHYSICAL_ACTIVITY_OPTIONS"

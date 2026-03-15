@@ -41,16 +41,16 @@
               <li class="flex gap-2">
                 <span class="text-primary shrink-0">•</span>
                 <span
-                  >Soporte: manual de indicadores descargable en PDF y explicación de indicadores por
-                  pestañas (guía, indicadores, notas de versión).</span
+                  >Soporte: manual de indicadores descargable en PDF y explicación de indicadores
+                  por pestañas (guía, indicadores, notas de versión).</span
                 >
               </li>
               <li class="flex gap-2">
                 <span class="text-primary shrink-0">•</span>
                 <span
                   >Explicación de indicadores actualizada: IMC, circunferencias, frecuencia cardíaca
-                  y respiratoria, temperatura, presión arterial (tabla de rangos y comentarios) y peso
-                  saludable con fórmulas de gasto basal y requerimiento hídrico.</span
+                  y respiratoria, temperatura, presión arterial (tabla de rangos y comentarios) y
+                  peso saludable con fórmulas de gasto basal y requerimiento hídrico.</span
                 >
               </li>
               <li class="flex gap-2">
@@ -78,8 +78,8 @@
               Cómo documentar cambios
             </h3>
             <p class="text-sm text-gray-600 dark:text-gray-400">
-              Al publicar una nueva versión, añade aquí una entrada con la fecha o número de
-              versión y lista bajo: <strong>Nuevas funciones</strong>, <strong>Mejoras</strong> o
+              Al publicar una nueva versión, añade aquí una entrada con la fecha o número de versión
+              y lista bajo: <strong>Nuevas funciones</strong>, <strong>Mejoras</strong> o
               <strong>Correcciones</strong> según corresponda.
             </p>
           </div>

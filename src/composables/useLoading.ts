@@ -17,8 +17,9 @@ export interface LoadingShowOptions {
  */
 export function useLoading() {
   function show(options?: string | LoadingShowOptions) {
-    const msg = typeof options === 'string' ? options : options?.message ?? '';
-    const delay = typeof options === 'object' && options?.delay !== undefined ? options.delay : defaultDelay;
+    const msg = typeof options === 'string' ? options : (options?.message ?? '');
+    const delay =
+      typeof options === 'object' && options?.delay !== undefined ? options.delay : defaultDelay;
 
     message.value = msg;
 

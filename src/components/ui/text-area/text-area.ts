@@ -29,7 +29,12 @@ export const TEXT_AREA_RESIZE = ['none', 'vertical', 'horizontal', 'both'] as co
 export type TextAreaResize = (typeof TEXT_AREA_RESIZE)[number];
 
 /** Tipos que aplican filtro de caracteres (reutiliza lógica de VInput) */
-export const TEXT_AREA_FILTER_TYPES = ['text', 'alphabetic', 'alphanumeric', 'alphanumeric-special'] as const;
+export const TEXT_AREA_FILTER_TYPES = [
+  'text',
+  'alphabetic',
+  'alphanumeric',
+  'alphanumeric-special',
+] as const;
 export type TextAreaFilterType = (typeof TEXT_AREA_FILTER_TYPES)[number];
 
 export interface TextAreaProps {

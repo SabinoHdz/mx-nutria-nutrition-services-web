@@ -1,9 +1,5 @@
 <template>
-  <section
-    role="region"
-    aria-label="Resumen de características"
-    :class="bannerClasses"
-  >
+  <section role="region" aria-label="Resumen de características" :class="bannerClasses">
     <slot />
   </section>
 </template>

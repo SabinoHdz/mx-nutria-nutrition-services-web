@@ -456,7 +456,7 @@
                         <td>—</td>
                       </tr>
                       <tr>
-                        <td>129 </td>
+                        <td>129</td>
                         <td>84</td>
                         <td><VBadge color="warning">Sub Óptima</VBadge></td>
                         <td>—</td>
