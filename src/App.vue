@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
 import { useRoute, RouterLink, RouterView } from 'vue-router';
-import { useSeoMeta } from '@unhead/vue';
+import { useSeoMeta, useHead } from '@unhead/vue';
 import { useTheme } from '@/composables/useTheme';
 import { VIcon } from '@/components/ui/icon';
 import { VButton } from '@/components/ui/button';
@@ -13,7 +13,19 @@ import { useConfigStore } from '@/stores/configStore';
 import { useVisitsStore } from '@/stores/visitsStore';
 
 const route = useRoute();
-// SEO: actualiza <head> con la meta de la ruta actual (título, descripción, Open Graph) usando Unhead.
+
+// URL base del sitio para meta absolutas (og:image, JSON-LD). En producción usar lapequenanutria.com.
+const siteUrl = 'https://lapequenanutria.com';
+const canonicalUrl = computed(
+  () => (typeof window !== 'undefined' ? window.location.origin : '') + route.fullPath,
+);
+
+// SEO: canonical evita contenido duplicado; og:image y Twitter Card mejoran la vista al compartir en redes.
+useHead({
+  link: [{ rel: 'canonical', href: canonicalUrl }],
+});
+
+// SEO: actualiza <head> con la meta de la ruta actual (título, descripción, Open Graph, Twitter) usando Unhead.
 useSeoMeta({
   title: computed(() => (route.meta.title as string) ?? 'La Pequeña Nutria'),
   description: computed(
@@ -30,6 +42,48 @@ useSeoMeta({
   ogUrl: computed(
     () => (typeof window !== 'undefined' ? window.location.origin : '') + route.fullPath,
   ),
+  ogImage: `${siteUrl}/logo.png`,
+  ogImageAlt: 'La Pequeña Nutria – Diagnóstico Nutricional',
+  twitterCard: 'summary_large_image',
+  twitterTitle: computed(() => (route.meta.title as string) ?? 'La Pequeña Nutria'),
+  twitterDescription: computed(
+    () =>
+      (route.meta.description as string) ??
+      'Diagnóstico nutricional y asesoría de profesionales en nutrición. Herramientas y soporte para tu bienestar.',
+  ),
+  twitterImage: `${siteUrl}/logo.png`,
+});
+
+// SEO: datos estructurados (JSON-LD) para que Google muestre mejor el sitio (WebSite + Organization).
+const jsonLd = computed(() => ({
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl}/#website`,
+      url: siteUrl,
+      name: 'La Pequeña Nutria',
+      description:
+        'Diagnóstico nutricional y asesoría de profesionales en nutrición. Herramientas y soporte para tu bienestar.',
+      publisher: { '@id': `${siteUrl}/#organization` },
+      inLanguage: 'es-MX',
+    },
+    {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#organization`,
+      name: 'La Pequeña Nutria',
+      url: siteUrl,
+      logo: { '@type': 'ImageObject', url: `${siteUrl}/logo.png` },
+    },
+  ],
+}));
+useHead({
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: computed(() => JSON.stringify(jsonLd.value)),
+    },
+  ],
 });
 
 const { isDarkMode, toggleDarkMode } = useTheme();
